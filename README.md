@@ -1,3 +1,7 @@
+# 🚀 Proyecto: Bolsa de Empleo UNIPAZ
+## 🔗 Recursos del Proyecto
+* **💻 Repositorio de Código:** (Este GitHub) Contiene el script de interacción con la plataforma.
+* **📁 Repositorio Documental (Google Drive):** [PEGA AQUÍ TU LINK DE DRIVE]
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
