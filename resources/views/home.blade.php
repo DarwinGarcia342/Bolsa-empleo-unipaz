@@ -50,6 +50,7 @@
         z-index: 1;
     }
 
+
     .hero-badge {
         display: inline-flex;
         align-items: center;
