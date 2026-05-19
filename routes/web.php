@@ -8,6 +8,7 @@ use App\Http\Controllers\Company\JobPostingController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboard;
 use App\Http\Controllers\Student\JobController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 // --- Pagina principal publica ---
@@ -29,10 +30,8 @@ Route::post('/logout', [CompanyAuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
-Route::get('/notifications/{id}/read', function ($id) {
-    auth()->user()->notifications()->where('id', $id)->update(['read_at' => now()]);
-    return response()->json(['ok' => true]);
-})->middleware('auth');
+Route::get('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])
+    ->middleware('auth');
 
 // --- Panel de ADMINISTRADOR ---
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {

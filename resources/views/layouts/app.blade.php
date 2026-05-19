@@ -82,29 +82,6 @@
             border-bottom: 1px solid rgba(52, 211, 153, .12);
             padding-top: .65rem;
             padding-bottom: .65rem;
-            overflow: hidden;
-        }
-
-        .navbar-unipaz::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 220px;
-            height: 220px;
-            background-image: url('{{ asset("images/LogoWhite_.png") }}');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.06;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .navbar-unipaz > * {
-            position: relative;
-            z-index: 1;
         }
 
         .navbar-unipaz .navbar-brand {

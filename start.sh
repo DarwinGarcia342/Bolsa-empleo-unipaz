@@ -3,6 +3,10 @@ set -e
 
 echo "=== Bolsa de Empleo UNIPAZ — Iniciando deploy ==="
 
+# Asegurar que el directorio de SQLite existe
+mkdir -p database
+touch database/database.sqlite
+
 # Limpiar cachés previos (evita errores con config cacheada vieja)
 php artisan config:clear
 php artisan route:clear
