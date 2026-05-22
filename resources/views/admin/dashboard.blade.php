@@ -127,48 +127,6 @@
 @endpush
 
 @section('content')
-<div class="admin-layout">
-
-    {{-- ── Sidebar ── --}}
-    <aside class="admin-sidebar">
-        <div class="sidebar-label">Administración</div>
-        <nav class="nav flex-column mt-1">
-            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
-            href="{{ route('admin.dashboard') }}">
-                <i class="bi bi-speedometer2"></i> Dashboard
-            </a>
-            <a class="nav-link {{ request()->routeIs('admin.companies') ? 'active' : '' }}"
-            href="{{ route('admin.companies') }}">
-                <i class="bi bi-building"></i> Empresas
-                @if($pendingCompanies->count() > 0)
-                    <span class="pending-badge ms-1">{{ $pendingCompanies->count() }} pend.</span>
-                @endif
-            </a>
-            <a class="nav-link {{ request()->routeIs('admin.vacancies') ? 'active' : '' }}"
-            href="{{ route('admin.vacancies') }}">
-                <i class="bi bi-briefcase"></i> Vacantes
-            </a>
-            <a class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}"
-            href="{{ route('admin.users') }}">
-                <i class="bi bi-people"></i> Usuarios
-            </a>
-            <a class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}"
-            href="{{ route('admin.reports') }}">
-                <i class="bi bi-bar-chart-line"></i> Reportes
-            </a>
-        </nav>
-
-        <div class="px-2 mt-4">
-            <div style="background:rgba(255,255,255,.07); border-radius:10px; padding:.9rem; text-align:center;">
-                <img src="{{ asset('images/LogoWhite_.png') }}"
-                    alt="UNIPAZ"
-                    style="height: 50px; width: auto; margin-bottom: .5rem;">
-                <div style="font-size:.68rem; color:rgba(255,255,255,.35); letter-spacing:.3px;">
-                    Panel de Administración
-                </div>
-            </div>
-        </div>
-    </aside>
 
     {{-- ── Contenido ── --}}
     <main class="admin-content">
