@@ -123,4 +123,18 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | UNIPAZ Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuración específica de la plataforma Bolsa de Empleo UNIPAZ
+    |
+    */
+    'unipaz' => [
+        'institution_name' => 'Instituto Universitario de la Paz',
+        'email_domain'     => env('UNIPAZ_EMAIL_DOMAIN', '@unipaz.edu.co'),
+        'allowed_roles'    => ['admin', 'student', 'company'],
+    ],
+
 ];

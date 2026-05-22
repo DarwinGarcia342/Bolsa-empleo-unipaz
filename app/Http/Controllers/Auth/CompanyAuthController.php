@@ -18,9 +18,11 @@ class CompanyAuthController extends Controller
 
     public function register(Request $request)
     {
+        $domain = config('app.unipaz.email_domain');
+        
         $request->validate([
             'name'         => 'required|string|max:255',
-            'email'        => 'required|email|unique:users,email|ends_with:@unipaz.edu.co',
+            'email'        => "required|email|unique:users,email|ends_with:{$domain}",
             'password'     => 'required|string|min:8|confirmed',
             'company_name' => 'required|string|max:255',
             'nit'          => 'required|numeric|unique:companies,nit',
@@ -61,8 +63,10 @@ class CompanyAuthController extends Controller
 
     public function login(Request $request)
     {
+        $domain = config('app.unipaz.email_domain');
+        
         $credentials = $request->validate([
-            'email'    => 'required|email|ends_with:@unipaz.edu.co',
+            'email'    => "required|email|ends_with:{$domain}",
             'password' => 'required',
         ]);
 
@@ -92,12 +96,8 @@ class CompanyAuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        $request->session()->flush(); // Force complete session destruction
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        if ($request->hasCookie('LARAVEL_SESSION')) {
-            $request->session()->forget('*');
-        }
         return redirect()->route('home')->with('success', 'Sesión cerrada correctamente.');
     }
 }

@@ -82,8 +82,8 @@ class JobController extends Controller
         $request->validate([
             'cover_letter' => 'nullable|string|max:2000',
             'cv'           => $jobPosting->requires_cv
-                ? 'required|file|mimes:pdf|max:5120'
-                : 'nullable|file|mimes:pdf|max:5120',
+                ? 'required|file|mimes:pdf|max:20480'
+                : 'nullable|file|mimes:pdf|max:20480',
         ]);
 
         $cvPath = null;

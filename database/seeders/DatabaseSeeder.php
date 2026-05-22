@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name'              => 'Administrador UNIPAZ',
             'email'             => 'admin@unipaz.edu.co',
-            'password'          => Hash::make('Admin2026*'),
+            'password'          => Hash::make('AdminUNIPAZ2024*'),
             'role'              => 'admin',
             'email_verified_at' => now(),
             'active'            => true,
@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
         // ─── 2. Empresa de prueba (aprobada) ──────────────────────────────────
         $companyUser = User::create([
             'name'              => 'Juan Pérez',
-            'email'             => 'info@tecnosoluciones.com',
-            'password'          => Hash::make('Empresa2024*'),
+            'email'             => 'info@tecnosoluciones.edu.co',
+            'password'          => Hash::make('EmpresaUNIPAZ2024*'),
             'role'              => 'company',
             'email_verified_at' => now(),
             'active'            => true,
@@ -49,8 +49,8 @@ class DatabaseSeeder extends Seeder
         // ─── 3. Segunda empresa (pendiente de aprobación) ─────────────────────
         $company2User = User::create([
             'name'              => 'María García',
-            'email'             => 'contacto@distribuidoraregional.com',
-            'password'          => Hash::make('Empresa2024*'),
+            'email'             => 'contacto@distribuidoraregional.edu.co',
+            'password'          => Hash::make('EmpresaUNIPAZ2024*'),
             'role'              => 'company',
             'email_verified_at' => now(),
             'active'            => true,
@@ -123,7 +123,7 @@ class DatabaseSeeder extends Seeder
         $studentUser = User::create([
             'name'              => 'Carlos Andrés López',
             'email'             => 'carlos.lopez@unipaz.edu.co',
-            'password'          => Hash::make('Student2024*'),
+            'password'          => Hash::make('EstudianteUNIPAZ2024*'),
             'role'              => 'student',
             'email_verified_at' => now(),
             'active'            => true,
@@ -141,9 +141,9 @@ class DatabaseSeeder extends Seeder
         $this->command->info('✅ Base de datos sembrada correctamente.');
         $this->command->info('');
         $this->command->info('📋 Credenciales de acceso:');
-        $this->command->info('   Admin:    admin@unipaz.edu.co / Admin2024*');
-        $this->command->info('   Empresa:  info@tecnosoluciones.com / Empresa2024*');
-        $this->command->info('   Estudiante: carlos.lopez@unipaz.edu.co / Student2024*');
+        $this->command->info('   Admin:    admin@unipaz.edu.co / AdminUNIPAZ2024*');
+        $this->command->info('   Empresa:  info@tecnosoluciones.edu.co / EmpresaUNIPAZ2024*');
+        $this->command->info('   Estudiante: carlos.lopez@unipaz.edu.co / EstudianteUNIPAZ2024*');
         $this->command->info('   (Estudiantes normalmente ingresan solo con Google OAuth)');
     }
 }
