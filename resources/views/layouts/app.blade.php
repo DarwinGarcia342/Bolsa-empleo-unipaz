@@ -731,7 +731,7 @@
         @guest
         <div class="d-flex align-items-center gap-1 ms-auto nav-guest-always">
             <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }} px-2"
-               href="{{ route('home') }}" title="Inicio">
+            href="{{ route('home') }}" title="Inicio">
                 <i class="bi bi-house me-1 d-none d-sm-inline"></i>
                 <span class="d-none d-sm-inline">Inicio</span>
                 <i class="bi bi-house d-sm-none"></i>
@@ -784,10 +784,9 @@
     {{-- Solo mostramos la sidebar si el usuario está autenticado --}}
     @auth
         <aside class="sidebar d-none d-md-block">
-            <div class="sidebar-section-label">Menú Principal</div>
-            <ul class="nav flex-column">
-                
-                @if(auth()->user()->isAdmin())
+            @if(auth()->user()->isAdmin())
+                <div class="sidebar-section-label">Panel de Administración</div>
+                <ul class="nav flex-column">
                     <li class="nav-item">
                         <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                             <i class="bi bi-speedometer2"></i> Dashboard
@@ -804,15 +803,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="bi bi-people"></i> Estudiantes
+                        <a href="{{ route('admin.users') }}" class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}">
+                            <i class="bi bi-people"></i> Usuarios
                         </a>
                     </li>
-                @endif
-
-                {{-- Aquí puedes añadir más roles (Student/Company) si lo deseas --}}
-                
-            </ul>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.vacancies') }}" class="nav-link {{ request()->routeIs('admin.vacancies') ? 'active' : '' }}">
+                            <i class="bi bi-briefcase"></i> Vacantes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.reports') }}" class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+                            <i class="bi bi-graph-up"></i> Reportes
+                        </a>
+                    </li>
+                </ul>
+            @endif
         </aside>
     @endauth
 
