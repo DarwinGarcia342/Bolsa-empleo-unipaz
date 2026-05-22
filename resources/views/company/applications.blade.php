@@ -49,15 +49,15 @@
                 <div class="row align-items-center">
                     <!-- Estudiante -->
                     <div class="col-md-4">
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="{{ $app->user->avatar_url }}" class="rounded-circle" width="44" height="44" style="object-fit:cover;">
+                            <div class="d-flex align-items-center gap-3">
+                            <img src="{{ $app->user?->avatar_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded-circle" width="44" height="44" style="object-fit:cover;">
                             <div>
-                                <p class="mb-0 fw-semibold">{{ $app->user->name }}</p>
-                                <small class="text-muted">{{ $app->user->email }}</small>
-                                @if($app->user->studentProfile)
-                                    <br><small class="badge badge-area">{{ $app->user->studentProfile->program }}</small>
-                                    @if($app->user->studentProfile->semester)
-                                        <small class="text-muted"> · Sem. {{ $app->user->studentProfile->semester }}</small>
+                                <p class="mb-0 fw-semibold">{{ $app->user?->name ?? 'Usuario' }}</p>
+                                <small class="text-muted">{{ $app->user?->email ?? '—' }}</small>
+                                    @if($app->user?->studentProfile)
+                                    <br><small class="badge badge-area">{{ $app->user->studentProfile?->program ?? '—' }}</small>
+                                    @if($app->user->studentProfile?->semester)
+                                        <small class="text-muted"> · Sem. {{ $app->user->studentProfile?->semester }}</small>
                                     @endif
                                 @endif
                             </div>
@@ -67,7 +67,7 @@
                     <!-- Vacante y fecha -->
                     <div class="col-md-3">
                         <p class="mb-0 fw-semibold small">{{ $app->jobPosting->title }}</p>
-                        <small class="text-muted">Postulado el {{ $app->created_at->format('d/m/Y') }}</small>
+                        <small class="text-muted">Postulado el {{ $app->created_at?->format('d/m/Y') }}</small>
                     </div>
 
                     <!-- Estado actual -->

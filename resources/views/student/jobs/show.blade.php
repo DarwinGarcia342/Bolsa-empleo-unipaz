@@ -11,7 +11,7 @@
                 <div class="card-body p-4">
                     <!-- Encabezado -->
                     <div class="d-flex align-items-center gap-4 mb-4">
-                        <img src="{{ $jobPosting->company->logo_url }}" class="rounded border"
+                        <img src="{{ $jobPosting->company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded border"
                              width="80" height="80" style="object-fit:cover;">
                         <div>
                             <h3 class="fw-bold mb-1">{{ $jobPosting->title }}</h3>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-6 col-md-3 text-center">
                             <i class="bi bi-calendar-x text-danger fs-4"></i>
-                            <p class="small mb-0 fw-semibold">{{ $jobPosting->deadline->format('d/m/Y') }}</p>
+                            <p class="small mb-0 fw-semibold">{{ $jobPosting->deadline?->format('d/m/Y') }}</p>
                             <small class="text-muted">Fecha límite</small>
                         </div>
                     </div>

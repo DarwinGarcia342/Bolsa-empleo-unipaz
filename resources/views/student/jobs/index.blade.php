@@ -57,7 +57,7 @@
                     @endif
                     <div class="card-body">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <img src="{{ $job->company->logo_url }}" class="rounded border" width="50" height="50" style="object-fit:cover;">
+                            <img src="{{ $job->company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded border" width="50" height="50" style="object-fit:cover;">
                             <div>
                                 <h6 class="mb-0 fw-bold">{{ $job->title }}</h6>
                                 <small class="text-muted">{{ $job->company->company_name }}</small>

@@ -10,7 +10,7 @@
             <div class="card mb-4">
                 <div class="card-body py-4">
                     <div class="d-flex align-items-center gap-4">
-                        <img src="{{ $company->logo_url }}" class="rounded" width="80" height="80" style="object-fit:cover; border:2px solid #dee2e6;">
+                        <img src="{{ $company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded" width="80" height="80" style="object-fit:cover; border:2px solid #dee2e6;">
                         <div>
                             <h4 class="fw-bold mb-1">{{ $company->company_name }}</h4>
                             <p class="text-muted mb-1 small">{{ $company->sector }}</p>
@@ -118,7 +118,7 @@
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div>
                                         <p class="small text-muted mb-1">Logo actual:</p>
-                                        <img src="{{ $company->logo_url }}" class="rounded" height="60" style="object-fit:contain;">
+                                        <img src="{{ $company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded" height="60" style="object-fit:contain;">
                                     </div>
                                 </div>
                             @endif

@@ -34,7 +34,7 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="{{ $app->jobPosting->company->logo_url }}" class="rounded"
+                                        <img src="{{ $app->jobPosting->company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded"
                                              width="36" height="36" style="object-fit:cover;">
                                         <small class="fw-semibold">{{ $app->jobPosting->company->company_name }}</small>
                                     </div>
@@ -49,7 +49,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <small class="text-muted">{{ $app->created_at->format('d/m/Y') }}</small>
+                                    <small class="text-muted">{{ $app->created_at?->format('d/m/Y') }}</small>
                                 </td>
                                 <td>
                                     <span class="badge {{ $app->status_badge }}">{{ $app->status_label }}</span>

@@ -242,7 +242,7 @@
                 </div>
                 @foreach($latestVacantes as $job)
                     <div class="job-row d-flex align-items-center gap-3">
-                        <img src="{{ $job->company->logo_url }}" class="job-logo" alt="logo">
+                        <img src="{{ $job->company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="job-logo" alt="logo">
                         <div class="flex-grow-1 min-width-0">
                             <div class="job-row-title">{{ $job->title }}</div>
                             <div class="job-row-sub">

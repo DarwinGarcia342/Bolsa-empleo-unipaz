@@ -134,26 +134,26 @@
         <div class="sidebar-label">Administración</div>
         <nav class="nav flex-column mt-1">
             <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
-               href="{{ route('admin.dashboard') }}">
+            href="{{ route('admin.dashboard') }}">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
             <a class="nav-link {{ request()->routeIs('admin.companies') ? 'active' : '' }}"
-               href="{{ route('admin.companies') }}">
+            href="{{ route('admin.companies') }}">
                 <i class="bi bi-building"></i> Empresas
-                @if($pendingCompanies > 0)
-                    <span class="pending-badge ms-auto">{{ $pendingCompanies }}</span>
+                @if($pendingCompanies->count() > 0)
+                    <span class="pending-badge ms-1">{{ $pendingCompanies->count() }} pend.</span>
                 @endif
             </a>
             <a class="nav-link {{ request()->routeIs('admin.vacancies') ? 'active' : '' }}"
-               href="{{ route('admin.vacancies') }}">
+            href="{{ route('admin.vacancies') }}">
                 <i class="bi bi-briefcase"></i> Vacantes
             </a>
             <a class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}"
-               href="{{ route('admin.users') }}">
+            href="{{ route('admin.users') }}">
                 <i class="bi bi-people"></i> Usuarios
             </a>
             <a class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}"
-               href="{{ route('admin.reports') }}">
+            href="{{ route('admin.reports') }}">
                 <i class="bi bi-bar-chart-line"></i> Reportes
             </a>
         </nav>
@@ -161,8 +161,8 @@
         <div class="px-2 mt-4">
             <div style="background:rgba(255,255,255,.07); border-radius:10px; padding:.9rem; text-align:center;">
                 <img src="{{ asset('images/LogoWhite_.png') }}"
-                     alt="UNIPAZ"
-                     style="height: 50px; width: auto; margin-bottom: .5rem;">
+                    alt="UNIPAZ"
+                    style="height: 50px; width: auto; margin-bottom: .5rem;">
                 <div style="font-size:.68rem; color:rgba(255,255,255,.35); letter-spacing:.3px;">
                     Panel de Administración
                 </div>
@@ -180,7 +180,7 @@
         <div class="row g-3 mb-4">
             <div class="col-sm-6 col-xl-3">
                 <div class="kpi-card d-flex align-items-center gap-3"
-                     style="border-left: 4px solid #273475;">
+                    style="border-left: 4px solid #273475;">
                     <div class="kpi-icon" style="background:#eef0f9; color:#273475;">
                         <i class="bi bi-mortarboard-fill"></i>
                     </div>
@@ -192,7 +192,7 @@
             </div>
             <div class="col-sm-6 col-xl-3">
                 <div class="kpi-card d-flex align-items-center gap-3"
-                     style="border-left: 4px solid #00963F;">
+                    style="border-left: 4px solid #00963F;">
                     <div class="kpi-icon" style="background:#e6f7ed; color:#00963F;">
                         <i class="bi bi-building-fill"></i>
                     </div>
@@ -200,8 +200,8 @@
                         <div class="kpi-value">{{ $totalCompanies }}</div>
                         <div class="kpi-label">
                             Empresas aprobadas
-                            @if($pendingCompanies > 0)
-                                <span class="pending-badge ms-1">{{ $pendingCompanies }} pend.</span>
+                            @if($pendingCompanies->count() > 0)
+                                <span class="pending-badge ms-1">{{ $pendingCompanies->count() }} pend.</span>
                             @endif
                         </div>
                     </div>
@@ -209,7 +209,7 @@
             </div>
             <div class="col-sm-6 col-xl-3">
                 <div class="kpi-card d-flex align-items-center gap-3"
-                     style="border-left: 4px solid #f59e0b;">
+                    style="border-left: 4px solid #f59e0b;">
                     <div class="kpi-icon" style="background:#fef3c7; color:#b45309;">
                         <i class="bi bi-briefcase-fill"></i>
                     </div>
@@ -221,7 +221,7 @@
             </div>
             <div class="col-sm-6 col-xl-3">
                 <div class="kpi-card d-flex align-items-center gap-3"
-                     style="border-left: 4px solid #6366f1;">
+                    style="border-left: 4px solid #6366f1;">
                     <div class="kpi-icon" style="background:#ede9fe; color:#4f46e5;">
                         <i class="bi bi-send-fill"></i>
                     </div>
@@ -285,10 +285,10 @@
                         <div class="data-row d-flex justify-content-between align-items-center">
                             <div>
                                 <div style="font-size:.875rem; font-weight:600; color:#1a1f36;">
-                                    {{ Str::limit($app->user->name, 28) }}
+                                    {{ Str::limit($app->user?->name ?? '', 28) }}
                                 </div>
                                 <div style="font-size:.77rem; color:#9ca3af;">
-                                    <i class="bi bi-arrow-right me-1"></i>{{ Str::limit($app->jobPosting->title, 32) }}
+                                    <i class="bi bi-arrow-right me-1"></i>{{ Str::limit($app->jobPosting?->title ?? '', 32) }}
                                 </div>
                             </div>
                             <span class="badge {{ $app->status_badge }}" style="font-size:.7rem;">
@@ -316,8 +316,8 @@
                                 </div>
                                 <div class="progress" style="height: 8px;">
                                     <div class="progress-bar-unipaz" role="progressbar"
-                                         style="width: {{ $pct }}%; height:8px;"
-                                         aria-valuenow="{{ $pct }}" aria-valuemin="0" aria-valuemax="100">
+                                        style="width: {{ $pct }}%; height:8px;"
+                                        aria-valuenow="{{ $pct }}" aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
                             </div>

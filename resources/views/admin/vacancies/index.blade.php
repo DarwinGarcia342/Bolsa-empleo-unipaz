@@ -82,7 +82,7 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="{{ $vacancy->company->logo_url }}" class="rounded" width="28" height="28" style="object-fit:cover;">
+                                    <img src="{{ $vacancy->company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded" width="28" height="28" style="object-fit:cover;">
                                     <small>{{ Str::limit($vacancy->company->company_name, 25) }}</small>
                                 </div>
                             </td>
@@ -101,7 +101,7 @@
                             <td>
                                 @php $isExpired = $vacancy->deadline->isPast(); @endphp
                                 <small class="{{ $isExpired ? 'text-danger' : '' }}">
-                                    {{ $vacancy->deadline->format('d/m/Y') }}
+                                    {{ $vacancy->deadline?->format('d/m/Y') }}
                                     @if($isExpired)
                                         <i class="bi bi-exclamation-circle ms-1" title="Expirada"></i>
                                     @endif

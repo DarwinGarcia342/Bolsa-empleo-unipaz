@@ -16,8 +16,8 @@
 
     <style>
         /* =============================================
-           SISTEMA DE DISEÑO UNIPAZ
-           Manual de Identidad Institucional
+        SISTEMA DE DISEÑO UNIPAZ
+        Manual de Identidad Institucional
         ============================================= */
         :root {
             --unipaz-blue: #10235f;
@@ -651,7 +651,7 @@
                             @forelse(auth()->user()->unreadNotifications->take(5) as $notification)
                             <li>
                                 <a class="dropdown-item py-2" href="#"
-                                    onclick="event.preventDefault(); fetch('/notifications/{{ $notification->id }}/read').then(() => window.location.reload())">
+                                    onclick="event.preventDefault(); fetch('{{ route('notifications.read', $notification->id) }}').then(() => window.location.reload())">
                                     <div class="d-flex gap-2">
                                         <div class="mt-1 flex-shrink-0">
                                             <span class="d-inline-block rounded-circle bg-unipaz" style="width:8px;height:8px;margin-top:5px;"></span>
@@ -779,7 +779,48 @@
     @endif
 
     <!-- ═══ Contenido principal ═══ -->
-    @yield('content')
+   <main class="sidebar-layout">
+    
+    {{-- Solo mostramos la sidebar si el usuario está autenticado --}}
+    @auth
+        <aside class="sidebar d-none d-md-block">
+            <div class="sidebar-section-label">Menú Principal</div>
+            <ul class="nav flex-column">
+                
+                @if(auth()->user()->isAdmin())
+                    <li class="nav-item">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.companies') }}" class="nav-link {{ request()->routeIs('admin.companies') ? 'active' : '' }}">
+                            <i class="bi bi-building"></i> Empresas
+                            @if(isset($pendingCompanies) && $pendingCompanies->count() > 0)
+                                <span class="badge rounded-pill bg-danger ms-auto">
+                                    {{ $pendingCompanies->count() }}
+                                </span>
+                            @endif
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="bi bi-people"></i> Estudiantes
+                        </a>
+                    </li>
+                @endif
+
+                {{-- Aquí puedes añadir más roles (Student/Company) si lo deseas --}}
+                
+            </ul>
+        </aside>
+    @endauth
+
+    {{-- Área de contenido dinámico --}}
+    <section class="main-content">
+        @yield('content')
+    </section>
+</main>
 
     <!-- ═══ Footer institucional ═══ -->
     <footer class="footer-unipaz">

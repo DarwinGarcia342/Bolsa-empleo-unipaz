@@ -59,7 +59,7 @@ class DashboardController extends Controller
             'about'        => 'nullable|string|max:1000',
             'linkedin'     => 'nullable|url|max:255',
             'student_code' => 'nullable|string|max:30',
-            'cv'           => 'nullable|file|mimes:pdf|max:5120', // 5MB máx
+            'cv'           => 'nullable|file|mimes:pdf|max:20480', // 20MB max
         ]);
 
         $data = $request->only(['program', 'semester', 'phone', 'about', 'linkedin', 'student_code']);

@@ -87,6 +87,18 @@ class DashboardController extends Controller
         return back()->with('success', "Empresa \"{$company->company_name}\" rechazada.");
     }
 
+    public function deleteCompany(Company $company)
+    {
+        // borrar la compañía y su usuario asociado de forma segura
+        $user = $company->user;
+        $company->delete();
+        if ($user) {
+            $user->delete();
+        }
+
+        return back()->with('success', "Empresa \"{$company->company_name}\" eliminada.");
+    }
+
     // ─── Gestión de usuarios ──────────────────────────────────────
     public function users(Request $request)
     {

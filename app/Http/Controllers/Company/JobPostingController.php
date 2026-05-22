@@ -43,9 +43,9 @@ class JobPostingController extends Controller
 
         $request->validate([
             'title'             => 'required|string|max:200',
-            'description'       => 'required|string|max:5000',
+            'description'       => 'required|string|max:5000|min:20',
             'requirements'      => 'required|string|max:3000',
-            'responsibilities'  => 'nullable|string|max:3000',
+            'responsibilities'  => 'required|string|min:20|max:3000',
             'area'              => 'required|string|max:100',
             'contract_type'     => 'required|string|max:100',
             'modality'          => 'required|in:onsite,remote,hybrid',
@@ -98,9 +98,9 @@ class JobPostingController extends Controller
 
         $request->validate([
             'title'             => 'required|string|max:200',
-            'description'       => 'required|string|max:5000',
+            'description'       => 'required|string|max:5000|min:20',
             'requirements'      => 'required|string|max:3000',
-            'responsibilities'  => 'nullable|string|max:3000',
+            'responsibilities'  => 'required|string|min:20|max:3000',
             'area'              => 'required|string|max:100',
             'contract_type'     => 'required|string|max:100',
             'modality'          => 'required|in:onsite,remote,hybrid',
