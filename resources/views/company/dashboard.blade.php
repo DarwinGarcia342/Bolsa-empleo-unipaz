@@ -153,7 +153,7 @@
     {{-- Bienvenida empresa --}}
     <div class="company-welcome mb-4">
         <div class="card-body py-4 px-4 text-white d-flex align-items-center gap-4 flex-wrap">
-            <img src="{{ $company->logo_url }}" class="company-logo-img" alt="logo">
+            <img src="{{ $company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="company-logo-img" alt="logo">
             <div class="flex-grow-1">
                 <div style="font-size:.7rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:.2rem;">
                     Panel Empresarial
@@ -259,31 +259,31 @@
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="{{ $app->user->avatar_url }}"
+                                     <img src="{{ $app->user?->avatar_url ?? asset('images/Logo-Letras-White_.png') }}"
                                          class="student-avatar" alt="avatar">
                                     <div>
                                         <div style="font-size:.875rem; font-weight:600; color:#1a1f36;">
-                                            {{ Str::limit($app->user->name, 22) }}
+                                            {{ Str::limit($app->user?->name ?? '', 22) }}
                                         </div>
                                         <div style="font-size:.74rem; color:#9ca3af;">
-                                            {{ Str::limit($app->user->email, 26) }}
+                                            {{ Str::limit($app->user?->email ?? '', 26) }}
                                         </div>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <span style="font-size:.8rem; color:#6b7280;">
-                                    {{ $app->user->studentProfile?->program ?? '—' }}
+                                    {{ $app->user?->studentProfile?->program ?? '—' }}
                                 </span>
                             </td>
                             <td>
                                 <span style="font-size:.85rem; font-weight:600; color:#1a1f36;">
-                                    {{ Str::limit($app->jobPosting->title, 28) }}
+                                    {{ Str::limit($app->jobPosting?->title ?? '', 28) }}
                                 </span>
                             </td>
                             <td>
                                 <span style="font-size:.8rem; color:#6b7280;">
-                                    {{ $app->created_at->format('d/m/Y') }}
+                                    {{ $app->created_at?->format('d/m/Y') }}
                                 </span>
                             </td>
                             <td>
@@ -325,11 +325,11 @@
                                                 <div class="modal-body px-4 py-3">
                                                     <div class="d-flex align-items-center gap-2 mb-3 p-2 rounded"
                                                          style="background:#f8f9ff; border:1px solid #eef0f9;">
-                                                        <img src="{{ $app->user->avatar_url }}"
+                                                        <img src="{{ $app->user?->avatar_url ?? asset('images/Logo-Letras-White_.png') }}"
                                                              class="student-avatar" alt="avatar">
                                                         <div>
-                                                            <div style="font-size:.875rem; font-weight:600;">{{ $app->user->name }}</div>
-                                                            <div style="font-size:.75rem; color:#9ca3af;">{{ $app->jobPosting->title }}</div>
+                                                            <div style="font-size:.875rem; font-weight:600;">{{ $app->user?->name ?? 'Usuario' }}</div>
+                                                            <div style="font-size:.75rem; color:#9ca3af;">{{ $app->jobPosting?->title ?? '' }}</div>
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">

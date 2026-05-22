@@ -20,15 +20,15 @@ class CompanyAuthController extends Controller
     {
         $request->validate([
             'name'         => 'required|string|max:255',
-            'email'        => 'required|email|unique:users,email',
+            'email'        => 'required|email|unique:users,email|ends_with:@unipaz.edu.co',
             'password'     => 'required|string|min:8|confirmed',
             'company_name' => 'required|string|max:255',
-            'nit'          => 'nullable|string|max:20',
+            'nit'          => 'required|numeric|unique:companies,nit',
             'sector'       => 'required|string|max:100',
             'contact_person' => 'required|string|max:255',
             'phone'        => 'required|string|max:20',
-            'address'      => 'nullable|string|max:255',
-            'description'  => 'nullable|string|max:1000',
+            'address'      => 'required|string|max:255',
+            'description'  => 'required|string|min:10|max:1000',
         ]);
 
         $user = User::create([
@@ -62,7 +62,7 @@ class CompanyAuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => 'required|email',
+            'email'    => 'required|email|ends_with:@unipaz.edu.co',
             'password' => 'required',
         ]);
 
@@ -92,8 +92,12 @@ class CompanyAuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        $request->session()->flush(); // Force complete session destruction
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('home');
+        if ($request->hasCookie('LARAVEL_SESSION')) {
+            $request->session()->forget('*');
+        }
+        return redirect()->route('home')->with('success', 'Sesión cerrada correctamente.');
     }
 }

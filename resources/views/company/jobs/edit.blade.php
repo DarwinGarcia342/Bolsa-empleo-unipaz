@@ -84,9 +84,9 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Fecha límite *</label>
-                                <input type="date" name="deadline"
-                                       class="form-control @error('deadline') is-invalid @enderror"
-                                       value="{{ old('deadline', $jobPosting->deadline->format('Y-m-d')) }}" required>
+                                    <input type="date" name="deadline"
+                                        class="form-control @error('deadline') is-invalid @enderror"
+                                        value="{{ old('deadline', $jobPosting->deadline?->format('Y-m-d')) }}" required>
                                 @error('deadline')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-4">

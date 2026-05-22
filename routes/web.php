@@ -31,7 +31,8 @@ Route::post('/logout', [CompanyAuthController::class, 'logout'])
     ->name('logout');
 
 Route::get('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->name('notifications.read');
 
 // --- Panel de ADMINISTRADOR ---
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
@@ -39,6 +40,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/empresas',                 [AdminDashboard::class, 'companies'])->name('companies');
     Route::post('/empresas/{company}/aprobar', [AdminDashboard::class, 'approveCompany'])->name('companies.approve');
     Route::post('/empresas/{company}/rechazar', [AdminDashboard::class, 'rejectCompany'])->name('companies.reject');
+    Route::delete('/empresas/{company}', [AdminDashboard::class, 'deleteCompany'])->name('companies.delete');
     Route::get('/usuarios',                 [AdminDashboard::class, 'users'])->name('users');
     Route::post('/usuarios/{user}/toggle',  [AdminDashboard::class, 'toggleUser'])->name('users.toggle');
     Route::get('/vacantes',                  [AdminDashboard::class, 'vacancies'])->name('vacancies');
@@ -56,19 +58,21 @@ Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company'])
     Route::put('/postulaciones/{application}', [CompanyDashboard::class, 'updateApplicationStatus'])
         ->name('applications.update');
 
-    // CRUD de vacantes
-    Route::resource('vacantes', JobPostingController::class, [
-        'names'  => [
-            'index'   => 'jobs.index',
-            'create'  => 'jobs.create',
-            'store'   => 'jobs.store',
-            'show'    => 'jobs.show',
-            'edit'    => 'jobs.edit',
-            'update'  => 'jobs.update',
-            'destroy' => 'jobs.destroy',
-        ],
-        'parameters' => ['vacantes' => 'jobPosting'],
-    ]);
+    Route::middleware('company.approved')->group(function () {
+        // CRUD de vacantes
+        Route::resource('vacantes', JobPostingController::class, [
+            'names'  => [
+                'index'   => 'jobs.index',
+                'create'  => 'jobs.create',
+                'store'   => 'jobs.store',
+                'show'    => 'jobs.show',
+                'edit'    => 'jobs.edit',
+                'update'  => 'jobs.update',
+                'destroy' => 'jobs.destroy',
+            ],
+            'parameters' => ['vacantes' => 'jobPosting'],
+        ]);
+    });
 });
 
 // --- Panel de ESTUDIANTE ---

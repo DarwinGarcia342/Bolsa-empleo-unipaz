@@ -108,7 +108,7 @@
                             <i class="bi bi-{{ match($job->modality) { 'remote' => 'wifi', 'hybrid' => 'shuffle', default => 'building' } }} me-1"></i>
                             {{ match($job->modality) { 'onsite' => 'Presencial', 'remote' => 'Remoto', 'hybrid' => 'Híbrido', default => $job->modality } }}
                         </span>
-                        <span><i class="bi bi-calendar-event me-1"></i>Cierra {{ $job->deadline->format('d/m/Y') }}</span>
+                        <span><i class="bi bi-calendar-event me-1"></i>Cierra {{ $job->deadline?->format('d/m/Y') }}</span>
                     </div>
 
                     <div class="d-flex flex-wrap gap-3 mt-2" style="font-size:.82rem;">

@@ -117,7 +117,7 @@
                     <span class="badge {{ $badgeClass }}">{{ $badgeLabel }}</span>
                 </div>
                 <p class="mb-0" style="font-size:.85rem; color:rgba(255,255,255,.6);">
-                    Publicada el {{ $jobPosting->created_at->format('d/m/Y') }}
+                    Publicada el {{ $jobPosting->created_at?->format('d/m/Y') }}
                     &middot; {{ $jobPosting->applications_count }} {{ Str::plural('postulación', $jobPosting->applications_count) }}
                 </p>
             </div>
@@ -155,7 +155,7 @@
                     </div>
                     <div class="col-6 col-md-3 info-item">
                         <i class="bi bi-calendar-x {{ $jobPosting->isExpired() ? 'text-danger' : 'text-warning' }}"></i>
-                        <div class="info-value">{{ $jobPosting->deadline->format('d/m/Y') }}</div>
+                        <div class="info-value">{{ $jobPosting->deadline?->format('d/m/Y') }}</div>
                         <div class="info-label">{{ $jobPosting->isExpired() ? 'Expirada' : $jobPosting->remaining_days . ' días restantes' }}</div>
                     </div>
                 </div>
@@ -207,13 +207,13 @@
                 @forelse($jobPosting->applications as $app)
                     <div class="applicant-row d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ $app->user->avatar_url }}" class="student-avatar" alt="avatar">
+                            <img src="{{ $app->user?->avatar_url ?? asset('images/Logo-Letras-White_.png') }}" class="student-avatar" alt="avatar">
                             <div>
                                 <div style="font-size:.84rem; font-weight:600; color:#1a1f36;">
-                                    {{ Str::limit($app->user->name, 20) }}
+                                    {{ Str::limit($app->user?->name ?? '', 20) }}
                                 </div>
                                 <div style="font-size:.72rem; color:#9ca3af;">
-                                    {{ $app->user->studentProfile?->program ?? $app->user->email }}
+                                    {{ $app->user?->studentProfile?->program ?? $app->user?->email ?? '—' }}
                                 </div>
                             </div>
                         </div>

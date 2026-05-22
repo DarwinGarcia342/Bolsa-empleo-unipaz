@@ -16,7 +16,7 @@
             <div class="row g-2">
                 <div class="col-md-4">
                     <input type="text" name="search" class="form-control form-control-sm"
-                           placeholder="Buscar empresa..." value="{{ request('search') }}">
+                        placeholder="Buscar empresa..." value="{{ request('search') }}">
                 </div>
                 <div class="col-md-3">
                     <select name="status" class="form-select form-select-sm">
@@ -32,6 +32,8 @@
             </div>
         </div>
     </form>
+
+    
 
     <div class="card">
         <div class="table-responsive">
@@ -52,10 +54,10 @@
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="{{ $company->logo_url }}" class="rounded" width="36" height="36" style="object-fit:cover;">
+                                    <img src="{{ $company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded" width="36" height="36" style="object-fit:cover;">
                                     <div>
                                         <p class="mb-0 fw-semibold small">{{ $company->company_name }}</p>
-                                        <small class="text-muted">{{ $company->user->email }}</small>
+                                        <small class="text-muted">{{ $company->user?->email ?? '—' }}</small>
                                     </div>
                                 </div>
                             </td>
@@ -65,7 +67,7 @@
                                 <small>{{ $company->contact_person }}</small><br>
                                 <small class="text-muted">{{ $company->phone }}</small>
                             </td>
-                            <td><small>{{ $company->created_at->format('d/m/Y') }}</small></td>
+                            <td><small>{{ $company->created_at?->format('d/m/Y') }}</small></td>
                             <td>
                                 <span class="badge {{ match($company->status) { 'approved' => 'bg-success', 'pending' => 'bg-warning text-dark', 'rejected' => 'bg-danger', default => 'bg-secondary' } }}">
                                     {{ match($company->status) { 'approved' => 'Aprobada', 'pending' => 'Pendiente', 'rejected' => 'Rechazada', default => $company->status } }}
@@ -93,6 +95,13 @@
                                             <button class="btn btn-outline-danger btn-sm" title="Revocar aprobación"
                                                     onclick="return confirm('¿Revocar la aprobación de esta empresa?')">
                                                 <i class="bi bi-slash-circle"></i>
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="{{ route('admin.companies.delete', $company) }}" onsubmit="return confirm('¿Eliminar esta empresa y su usuario? Esta acción es irreversible.')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm" title="Eliminar empresa">
+                                                <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
                                     @endif

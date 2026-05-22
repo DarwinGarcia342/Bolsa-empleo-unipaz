@@ -4,8 +4,8 @@
 @push('styles')
 <style>
     /* ═══════════════════════════════════════
-       LANDING PAGE — EMPLEA UNIPAZ
-       Tema oscuro premium con acento esmeralda
+    LANDING PAGE — EMPLEA UNIPAZ
+    Tema oscuro premium con acento esmeralda
     ═══════════════════════════════════════ */
 
     /* Wrapper global de la landing */

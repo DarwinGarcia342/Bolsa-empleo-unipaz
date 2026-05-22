@@ -117,7 +117,7 @@
                                     } }}
                                 </span>
                             </td>
-                            <td><small>{{ $user->created_at->format('d/m/Y') }}</small></td>
+                            <td><small>{{ $user->created_at?->format('d/m/Y') }}</small></td>
                             <td>
                                 <small class="text-muted">
                                     {{ $user->updated_at->diffForHumans() }}

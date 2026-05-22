@@ -113,7 +113,7 @@
     <div class="detail-banner mb-4">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
             <div class="d-flex align-items-center gap-3">
-                <img src="{{ $jobPosting->company->logo_url }}" class="company-logo" alt="logo">
+                <img src="{{ $jobPosting->company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="company-logo" alt="logo">
                 <div>
                     <div class="d-flex align-items-center gap-2 mb-1">
                         <h4 class="fw-bold mb-0">{{ $jobPosting->title }}</h4>
@@ -135,7 +135,7 @@
                     </div>
                     <p class="mb-0" style="font-size:.85rem; color:rgba(255,255,255,.6);">
                         {{ $jobPosting->company->company_name }}
-                        &middot; Publicada el {{ $jobPosting->created_at->format('d/m/Y') }}
+                        &middot; Publicada el {{ $jobPosting->created_at?->format('d/m/Y') }}
                         &middot; {{ $jobPosting->applications_count }} {{ Str::plural('postulación', $jobPosting->applications_count) }}
                     </p>
                 </div>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="col-6 col-md-2 info-item">
                         <i class="bi bi-calendar-x {{ $jobPosting->isExpired() ? 'text-danger' : 'text-warning' }}"></i>
-                        <div class="info-value">{{ $jobPosting->deadline->format('d/m/Y') }}</div>
+                        <div class="info-value">{{ $jobPosting->deadline?->format('d/m/Y') }}</div>
                         <div class="info-label">{{ $jobPosting->isExpired() ? 'Expirada' : $jobPosting->remaining_days . ' días' }}</div>
                     </div>
                     <div class="col-6 col-md-2 info-item">
@@ -238,7 +238,7 @@
             <div class="panel-card p-4">
                 <h6 class="section-title"><i class="bi bi-building me-2 text-primary"></i>Información de la empresa</h6>
                 <div class="d-flex align-items-center gap-3 mb-3">
-                    <img src="{{ $jobPosting->company->logo_url }}" class="rounded" width="48" height="48" style="object-fit:cover; border:1px solid #eef0f9;">
+                    <img src="{{ $jobPosting->company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded" width="48" height="48" style="object-fit:cover; border:1px solid #eef0f9;">
                     <div>
                         <div style="font-weight:700; color:#1a1f36;">{{ $jobPosting->company->company_name }}</div>
                         <div style="font-size:.82rem; color:#6b7280;">{{ $jobPosting->company->sector }}</div>
@@ -273,13 +273,13 @@
                     <div class="applicant-row">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center gap-2">
-                                <img src="{{ $app->user->avatar_url }}" class="student-avatar" alt="avatar">
+                                <img src="{{ $app->user?->avatar_url ?? asset('images/Logo-Letras-White_.png') }}" class="student-avatar" alt="avatar">
                                 <div>
                                     <div style="font-size:.84rem; font-weight:600; color:#1a1f36;">
-                                        {{ Str::limit($app->user->name, 22) }}
+                                        {{ Str::limit($app->user?->name ?? '', 22) }}
                                     </div>
                                     <div style="font-size:.72rem; color:#9ca3af;">
-                                        {{ $app->user->studentProfile?->program ?? $app->user->email }}
+                                        {{ $app->user?->studentProfile?->program ?? $app->user?->email ?? '—' }}
                                     </div>
                                 </div>
                             </div>
