@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Acceso Empresas')
+@section('title', 'Iniciar Sesión')
 
 @push('styles')
 <style>
@@ -182,9 +182,9 @@
             <img src="{{ asset('images/LogoWhite_.png') }}"
                  alt="UNIPAZ — Instituto Universitario de la Paz"
                  style="height: 56px; width: auto; margin-bottom: 1.1rem;">
-            <h1 style="font-size:1.4rem; font-weight:800; color:#fff;">Acceso Empresas</h1>
+            <h1 style="font-size:1.4rem; font-weight:800; color:#fff;">Iniciar Sesión</h1>
             <p style="color:rgba(255,255,255,.48); font-size:.86rem; margin-bottom:0;">
-                Ingresa con tus credenciales para gestionar tus vacantes
+                Ingresa con tus credenciales para acceder a tu cuenta
             </p>
         </div>
 
@@ -196,11 +196,11 @@
 
                         <div class="text-center">
                             <div class="login-icon-wrap">
-                                <i class="bi bi-building-fill"></i>
+                                <i class="bi bi-box-arrow-in-right"></i>
                             </div>
-                            <h5 class="mb-1">Soy Empresa</h5>
+                            <h5 class="mb-1">Acceso a tu Cuenta</h5>
                             <p class="card-desc">
-                                Accede para publicar vacantes, revisar postulaciones y gestionar tu empresa.
+                                Ingresa tu correo y contraseña para continuar
                             </p>
                         </div>
 
@@ -215,7 +215,7 @@
                                     <input type="email" name="email"
                                            class="form-control border-start-0 @error('email') is-invalid @enderror"
                                            value="{{ old('email') }}"
-                                           placeholder="correo@empresa.com"
+                                           placeholder="correo@ejemplo.com"
                                            required autofocus>
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -252,7 +252,7 @@
                         <div class="text-center mt-4 pt-3"
                              style="border-top: 1px solid rgba(255,255,255,.08);">
                             <span style="color:rgba(255,255,255,.4); font-size:.82rem;">
-                                ¿Tu empresa aún no está registrada?
+                                ¿No tienes cuenta aún?
                             </span>
                             <br>
                             <a href="{{ route('company.register') }}" class="register-link mt-2">
