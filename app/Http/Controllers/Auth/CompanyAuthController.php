@@ -18,11 +18,9 @@ class CompanyAuthController extends Controller
 
     public function register(Request $request)
     {
-        $domain = config('app.unipaz.email_domain');
-        
         $request->validate([
             'name'         => 'required|string|max:255',
-            'email'        => "required|email|unique:users,email|ends_with:{$domain}",
+            'email'        => 'required|email|unique:users,email',
             'password'     => 'required|string|min:8|confirmed',
             'company_name' => 'required|string|max:255',
             'nit'          => 'required|numeric|unique:companies,nit',
@@ -63,15 +61,19 @@ class CompanyAuthController extends Controller
 
     public function login(Request $request)
     {
-        $domain = config('app.unipaz.email_domain');
-        
         $credentials = $request->validate([
-            'email'    => "required|email|ends_with:{$domain}",
+            'email'    => 'required|email',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $user = Auth::user();
+
+            // Solo empresas pueden acceder por esta ruta
+            if ($user->role !== 'company') {
+                Auth::logout();
+                return back()->with('error', 'Esta ruta es solo para empresas. Por favor, usa el login correcto.');
+            }
 
             if (!$user->active) {
                 Auth::logout();
