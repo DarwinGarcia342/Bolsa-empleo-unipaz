@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\CompanyAuthController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Company\DashboardController as CompanyDashboard;
@@ -16,8 +17,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // --- Autenticacion ---
 Route::middleware('guest')->group(function () {
-    Route::get('/login',    [CompanyAuthController::class, 'showLogin'])->name('login');
-    Route::post('/login',   [CompanyAuthController::class, 'login']);
+    Route::get('/login',    [LoginController::class, 'showLogin'])->name('login');
+    Route::post('/login',   [LoginController::class, 'login']);
 
     Route::get('/register/empresa',   [CompanyAuthController::class, 'showRegister'])->name('company.register');
     Route::post('/register/empresa',  [CompanyAuthController::class, 'register'])->name('company.register.store');
@@ -26,7 +27,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
 });
 
-Route::post('/logout', [CompanyAuthController::class, 'logout'])
+Route::post('/logout', [LoginController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
