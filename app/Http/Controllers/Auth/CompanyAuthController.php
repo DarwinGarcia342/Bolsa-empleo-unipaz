@@ -23,7 +23,7 @@ class CompanyAuthController extends Controller
             'email'        => 'required|email|unique:users,email',
             'password'     => 'required|string|min:8|confirmed',
             'company_name' => 'required|string|max:255',
-            'nit'          => 'nullable|numeric|unique:companies,nit',
+            'nit'          => ['nullable', 'regex:/^[0-9.\-]*$/', 'unique:companies,nit'],
             'sector'       => 'required|string|max:100',
             'contact_person' => 'required|string|max:255',
             'phone'        => 'required|string|max:20',

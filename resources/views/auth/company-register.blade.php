@@ -184,9 +184,10 @@
                                 <div class="col-md-4">
                                     <label class="form-label">NIT <span class="text-muted fw-normal">(opcional)</span></label>
                                     <input type="text" name="nit"
-                                           class="form-control"
+                                           class="form-control @error('nit') is-invalid @enderror"
                                            value="{{ old('nit') }}"
                                            placeholder="900.123.456-7">
+                                    @error('nit')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Sector económico <span class="text-danger">*</span></label>
