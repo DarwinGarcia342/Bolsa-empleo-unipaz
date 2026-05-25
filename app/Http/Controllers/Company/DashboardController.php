@@ -58,7 +58,7 @@ class DashboardController extends Controller
             'description'    => 'nullable|string|max:2000',
             'website'        => 'nullable|url|max:255',
             'logo'           => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'nit'            => 'nullable|string|max:20',
+            'nit'            => ['nullable', 'regex:/^[0-9.\-]*$/', 'unique:companies,nit,' . $company->id],
         ]);
 
         $data = $request->only([
