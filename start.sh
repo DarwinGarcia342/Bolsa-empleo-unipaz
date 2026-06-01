@@ -3,6 +3,12 @@ set -e
 
 echo "=== Bolsa de Empleo UNIPAZ — Iniciando deploy ==="
 
+# Crear .env desde .env.example si no existe (necesario para artisan commands)
+if [ ! -f /app/.env ]; then
+    cp /app/.env.example /app/.env
+    echo "=== .env creado desde .env.example ==="
+fi
+
 # Si la aplicación usa SQLite, crear la base de datos y su carpeta si no existen.
 if [ "${DB_CONNECTION:-sqlite}" = "sqlite" ]; then
     SQLITE_DB_PATH="${DB_DATABASE:-database/database.sqlite}"
