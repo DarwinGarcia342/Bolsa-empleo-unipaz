@@ -373,5 +373,8 @@
         </div>
     </div>
 
+    {{-- Leyes Colombianas --}}
+    <x-laws-section :laws="\App\Models\LawReference::getByRole('company')" />
+
 </div>
 @endsection
