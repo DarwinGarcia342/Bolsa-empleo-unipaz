@@ -10,6 +10,22 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Sobre este proyecto
+
+Este repositorio contiene la aplicación web de la Bolsa de Empleo UNIPAZ, basada en Laravel 12. Está preparada para ejecutarse localmente con SQLite y desplegarse en Railway usando el script `start.sh`.
+
+## Instrucciones rápidas
+
+1. Copia `.env.example` a `.env`
+2. Ejecuta `composer install`
+3. Ejecuta `npm install`
+4. Ejecuta `php artisan key:generate`
+5. Ejecuta `php artisan migrate`
+6. Ejecuta `npm run build`
+7. Ejecuta `php artisan serve --host=0.0.0.0 --port=8000`
+
+Para despliegue en Railway, consulta `DEPLOY-RAILWAY.md`.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

@@ -3,9 +3,19 @@ set -e
 
 echo "=== Bolsa de Empleo UNIPAZ — Iniciando deploy ==="
 
-# Asegurar que el directorio de SQLite existe
-mkdir -p database
-touch database/database.sqlite
+# Si la aplicación usa SQLite, crear la base de datos y su carpeta si no existen.
+if [ "${DB_CONNECTION:-sqlite}" = "sqlite" ]; then
+    SQLITE_DB_PATH="${DB_DATABASE:-database/database.sqlite}"
+    mkdir -p "$(dirname "$SQLITE_DB_PATH")"
+    touch "$SQLITE_DB_PATH"
+fi
+
+# Compilar assets frontend si el proyecto incluye package.json
+if [ -f package.json ]; then
+    echo "=== Instalando dependencias de Node y compilando assets ==="
+    npm install
+    npm run build
+fi
 
 # Limpiar cachés previos (evita errores con config cacheada vieja)
 php artisan config:clear
