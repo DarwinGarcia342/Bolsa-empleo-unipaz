@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('title');                            // Título del cargo
             $table->text('description');                        // Descripción del puesto
             $table->text('requirements');                       // Requisitos
-            $table->text('responsibilities')->nullable();       // Responsabilidades
+            $table->text('responsibilities');                   // Responsabilidades
             $table->string('area')->nullable();                 // Área (sistemas, admin, etc.)
             $table->string('contract_type');                    // Tipo contrato (fijo, indefinido, etc.)
             $table->string('modality');                         // Modalidad (presencial, remoto, híbrido)

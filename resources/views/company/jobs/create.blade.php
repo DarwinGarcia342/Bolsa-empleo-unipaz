@@ -18,7 +18,7 @@
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Título del cargo *</label>
                                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                                       value="{{ old('title') }}" placeholder="Ej: Desarrollador Web Junior" required>
+                                    value="{{ old('title') }}" placeholder="Ej: Desarrollador Web Junior" required>
                                 @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-6">
@@ -52,12 +52,12 @@
                             <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Ubicación *</label>
                                 <input type="text" name="location" class="form-control"
-                                       value="{{ old('location', 'Barrancabermeja') }}" required>
+                                    value="{{ old('location', 'Barrancabermeja') }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Número de vacantes *</label>
                                 <input type="number" name="positions" class="form-control" min="1" max="50"
-                                       value="{{ old('positions', 1) }}" required>
+                                    value="{{ old('positions', 1) }}" required>
                             </div>
                         </div>
 
@@ -66,19 +66,19 @@
                             <div class="col-md-5">
                                 <label class="form-label small fw-semibold">Rango salarial</label>
                                 <input type="text" name="salary_range" class="form-control"
-                                       value="{{ old('salary_range') }}" placeholder="Ej: $1.5M - $2M mensuales">
+                                    value="{{ old('salary_range') }}" placeholder="Ej: $1.5M - $2M mensuales">
                             </div>
                             <div class="col-md-3 d-flex align-items-end">
                                 <div class="form-check mb-2">
                                     <input class="form-check-input" type="checkbox" name="salary_negotiable"
-                                           id="salary_neg" value="1" @checked(old('salary_negotiable'))>
+                                        id="salary_neg" value="1" @checked(old('salary_negotiable'))>
                                     <label class="form-check-label small" for="salary_neg">A convenir</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Fecha límite de postulación *</label>
                                 <input type="date" name="deadline" class="form-control @error('deadline') is-invalid @enderror"
-                                       value="{{ old('deadline') }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}" required>
+                                    value="{{ old('deadline') }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}" required>
                                 @error('deadline')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
@@ -88,31 +88,32 @@
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Descripción del cargo *</label>
                                 <textarea name="description" class="form-control @error('description') is-invalid @enderror"
-                                          rows="4" placeholder="Describe las funciones principales del cargo..." required>{{ old('description') }}</textarea>
+                                        rows="4" placeholder="Describe las funciones principales del cargo..." required>{{ old('description') }}</textarea>
                                 @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Requisitos *</label>
                                 <textarea name="requirements" class="form-control @error('requirements') is-invalid @enderror"
-                                          rows="3" placeholder="Formación académica, experiencia, habilidades requeridas..." required>{{ old('requirements') }}</textarea>
+                                        rows="3" placeholder="Formación académica, experiencia, habilidades requeridas..." required>{{ old('requirements') }}</textarea>
                                 @error('requirements')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-semibold">Responsabilidades (opcional)</label>
-                                <textarea name="responsibilities" class="form-control" rows="3"
-                                          placeholder="¿Qué hará el candidato en su día a día?">{{ old('responsibilities') }}</textarea>
+                                <label class="form-label small fw-semibold">Responsabilidades *</label>
+                                <textarea name="responsibilities" class="form-control @error('responsibilities') is-invalid @enderror" rows="3" required
+                                        placeholder="¿Qué hará el candidato en su día a día?">{{ old('responsibilities') }}</textarea>
+                                @error('responsibilities')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Programas académicos preferidos</label>
                                 <input type="text" name="programs_targeted" class="form-control"
-                                       value="{{ old('programs_targeted') }}"
-                                       placeholder="Ej: Ingeniería de Sistemas, Administración de Empresas">
+                                    value="{{ old('programs_targeted') }}"
+                                    placeholder="Ej: Ingeniería de Sistemas, Administración de Empresas">
                                 <small class="text-muted">Separa los programas con comas</small>
                             </div>
                             <div class="col-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="requires_cv"
-                                           id="requires_cv" value="1" @checked(old('requires_cv', true))>
+                                        id="requires_cv" value="1" @checked(old('requires_cv', true))>
                                     <label class="form-check-label small" for="requires_cv">
                                         Requerir hoja de vida para postularse
                                     </label>
