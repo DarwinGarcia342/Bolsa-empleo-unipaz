@@ -138,6 +138,9 @@ class DatabaseSeeder extends Seeder
             'about'        => 'Estudiante de octavo semestre con experiencia en desarrollo web y bases de datos.',
         ]);
 
+        // ─── 6. Leyes colombianas de referencia ───────────────────────────────
+        $this->call(LawReferenceSeeder::class);
+
         $this->command->info('✅ Base de datos sembrada correctamente.');
         $this->command->info('');
         $this->command->info('📋 Credenciales de acceso:');
