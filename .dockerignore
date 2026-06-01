@@ -1,0 +1,12 @@
+node_modules
+vendor
+storage/framework/cache/data
+storage/framework/sessions
+storage/framework/views
+storage/logs
+/public/storage
+/.git
+/.nixpacks
+.DS_Store
+.env
+.env.*
