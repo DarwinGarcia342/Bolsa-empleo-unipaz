@@ -10,11 +10,14 @@ if [ "${DB_CONNECTION:-sqlite}" = "sqlite" ]; then
     touch "$SQLITE_DB_PATH"
 fi
 
-# Compilar assets frontend si el proyecto incluye package.json
-if [ -f package.json ]; then
-    echo "=== Instalando dependencias de Node y compilando assets ==="
-    npm install
-    npm run build
+# Asegurar los directorios que Laravel necesita para logs, sesiones y caché.
+mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs
+chmod -R 775 storage bootstrap/cache || true
+
+# Generar APP_KEY si no está definido en el entorno.
+if [ -z "${APP_KEY:-}" ]; then
+    echo "=== Generando APP_KEY ==="
+    php artisan key:generate --force
 fi
 
 # Limpiar cachés previos (evita errores con config cacheada vieja)
