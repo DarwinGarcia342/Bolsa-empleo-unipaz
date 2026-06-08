@@ -41,6 +41,13 @@ class GoogleController extends Controller
                     ->orWhere('email', $googleUser->getEmail())
                     ->first();
 
+        // Si el usuario ya existe pero no es un estudiante, prevenir el login por este medio
+        // o asegurar que no se sobrescriba su rol accidentalmente.
+        if ($user && $user->role !== 'student') {
+            return redirect()->route('login')
+                ->with('error', 'Esta cuenta está registrada como ' . $user->role . '. Por favor, usa el login tradicional.');
+        }
+
         if (!$user) {
             // Nuevo estudiante
             $user = User::create([
@@ -72,6 +79,6 @@ class GoogleController extends Controller
 
         Auth::login($user, true);
 
-        return redirect()->intended(route('student.dashboard'));
+        return redirect()->intended(route('student.dashboard'))->with('success', '¡Bienvenido(a), ' . $user->name . '!');
     }
 }

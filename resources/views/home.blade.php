@@ -19,8 +19,15 @@
         background: linear-gradient(135deg, #0d1b4c 0%, #10235f 55%, #0e2060 100%);
         position: relative;
         overflow: hidden;
-        padding: 5.5rem 0 5rem;
-        min-height: 600px;
+        padding: 5rem 0;
+    }
+
+    .hero-container-compact {
+        max-width: 1140px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
     }
 
     .hero-section::before {
@@ -45,11 +52,18 @@
         pointer-events: none;
     }
 
-    .hero-section .container {
+    .hero-section .hero-container-compact {
         position: relative;
         z-index: 1;
     }
 
+    /* Contenedor Flex para alinear simétricamente el contenido izquierdo */
+    .hero-left-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
 
     .hero-badge {
         display: inline-flex;
@@ -64,6 +78,7 @@
         font-weight: 600;
         letter-spacing: .5px;
         margin-bottom: 1.4rem;
+        width: fit-content;
     }
 
     .hero-badge .dot {
@@ -76,23 +91,14 @@
     }
 
     @keyframes pulse-dot {
-
-        0%,
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        50% {
-            opacity: .45;
-            transform: scale(.75);
-        }
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: .45; transform: scale(.75); }
     }
 
     .hero-title {
-        font-size: clamp(2.2rem, 5vw, 3.7rem);
+        font-size: clamp(2.2rem, 5vw, 3.2rem);
         font-weight: 900;
-        line-height: 1.1;
+        line-height: 1.15;
         color: #fff;
         letter-spacing: -.8px;
         margin-bottom: 1.25rem;
@@ -103,9 +109,9 @@
     }
 
     .hero-lead {
-        font-size: 1.05rem;
+        font-size: 1.02rem;
         color: rgba(255, 255, 255, .78);
-        line-height: 1.68;
+        line-height: 1.6;
         max-width: 520px;
         margin-bottom: 2rem;
     }
@@ -115,15 +121,15 @@
         background: rgba(255, 255, 255, .08);
         border: 1px solid rgba(255, 255, 255, .12);
         border-radius: 14px;
-        padding: 1.1rem 1.5rem;
+        padding: 0.9rem 1.2rem;
         text-align: center;
         backdrop-filter: blur(6px);
         flex: 1;
-        min-width: 110px;
+        min-width: 100px;
     }
 
     .stat-chip .stat-number {
-        font-size: 1.85rem;
+        font-size: 1.7rem;
         font-weight: 900;
         color: #fff;
         line-height: 1;
@@ -134,26 +140,27 @@
     }
 
     .stat-chip .stat-label {
-        font-size: .7rem;
+        font-size: .65rem;
         color: rgba(255, 255, 255, .52);
         margin-top: .3rem;
         text-transform: uppercase;
         letter-spacing: .6px;
     }
 
-    /* Botones hero */
+    /* Botones premium */
     .btn-hero-primary {
         background: #34d399;
         color: #0d1b4c;
         border: none;
-        border-radius: 14px;
-        padding: .9rem 2rem;
+        border-radius: 12px;
+        padding: .8rem 1.5rem;
         font-weight: 700;
-        font-size: .95rem;
+        font-size: .92rem;
         transition: all .22s ease;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: .5rem;
     }
 
@@ -164,42 +171,33 @@
         box-shadow: 0 12px 32px rgba(52, 211, 153, .35);
     }
 
-    .btn-hero-secondary {
-        background: transparent;
-        color: rgba(255, 255, 255, .88);
-        border: 1.5px solid rgba(255, 255, 255, .22);
-        border-radius: 14px;
-        padding: .9rem 2rem;
-        font-weight: 600;
-        font-size: .95rem;
-        transition: all .22s ease;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: .5rem;
-    }
-
-    .btn-hero-secondary:hover {
-        background: rgba(255, 255, 255, .09);
-        border-color: rgba(255, 255, 255, .5);
-        color: #fff;
-    }
-
-    /* Tarjeta de búsqueda (panel derecho hero) */
+    /* Tarjeta de búsqueda mejorada organizada con Grid interno */
     .search-card {
         background: rgba(255, 255, 255, .07);
         border: 1px solid rgba(255, 255, 255, .12);
         border-radius: 24px;
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        padding: 2.25rem 2rem;
+        padding: 2.2rem 2rem;
+        height: 100%;
     }
 
     .search-card h3 {
         color: #fff;
         font-weight: 700;
-        font-size: 1.3rem;
+        font-size: 1.35rem;
         margin-bottom: 1.5rem;
+    }
+
+    /* Pequeñas etiquetas sobre los selectores */
+    .search-card .field-label {
+        font-size: 0.73rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 0.4rem;
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .search-card .form-control,
@@ -208,9 +206,8 @@
         border: 1px solid rgba(255, 255, 255, .15) !important;
         color: #fff !important;
         border-radius: 12px !important;
-        padding: .85rem 1rem !important;
+        padding: .75rem 1rem !important;
         font-size: .88rem !important;
-        transition: border .15s, box-shadow .15s !important;
     }
 
     .search-card .form-control::placeholder {
@@ -227,8 +224,6 @@
         border-color: rgba(52, 211, 153, .55) !important;
         box-shadow: 0 0 0 3px rgba(52, 211, 153, .14) !important;
         background: rgba(255, 255, 255, .13) !important;
-        color: #fff !important;
-        outline: none;
     }
 
     .btn-search {
@@ -236,7 +231,7 @@
         color: #0d1b4c;
         border: none;
         border-radius: 12px;
-        padding: .9rem 1.5rem;
+        padding: .85rem 1.5rem;
         font-weight: 700;
         font-size: .92rem;
         width: 100%;
@@ -246,18 +241,26 @@
 
     .btn-search:hover {
         background: #10b981;
-        color: #0d1b4c;
-        transform: translateY(-1px);
         box-shadow: 0 8px 24px rgba(52, 211, 153, .3);
     }
 
-    .search-divider {
-        border: none;
-        border-top: 1px solid rgba(255, 255, 255, .1);
-        margin: 1.25rem 0 1rem;
+    /* Tarjeta de Empresas (Fila Inferior Dedicada) */
+    .side-empresa-card {
+        background: linear-gradient(135deg, #10235f 0%, #0e3855 100%);
+        border: 1px solid rgba(52, 211, 153, .18);
+        border-radius: 24px;
+        padding: 2.2rem;
+        margin-top: 3.5rem;
     }
 
-    /* ── SECCIONES ── */
+    .side-empresa-card h4 {
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.35rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* ── SECCIONES DE CONTENIDO ── */
     .section-dark {
         background: rgba(255, 255, 255, .025);
         padding: 4.5rem 0;
@@ -322,21 +325,7 @@
         margin-bottom: .4rem;
     }
 
-    .how-step h5 {
-        font-size: .93rem;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: .5rem;
-    }
-
-    .how-step p {
-        font-size: .81rem;
-        color: rgba(255, 255, 255, .58);
-        line-height: 1.62;
-        margin: 0;
-    }
-
-    /* ── TARJETAS DE VACANTES (dark) ── */
+    /* ── TARJETAS DE VACANTES ── */
     .job-card-dark {
         background: rgba(255, 255, 255, .07);
         border: 1px solid rgba(255, 255, 255, .1);
@@ -363,10 +352,14 @@
         width: 48px;
         height: 48px;
         border-radius: 12px;
-        object-fit: cover;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        color: #fff;
+        font-size: 1.2rem;
         border: 1.5px solid rgba(255, 255, 255, .12);
         background: rgba(255, 255, 255, .08);
-        flex-shrink: 0;
     }
 
     .job-card-dark .job-title {
@@ -374,7 +367,6 @@
         font-weight: 700;
         color: #fff;
         line-height: 1.3;
-        margin-bottom: .2rem;
     }
 
     .job-card-dark .company-name {
@@ -388,8 +380,6 @@
         color: rgba(255, 255, 255, .72);
         padding: .28rem .68rem;
         border-radius: 6px;
-        font-weight: 500;
-        white-space: nowrap;
     }
 
     .job-card-dark .badge-modality {
@@ -397,7 +387,6 @@
         font-weight: 600;
         padding: .28rem .68rem;
         border-radius: 6px;
-        white-space: nowrap;
     }
 
     .job-card-dark .badge-days {
@@ -406,8 +395,6 @@
         color: #fde68a;
         padding: .28rem .68rem;
         border-radius: 6px;
-        font-weight: 600;
-        white-space: nowrap;
     }
 
     .job-card-dark .job-desc {
@@ -415,7 +402,6 @@
         color: rgba(255, 255, 255, .58);
         line-height: 1.55;
         margin-top: .75rem;
-        margin-bottom: 0;
     }
 
     .job-card-dark .salary-label {
@@ -441,51 +427,8 @@
         font-size: .77rem;
         padding: .38rem .9rem;
         text-decoration: none;
-        transition: all .18s;
     }
 
-    .btn-card-detail:hover {
-        background: rgba(52, 211, 153, .25);
-        color: #34d399;
-        border-color: rgba(52, 211, 153, .45);
-    }
-
-    /* Login prompt card */
-    .login-prompt-card {
-        background: rgba(255, 255, 255, .05);
-        border: 1.5px dashed rgba(255, 255, 255, .14);
-        border-radius: 18px;
-        text-align: center;
-        padding: 2.75rem 1.5rem;
-    }
-
-    /* ── CTA EMPRESA ── */
-    .cta-empresa {
-        background: linear-gradient(135deg, #10235f 0%, #0e3855 100%);
-        border: 1px solid rgba(52, 211, 153, .18);
-        border-radius: 20px;
-        padding: 3rem 2.5rem;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .cta-empresa::before {
-        content: '';
-        position: absolute;
-        top: -70px;
-        right: -70px;
-        width: 260px;
-        height: 260px;
-        background: radial-gradient(circle, rgba(52, 211, 153, .1) 0%, transparent 68%);
-        pointer-events: none;
-    }
-
-    .cta-empresa>* {
-        position: relative;
-        z-index: 1;
-    }
-
-    /* Ver todas btn */
     .btn-ver-todas {
         background: rgba(255, 255, 255, .08);
         color: rgba(255, 255, 255, .8);
@@ -495,16 +438,9 @@
         font-size: .82rem;
         padding: .5rem 1rem;
         text-decoration: none;
-        transition: all .18s;
         display: inline-flex;
         align-items: center;
         gap: .4rem;
-    }
-
-    .btn-ver-todas:hover {
-        background: rgba(255, 255, 255, .13);
-        color: #fff;
-        border-color: rgba(255, 255, 255, .25);
     }
 </style>
 @endpush
@@ -513,101 +449,156 @@
 
 <div class="landing-wrapper">
 
-    {{-- ═══════════════════════════════════════════════════════ --}}
-    {{-- HERO                                                    --}}
-    {{-- ═══════════════════════════════════════════════════════ --}}
+    {{-- HERO PRINCIPAL --}}
     <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center g-5">
+        <div class="hero-container-compact">
+            
+            {{-- Fila superior del Hero --}}
+            <div class="row g-4 align-items-stretch">
 
-                {{-- Columna izquierda: texto --}}
+                {{-- Columna Izquierda: Mensaje de Bienvenida y Estadísticas --}}
                 <div class="col-lg-6">
-                    <div class="hero-badge">
-                        <span class="dot"></span>
-                        Bolsa de empleo oficial · UNIPAZ Barrancabermeja
-                    </div>
-
-                    <h1 class="hero-title">
-                        Conectamos talento<br>
-                        universitario con<br>
-                        <span class="highlight">oportunidades reales.</span>
-                    </h1>
-
-                    <p class="hero-lead">
-                        Plataforma institucional para estudiantes, egresados y empresas del Districto de Barrancabermej y el Magdalena Medio.
-                    </p>
-
-                    <div class="d-flex flex-wrap gap-3 mb-4">
-                        <a href="{{ route('auth.google') }}" class="btn-hero-primary">
-                            <i class="bi bi-mortarboard-fill"></i>
-                            Buscar vacantes
-                        </a>
-                        <a href="{{ route('company.register') }}" class="btn-hero-secondary">
-                            <i class="bi bi-building"></i>
-                            Registrar empresa
-                        </a>
-                    </div>
-
-                    <div class="d-flex gap-3 flex-wrap">
-                        <div class="stat-chip">
-                            <div class="stat-number">3<span>K+</span></div>
-                            <div class="stat-label">Estudiantes</div>
+                    <div class="hero-left-wrapper">
+                        <div class="hero-badge">
+                            <span class="dot"></span>
+                            Bolsa de empleo oficial · UNIPAZ Barrancabermeja
                         </div>
-                        <div class="stat-chip">
-                            <div class="stat-number">{{ $totalJobs }}<span>+</span></div>
-                            <div class="stat-label">Vacantes activas</div>
-                        </div>
-                        <div class="stat-chip">
-                            <div class="stat-number">{{ $totalCompanies }}</div>
-                            <div class="stat-label">Empresas aliadas</div>
+
+                        <h1 class="hero-title">
+                            Conectamos talento<br>
+                            universitario con<br>
+                            <span class="highlight">oportunidades reales.</span>
+                        </h1>
+
+                        <p class="hero-lead">
+                            Plataforma institucional para estudiantes, egresados y empresas del Distrito de Barrancabermeja.
+                        </p>
+
+                        {{-- CHIPS DE ESTADÍSTICAS --}}
+                        <div class="d-flex gap-3 flex-wrap mt-2">
+                            <div class="stat-chip">
+                                <div class="stat-number">{{ $totalstudents }}</div>
+                                <div class="stat-label">Estudiantes</div>
+                            </div>
+                            <div class="stat-chip">
+                                <div class="stat-number">{{ $totalJobs }}<span>+</span></div>
+                                <div class="stat-label">Vacantes activas</div>
+                            </div>
+                            <div class="stat-chip">
+                                <div class="stat-number">{{ $totalCompanies }}</div>
+                                <div class="stat-label">Empresas aliadas</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- Columna derecha: buscador --}}
+                {{-- Columna Derecha: Buscador Completo Organizado --}}
                 <div class="col-lg-6">
                     <div class="search-card">
                         <h3>Buscar oportunidades</h3>
                         <form action="{{ route('auth.google') }}" method="GET">
-                            <div class="d-flex flex-column gap-3">
-                                <input type="text"
-                                    class="form-control"
-                                    name="q"
-                                    placeholder="Cargo o palabra clave…">
-                                <input type="text"
-                                    class="form-control"
-                                    name="location"
-                                    placeholder="Ciudad o región">
-                                <select class="form-select" name="area">
-                                    <option value="">Área de interés</option>
-                                    <option value="ingenieria">Ingeniería y tecnología</option>
-                                    <option value="administracion">Administración y negocios</option>
-                                    <option value="salud">Salud y ciencias de la vida</option>
-                                    <option value="derecho">Derecho y ciencias sociales</option>
-                                    <option value="educacion">Educación</option>
-                                    <option value="otro">Otro</option>
-                                </select>
-                                <button type="submit" class="btn-search">
-                                    <i class="bi bi-search me-2"></i>Buscar ahora
-                                </button>
+                            <div class="row g-3">
+                                
+                                {{-- Cargo / Palabra Clave --}}
+                                <div class="col-12">
+                                    <span class="field-label">Palabra clave</span>
+                                    <input type="text" class="form-control" name="q" placeholder="Ej: Desarrollador Web Junior">
+                                </div>
+
+                                {{-- Área / Perfil --}}
+                                <div class="col-12">
+                                    <span class="field-label">Área / Perfil</span>
+                                    <select class="form-select" name="area">
+                                        <option value="">Seleccionar área...</option>
+                                        <option value="tecnologia">Tecnología e informática</option>
+                                        <option value="administracion">Administración de empresas</option>
+                                        <option value="contabilidad">Contabilidad y finanzas</option>
+                                        <option value="ingenieria_civil">Ingeniería civil</option>
+                                        <option value="ingenieria_ambiental">Ingeniería ambiental</option>
+                                        <option value="petroleo_gas">Petróleo y gas</option>
+                                        <option value="salud">Salud</option>
+                                        <option value="educacion">Educación</option>
+                                        <option value="marketing_ventas">Marketing y ventas</option>
+                                        <option value="recursos_humanos">Recursos humanos</option>
+                                        <option value="derecho">Derecho</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+
+                                {{-- Modalidad --}}
+                                <div class="col-sm-6">
+                                    <span class="field-label">Modalidad</span>
+                                    <select class="form-select" name="modality">
+                                        <option value="">Cualquiera</option>
+                                        <option value="Presencial">Presencial</option>
+                                        <option value="Remoto">Remoto</option>
+                                        <option value="Hibrido">Híbrido</option>
+                                    </select>
+                                </div>
+
+                                {{-- Ubicación --}}
+                                <div class="col-sm-6">
+                                    <span class="field-label">Ubicación</span>
+                                    <input type="text" class="form-control" name="location" placeholder="Barrancabermeja">
+                                </div>
+
+                                {{-- Rango Salarial --}}
+                                <div class="col-12">
+                                    <span class="field-label">Rango Salarial Mínimo</span>
+                                    <select class="form-select" name="salary_min">
+                                        <option value="">Cualquier remuneración / A convenir</option>
+                                        <option value="1000000">Desde $1.0M mensuales</option>
+                                        <option value="1500000">Desde $1.5M mensuales</option>
+                                        <option value="2000000">Desde $2.0M mensuales</option>
+                                        <option value="3000000">Desde $3.0M o más</option>
+                                    </select>
+                                </div>
+
+                                {{-- Botón de Acción --}}
+                                <div class="col-12 mt-2">
+                                    <button type="submit" class="btn-search">
+                                        <i class="bi bi-search me-2"></i>Buscar ahora
+                                    </button>
+                                </div>
+
                             </div>
                         </form>
-                        <hr class="search-divider">
-                        <div class="d-flex align-items-center gap-2"
-                            style="font-size:.79rem; color:rgba(255,255,255,.48);">
-                            <i class="bi bi-shield-check" style="color:#34d399; font-size:.9rem;"></i>
-                            Plataforma institucional verificada · UNIPAZ
-                        </div>
                     </div>
                 </div>
 
-            </div>
-        </div>
+            </div>{{-- /row superior --}}
+
+            {{-- Fila Inferior del Hero: Bloque de Empresas Independiente --}}
+            <div class="row">
+                <div class="col-12">
+                    <div class="side-empresa-card">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <span class="section-tag">EMPRESAS Y MICROEMPRESAS</span>
+                                <h4>¿Buscas talento universitario?</h4>
+                                <p class="small mb-md-0 opacity-75" style="line-height: 1.5; font-size: 0.88rem;">
+                                    Publica tus ofertas laborales <strong class="text-white">sin costo</strong> y conecta con los mejores estudiantes y egresados calificados del Instituto Universitario de la Paz en Barrancabermeja.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <div class="d-flex flex-column align-items-md-end gap-2">
+                                    <a href="{{ route('company.register') }}" class="btn-hero-primary px-4 py-2">
+                                        <i class="bi bi-building-add me-2"></i>Registrar mi empresa
+                                    </a>
+                                    <div class="opacity-50 w-100 text-center text-md-end" style="font-size: 0.72rem;">
+                                        <i class="bi bi-check-circle me-1" style="color:#34d399;"></i>Aprobación de cuenta en 24 horas
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>{{-- /row inferior --}}
+
+        </div>{{-- /container --}}
     </section>
 
-    {{-- ═══════════════════════════════════════════════════════ --}}
-    {{-- CÓMO FUNCIONA                                          --}}
-    {{-- ═══════════════════════════════════════════════════════ --}}
+    {{-- ── CÓMO FUNCIONA ── --}}
     <section class="section-darker">
         <div class="container">
             <div class="text-center mb-5">
@@ -617,39 +608,31 @@
             <div class="row g-3">
                 <div class="col-sm-6 col-lg-3">
                     <div class="how-step">
-                        <div class="step-icon" style="background:rgba(16,35,95,.9);">
-                            <i class="bi bi-google" style="color:#34d399;"></i>
-                        </div>
+                        <div class="step-icon" style="background:rgba(16,35,95,.9);"><i class="bi bi-google" style="color:#34d399;"></i></div>
                         <div class="step-number">Paso 01</div>
                         <h5>Ingresa con tu correo</h5>
-                        <p>Usa tu cuenta institucional <strong style="color:rgba(255,255,255,.85);">@unipaz.edu.co</strong> para acceder de forma segura.</p>
+                        <p>Usa tu cuenta institucional <strong style="color:rgba(255,255,255,.85);">@unipaz.edu.co</strong> para acceder seguro.</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="how-step">
-                        <div class="step-icon" style="background:rgba(52,211,153,.1);">
-                            <i class="bi bi-person-badge" style="color:#34d399;"></i>
-                        </div>
+                        <div class="step-icon" style="background:rgba(52,211,153,.1);"><i class="bi bi-person-badge" style="color:#34d399;"></i></div>
                         <div class="step-number">Paso 02</div>
                         <h5>Completa tu perfil</h5>
-                        <p>Agrega tu programa académico, semestre, CV y habilidades para destacar ante las empresas.</p>
+                        <p>Agrega tu programa académico, CV y habilidades para destacar ante las empresas.</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="how-step">
-                        <div class="step-icon" style="background:rgba(16,35,95,.9);">
-                            <i class="bi bi-search" style="color:#34d399;"></i>
-                        </div>
+                        <div class="step-icon" style="background:rgba(16,35,95,.9);"><i class="bi bi-search" style="color:#34d399;"></i></div>
                         <div class="step-number">Paso 03</div>
                         <h5>Explora vacantes</h5>
-                        <p>Filtra por área, modalidad y ubicación para encontrar tu oportunidad ideal en la región.</p>
+                        <p>Filtra por área, modalidad y ubicación para encontrar tu oportunidad ideal.</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="how-step">
-                        <div class="step-icon" style="background:rgba(52,211,153,.1);">
-                            <i class="bi bi-send-check" style="color:#34d399;"></i>
-                        </div>
+                        <div class="step-icon" style="background:rgba(52,211,153,.1);"><i class="bi bi-send-check" style="color:#34d399;"></i></div>
                         <div class="step-number">Paso 04</div>
                         <h5>Postúlate</h5>
                         <p>Envía tu postulación con un clic y haz seguimiento del proceso en tiempo real.</p>
@@ -659,8 +642,8 @@
         </div>
     </section>
 
-    {{-- VACANTES RECIENTES --}}
-    <section class="section-dark">
+    {{-- ── VACANTES RECIENTES ── --}}
+    <section class="section-dark pb-5">
         <div class="container">
             <div class="d-flex justify-content-between align-items-end mb-4">
                 <div>
@@ -671,6 +654,7 @@
                     Ver todas <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
+            
             <div class="row g-3">
                 @forelse($latestJobs as $job)
                 <div class="col-md-6 col-lg-4">
@@ -686,16 +670,10 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-wrap gap-2 mb-3">
-                                <span class="badge-location">
-                                    <i class="bi bi-geo-alt"></i>{{ $job->location }}
-                                </span>
-                                <span class="badge-modality">
-                                    <i class="bi bi-laptop"></i>{{ $job->modality ?? 'Presencial' }}
-                                </span>
+                                <span class="badge-location"><i class="bi bi-geo-alt"></i>{{ $job->location }}</span>
+                                <span class="badge-modality"><i class="bi bi-laptop"></i>{{ $job->modality ?? 'Presencial' }}</span>
                                 @if($job->created_at->diffInDays() < 7)
-                                <span class="badge-days">
-                                    <i class="bi bi-clock"></i>Hace {{ $job->created_at->diffForHumans(null, true) }}
-                                </span>
+                                <span class="badge-days"><i class="bi bi-clock"></i>Hace {{ $job->created_at->diffForHumans(null, true) }}</span>
                                 @endif
                             </div>
                             @if($job->description)
@@ -705,14 +683,13 @@
                         <div class="card-footer-dark">
                             @if($job->salary_min)
                             <span class="salary-label">
-                                <i class="bi bi-currency-dollar"></i>
-                                ${{ number_format($job->salary_min / 1000) }}k
+                                <i class="bi bi-currency-dollar"></i>${{ number_format($job->salary_min / 1000) }}k
                                 @if($job->salary_max) - ${{ number_format($job->salary_max / 1000) }}k @endif
                             </span>
                             @else
                             <span class="salary-label"><i class="bi bi-chat-square-text"></i> A convenir</span>
                             @endif
-                            <a href="{{ route('auth.google') }}" class="btn-apply">
+                            <a href="{{ route('auth.google') }}" class="btn-card-detail">
                                 Aplicar <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
@@ -728,37 +705,6 @@
         </div>
     </section>
 
-    {{-- CTA EMPRESA --}}
-    <section class="section-darker">
-        <div class="container">
-            <div class="cta-empresa">
-                <div class="row align-items-center g-4">
-                    <div class="col-md-8">
-                        <span class="section-tag mb-1">Para empresas y microempresas</span>
-                        <h3 class="fw-bold mb-2" style="font-size:1.5rem; color:#fff;">
-                            ¿Buscas talento universitario?
-                        </h3>
-                        <p style="color:rgba(255,255,255,.68); font-size:.9rem; margin-bottom:0;">
-                            Publica tus vacantes <strong style="color:#fff;">de forma gratuita</strong> y conecta
-                            con los mejores estudiantes y egresados del Magdalena Medio.
-                        </p>
-                    </div>
-                    <div class="col-md-4 text-md-end">
-                        <a href="{{ route('company.register') }}" class="btn-hero-primary"
-                            style="font-size:.88rem; padding:.75rem 1.5rem; display:inline-flex;">
-                            <i class="bi bi-building-add"></i>Registrar mi empresa
-                        </a>
-                        <div class="mt-2" style="font-size:.72rem; color:rgba(255,255,255,.42);">
-                            <i class="bi bi-check-circle me-1" style="color:#34d399;"></i>Sin costo
-                            <span class="mx-1 opacity-50">·</span>
-                            <i class="bi bi-clock me-1" style="color:#34d399;"></i>Aprobación en 24h
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</div>{{-- /landing-wrapper --}}
+</div>
 
 @endsection

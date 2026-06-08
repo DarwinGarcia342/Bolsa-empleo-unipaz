@@ -558,17 +558,7 @@
     <!-- ═══ Barra superior institucional ═══ -->
     <div class="topbar-institucional d-none d-md-block py-1">
         <div class="container-fluid px-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <span>
-                    <i class="bi bi-building me-1"></i>
-                    Instituto Universitario de la Paz — Barrancabermeja, Santander
-                </span>
-                <span>
-                    <a href="https://unipaz.edu.co/"><i class="bi bi-globe me-1"></i>unipaz.edu.co</a>
-                    <span class="mx-2 opacity-25">|</span>
-                    <a href="#"><i class="bi bi-envelope me-1"></i>Vigilada Min Educación</a>
-                </span>
-            </div>
+            {{-- Contenido institucional removido --}}  
         </div>
     </div>
 
@@ -577,6 +567,7 @@
         <div class="container-fluid px-4">
 
             <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="{{ route('home') }}">
+                <img src="{{ asset('images/LogoWhite_.png') }}" alt="Logo UNIPAZ" style="height: 70px; width: auto;">
                 <span class="brand-sub text-white ms-1">Emplea-UNIPAZ</span>
             </a>
 
@@ -730,21 +721,9 @@
         {{-- Botones CTA visitantes: siempre visibles, alineados a la derecha --}}
         @guest
         <div class="d-flex align-items-center gap-1 ms-auto nav-guest-always">
-            <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }} px-2"
-            href="{{ route('home') }}" title="Inicio">
-                <i class="bi bi-house me-1 d-none d-sm-inline"></i>
-                <span class="d-none d-sm-inline">Inicio</span>
-                <i class="bi bi-house d-sm-none"></i>
-            </a>
-            <a class="nav-link btn-nav-student px-2 px-md-3" href="{{ route('auth.google') }}">
-                <i class="bi bi-mortarboard-fill me-1"></i>
-                <span class="d-none d-sm-inline">Soy Estudiante</span>
-                <span class="d-sm-none" style="font-size:.75rem;">Estudiante</span>
-            </a>
-            <a class="nav-link btn-nav-company px-2 px-md-3" href="{{ route('login') }}">
-                <i class="bi bi-building me-1"></i>
-                <span class="d-none d-sm-inline">Soy Empresa</span>
-                <span class="d-sm-none" style="font-size:.75rem;">Empresa</span>
+            <a class="nav-link btn-nav-student px-3 px-md-4" href="{{ route('login') }}">
+                <i class="bi bi-box-arrow-in-right me-1"></i>
+                <span>Iniciar sesión</span>
             </a>
         </div>
         @endguest
@@ -815,6 +794,44 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.reports') }}" class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
                             <i class="bi bi-graph-up"></i> Reportes
+                        </a>
+                    </li>
+                </ul>
+            @elseif(auth()->user()->isCompany())
+                <div class="sidebar-section-label">Panel de Empresa</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="{{ route('company.dashboard') }}" class="nav-link {{ request()->routeIs('company.dashboard') ? 'active' : '' }}">
+                            <i class="bi bi-grid"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('company.jobs.index') }}" class="nav-link {{ request()->routeIs('company.jobs.*') ? 'active' : '' }}">
+                            <i class="bi bi-briefcase"></i> Mis Vacantes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('company.profile') }}" class="nav-link {{ request()->routeIs('company.profile') ? 'active' : '' }}">
+                            <i class="bi bi-building"></i> Perfil Empresa
+                        </a>
+                    </li>
+                </ul>
+            @elseif(auth()->user()->isStudent())
+                <div class="sidebar-section-label">Panel de Estudiante</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="{{ route('student.dashboard') }}" class="nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
+                            <i class="bi bi-house"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('student.jobs') }}" class="nav-link {{ request()->routeIs('student.jobs*') ? 'active' : '' }}">
+                            <i class="bi bi-search"></i> Buscar Empleo
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('student.applications') }}" class="nav-link {{ request()->routeIs('student.applications') ? 'active' : '' }}">
+                            <i class="bi bi-file-earmark-check"></i> Mis Postulaciones
                         </a>
                     </li>
                 </ul>

@@ -70,7 +70,7 @@ class CompanyAuthController extends Controller
             $user = Auth::user();
 
             // Solo empresas pueden acceder por esta ruta
-            if ($user->role !== 'company') {
+            if ($user->role !== 'company' && $user->role !== 'admin') {
                 Auth::logout();
                 return back()->with('error', 'Esta ruta es solo para empresas. Por favor, usa el login correcto.');
             }
@@ -81,13 +81,10 @@ class CompanyAuthController extends Controller
             }
 
             $request->session()->regenerate();
-
-            return match ($user->role) {
-                'admin'   => redirect()->route('admin.dashboard'),
-                'company' => redirect()->route('company.dashboard'),
-                'student' => redirect()->route('student.dashboard'),
-                default   => redirect('/'),
-            };
+            
+            return redirect()->intended(
+                $user->role === 'admin' ? route('admin.dashboard') : route('company.dashboard')
+            );
         }
 
         return back()->withErrors([

@@ -18,7 +18,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // --- Autenticacion ---
 Route::middleware('guest')->group(function () {
     Route::get('/login',    [LoginController::class, 'showLogin'])->name('login');
-    Route::post('/login',   [LoginController::class, 'login']);
+    Route::post('/login',   [LoginController::class, 'login'])->middleware('throttle:5,1'); // Máximo 5 intentos por minuto
 
     Route::get('/register/empresa',   [CompanyAuthController::class, 'showRegister'])->name('company.register');
     Route::post('/register/empresa',  [CompanyAuthController::class, 'register'])->name('company.register.store');
@@ -36,7 +36,7 @@ Route::get('/notifications/{id}/read', [NotificationController::class, 'markAsRe
     ->name('notifications.read');
 
 // --- Panel de ADMINISTRADOR ---
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin', 'prevent-back'])->group(function () {
     Route::get('/dashboard',                [AdminDashboard::class, 'index'])->name('dashboard');
     Route::get('/empresas',                 [AdminDashboard::class, 'companies'])->name('companies');
     Route::post('/empresas/{company}/aprobar', [AdminDashboard::class, 'approveCompany'])->name('companies.approve');
@@ -51,7 +51,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 });
 
 // --- Panel de EMPRESA ---
-Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company'])->group(function () {
+Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company', 'prevent-back'])->group(function () {
     Route::get('/dashboard',   [CompanyDashboard::class, 'index'])->name('dashboard');
     Route::get('/perfil',      [CompanyDashboard::class, 'profile'])->name('profile');
     Route::put('/perfil',      [CompanyDashboard::class, 'updateProfile'])->name('profile.update');
@@ -77,7 +77,7 @@ Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company'])
 });
 
 // --- Panel de ESTUDIANTE ---
-Route::prefix('estudiante')->name('student.')->middleware(['auth', 'role:student'])->group(function () {
+Route::prefix('estudiante')->name('student.')->middleware(['auth', 'role:student', 'prevent-back'])->group(function () {
     Route::get('/dashboard',     [StudentDashboard::class, 'index'])->name('dashboard');
     Route::get('/perfil',        [StudentDashboard::class, 'profile'])->name('profile');
     Route::put('/perfil',        [StudentDashboard::class, 'updateProfile'])->name('profile.update');
