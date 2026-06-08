@@ -169,8 +169,8 @@
             </div>
             @if($company->isApproved())
                 <a href="{{ route('company.jobs.create') }}"
-                   style="background:#00963F; color:#fff; border:none; border-radius:10px; padding:.65rem 1.3rem; font-weight:700; font-size:.9rem; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem; transition:background .18s; flex-shrink:0;"
-                   onmouseover="this.style.background='#007832'" onmouseout="this.style.background='#00963F'">
+                style="background:#00963F; color:#fff; border:none; border-radius:10px; padding:.65rem 1.3rem; font-weight:700; font-size:.9rem; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem; transition:background .18s; flex-shrink:0;"
+            onmouseover="this.style.background='#007832'" onmouseout="this.style.background='#00963F'">
                     <i class="bi bi-plus-circle-fill"></i>Publicar vacante
                 </a>
             @endif
@@ -181,7 +181,7 @@
     <div class="row g-3 mb-4">
         <div class="col-sm-6 col-lg-3">
             <div class="kpi-card d-flex align-items-center gap-3"
-                 style="border-left:4px solid #273475;">
+                style="border-left:4px solid #273475;">
                 <div class="kpi-icon" style="background:#eef0f9; color:#273475;">
                     <i class="bi bi-briefcase-fill"></i>
                 </div>
@@ -193,7 +193,7 @@
         </div>
         <div class="col-sm-6 col-lg-3">
             <div class="kpi-card d-flex align-items-center gap-3"
-                 style="border-left:4px solid #00963F;">
+                style="border-left:4px solid #00963F;">
                 <div class="kpi-icon" style="background:#e6f7ed; color:#00963F;">
                     <i class="bi bi-check-circle-fill"></i>
                 </div>
@@ -205,7 +205,7 @@
         </div>
         <div class="col-sm-6 col-lg-3">
             <div class="kpi-card d-flex align-items-center gap-3"
-                 style="border-left:4px solid #6366f1;">
+                style="border-left:4px solid #6366f1;">
                 <div class="kpi-icon" style="background:#ede9fe; color:#4f46e5;">
                     <i class="bi bi-people-fill"></i>
                 </div>
@@ -217,7 +217,7 @@
         </div>
         <div class="col-sm-6 col-lg-3">
             <div class="kpi-card d-flex align-items-center gap-3"
-                 style="border-left:4px solid #f59e0b;">
+                style="border-left:4px solid #f59e0b;">
                 <div class="kpi-icon" style="background:#fef3c7; color:#b45309;">
                     <i class="bi bi-inbox-fill"></i>
                 </div>
@@ -259,8 +259,8 @@
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center gap-2">
-                                     <img src="{{ $app->user?->avatar_url ?? asset('images/Logo-Letras-White_.png') }}"
-                                         class="student-avatar" alt="avatar">
+                                    <img src="{{ $app->user?->avatar_url ?? asset('images/Logo-Letras-White_.png') }}"
+                                        class="student-avatar" alt="avatar">
                                     <div>
                                         <div style="font-size:.875rem; font-weight:600; color:#1a1f36;">
                                             {{ Str::limit($app->user?->name ?? '', 22) }}
@@ -295,9 +295,9 @@
                                 <div class="d-flex gap-1">
                                     @if($app->cv_path)
                                         <a href="{{ Storage::url($app->cv_path) }}"
-                                           target="_blank"
-                                           class="btn-action btn-action-cv"
-                                           title="Ver CV">
+                                        target="_blank"
+                                        class="btn-action btn-action-cv"
+                                        title="Ver CV">
                                             <i class="bi bi-file-pdf"></i>
                                         </a>
                                     @endif
@@ -324,9 +324,9 @@
                                                 </div>
                                                 <div class="modal-body px-4 py-3">
                                                     <div class="d-flex align-items-center gap-2 mb-3 p-2 rounded"
-                                                         style="background:#f8f9ff; border:1px solid #eef0f9;">
+                                                        style="background:#f8f9ff; border:1px solid #eef0f9;">
                                                         <img src="{{ $app->user?->avatar_url ?? asset('images/Logo-Letras-White_.png') }}"
-                                                             class="student-avatar" alt="avatar">
+                                                            class="student-avatar" alt="avatar">
                                                         <div>
                                                             <div style="font-size:.875rem; font-weight:600;">{{ $app->user?->name ?? 'Usuario' }}</div>
                                                             <div style="font-size:.75rem; color:#9ca3af;">{{ $app->jobPosting?->title ?? '' }}</div>
@@ -343,7 +343,7 @@
                                                     <div class="mb-2">
                                                         <label class="form-label">Notas internas <span class="text-muted fw-normal">(opcional)</span></label>
                                                         <textarea name="company_notes" class="form-control" rows="2"
-                                                                  placeholder="Comentarios internos sobre el candidato...">{{ $app->company_notes }}</textarea>
+                                                                placeholder="Comentarios internos sobre el candidato...">{{ $app->company_notes }}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

@@ -129,11 +129,38 @@
         cursor: pointer;
     }
 
+    /* Botón Google */
+    .btn-google-login {
+        background: #34d399;
+        color: #1f2937;
+        border: none;
+        border-radius: 12px;
+        padding: .85rem;
+        font-weight: 700;
+        font-size: .95rem;
+        width: 100%;
+        transition: all .2s;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-decoration: none;
+        margin-bottom: 1.5rem;
+    }
+
     .btn-company-login:hover {
         background: #10b981;
         color: #0d1b4c;
         transform: translateY(-1px);
         box-shadow: 0 8px 24px rgba(52,211,153,.3);
+    }
+
+    .btn-google-login:hover {
+        background: #f3f4f6;
+        color: #111827;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(255,255,255,.1);
     }
 
     /* Link registrar empresa */
@@ -180,8 +207,8 @@
         {{-- Header --}}
         <div class="text-center mb-4">
             <img src="{{ asset('images/LogoWhite_.png') }}"
-                 alt="UNIPAZ — Instituto Universitario de la Paz"
-                 style="height: 56px; width: auto; margin-bottom: 1.1rem;">
+                alt="UNIPAZ — Instituto Universitario de la Paz"
+                style="height: 56px; width: auto; margin-bottom: 1.1rem;">
             <h1 style="font-size:1.4rem; font-weight:800; color:#fff;">Iniciar Sesión</h1>
             <p style="color:rgba(255,255,255,.48); font-size:.86rem; margin-bottom:0;">
                 Ingresa con tus credenciales para acceder a tu cuenta
@@ -213,10 +240,10 @@
                                         <i class="bi bi-envelope"></i>
                                     </span>
                                     <input type="email" name="email"
-                                           class="form-control border-start-0 @error('email') is-invalid @enderror"
-                                           value="{{ old('email') }}"
-                                           placeholder="correo@ejemplo.com"
-                                           required autofocus>
+                                        class="form-control border-start-0 @error('email') is-invalid @enderror"
+                                        value="{{ old('email') }}"
+                                        placeholder="correo@ejemplo.com"
+                                        required autofocus>
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -230,8 +257,8 @@
                                         <i class="bi bi-lock"></i>
                                     </span>
                                     <input type="password" name="password"
-                                           class="form-control border-start-0 @error('password') is-invalid @enderror"
-                                           placeholder="••••••••" required>
+                                        class="form-control border-start-0 @error('password') is-invalid @enderror"
+                                        placeholder="••••••••" required>
                                 </div>
                             </div>
 
@@ -250,7 +277,12 @@
                         </form>
 
                         <div class="text-center mt-4 pt-3"
-                             style="border-top: 1px solid rgba(255,255,255,.08);">
+                            style="border-top: 1px solid rgba(255,255,255,.08);">
+                            
+                            <a href="{{ route('auth.google') }}" class="btn-google-login">
+                                <i class="bi bi-google"></i> Iniciar sesión con Google
+                            </a>
+
                             <span style="color:rgba(255,255,255,.4); font-size:.82rem;">
                                 ¿No tienes cuenta aún?
                             </span>
