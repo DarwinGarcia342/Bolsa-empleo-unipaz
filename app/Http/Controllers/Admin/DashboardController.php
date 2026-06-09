@@ -197,7 +197,7 @@ class DashboardController extends Controller
     {
         $newStatus = $jobPosting->status === 'active' ? 'paused' : 'active';
         $jobPosting->update(['status' => $newStatus]);
-        $label = $newStatus === 'active' ? 'activada' : 'pausada';
+        $label = $newStatus === 'active' ? 'reanudada' : 'pausada';
         return back()->with('success', "Vacante \"{$jobPosting->title}\" {$label}.");
     }
 

@@ -138,7 +138,7 @@
                                                 <i class="bi bi-pause-fill"></i>
                                             </button>
                                         @else
-                                            <button class="btn btn-outline-success btn-sm py-0 px-2" title="Activar vacante"
+                                            <button class="btn btn-outline-success btn-sm py-0 px-2" title="Reanudar vacante"
                                                     onclick="return confirm('¿Activar esta vacante?')">
                                                 <i class="bi bi-play-fill"></i>
                                             </button>

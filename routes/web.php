@@ -67,6 +67,9 @@ Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company', 
     Route::get('/reportes', [CompanyDashboard::class, 'reports'])->name('reports');
 
     Route::middleware('company.approved')->group(function () {
+        Route::post('/vacantes/{jobPosting}/toggle', [JobPostingController::class, 'toggleStatus'])
+            ->name('jobs.toggle');
+
         // CRUD de vacantes
         Route::resource('vacantes', JobPostingController::class, [
             'names'  => [
