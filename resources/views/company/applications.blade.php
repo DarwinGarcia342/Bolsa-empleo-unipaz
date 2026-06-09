@@ -83,7 +83,7 @@
                             <!-- CV -->
                             @if($app->cv_path)
                                 <a href="{{ asset('storage/' . $app->cv_path) }}"
-                                   target="_blank" class="btn btn-outline-primary btn-sm">
+                                target="_blank" class="btn btn-outline-primary btn-sm">
                                     <i class="bi bi-file-earmark-pdf me-1"></i>Ver CV
                                 </a>
                             @endif
@@ -109,7 +109,7 @@
                                     <option value="rejected"  @selected($app->status === 'rejected')>No seleccionado</option>
                                 </select>
                                 <textarea name="company_notes" class="form-control form-control-sm mb-2"
-                                          rows="2" placeholder="Nota interna (opcional, no la ve el estudiante)">{{ $app->company_notes }}</textarea>
+                                        rows="2" placeholder="Nota interna (opcional, no la ve el estudiante)">{{ $app->company_notes }}</textarea>
                                 <button type="submit" class="btn btn-primary btn-sm w-100">
                                     <i class="bi bi-check me-1"></i>Guardar
                                 </button>

@@ -24,7 +24,7 @@
             <div class="row g-2">
                 <div class="col-md-3">
                     <input type="text" name="search" class="form-control form-control-sm"
-                           placeholder="Buscar por título o empresa..." value="{{ request('search') }}">
+                        placeholder="Buscar por título o empresa..." value="{{ request('search') }}">
                 </div>
                 <div class="col-md-2">
                     <select name="status" class="form-select form-select-sm">
