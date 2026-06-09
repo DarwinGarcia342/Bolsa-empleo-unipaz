@@ -129,10 +129,6 @@ class JobPostingController extends Controller
         $company = Auth::user()->company;
         if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
 
-        if ($jobPosting->status === 'closed') {
-            return back()->with('error', 'Las vacantes cerradas no se pueden reanudar.');
-        }
-
         $newStatus = $jobPosting->status === 'active' ? 'paused' : 'active';
         $jobPosting->update(['status' => $newStatus]);
 

@@ -127,6 +127,35 @@ class DashboardController extends Controller
         return view('company.reports', compact('company', 'stats', 'applicationsByStatus', 'jobsPerformance'));
     }
 
+    public function downloadReport()
+    {
+        $company = Auth::user()->company;
+
+        $applicationsQuery = Application::whereHas('jobPosting', fn($q) => $q->where('company_id', $company->id));
+
+        $stats = [
+            'jobs_total' => JobPosting::where('company_id', $company->id)->count(),
+            'jobs_active' => JobPosting::where('company_id', $company->id)->where('status', 'active')->count(),
+            'applications_total' => (clone $applicationsQuery)->count(),
+            'applications_pending' => (clone $applicationsQuery)->where('status', 'pending')->count(),
+            'applications_accepted' => (clone $applicationsQuery)->where('status', 'accepted')->count(),
+            'applications_rejected' => (clone $applicationsQuery)->where('status', 'rejected')->count(),
+        ];
+
+        $jobsPerformance = JobPosting::where('company_id', $company->id)
+            ->withCount('applications')
+            ->orderByDesc('applications_count')
+            ->get();
+
+        // Verifica si la librería DomPDF está instalada
+        if (class_exists('\Barryvdh\DomPDF\Facade\Pdf')) {
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('company.reports_pdf', compact('company', 'stats', 'jobsPerformance'));
+            return $pdf->download('Reporte_BolsaUnipaz_' . now()->format('Y-m-d') . '.pdf');
+        }
+
+        return back()->with('error', 'El motor de PDF no está configurado. Instale barryvdh/laravel-dompdf.');
+    }
+
     public function updateApplicationStatus(Request $request, Application $application)
     {
         // Verificar que la postulación pertenezca a una vacante de esta empresa
