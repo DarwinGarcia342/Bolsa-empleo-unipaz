@@ -733,15 +733,8 @@
 
     <!-- ═══ Contenido principal ═══ -->
     <main class="sidebar-layout">
-<<<<<<< HEAD
-
         {{-- Solo mostramos la sidebar si el usuario está autenticado --}}
         @auth
-=======
-    
-    {{-- Solo mostramos la sidebar si el usuario está autenticado --}}
-    @auth
->>>>>>> cdbf8cf5d863319760f9adc55c8961371a8d351e
         <aside class="sidebar d-none d-md-block">
             @if(auth()->user()->isAdmin())
             <div class="sidebar-section-label">Panel de Administración</div>
@@ -882,7 +875,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        @stack('scripts'),
+        @stack('scripts')
 
 </body>
 
