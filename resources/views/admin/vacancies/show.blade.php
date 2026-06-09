@@ -145,12 +145,12 @@
                     <form method="POST" action="{{ route('admin.vacancies.toggle', $jobPosting) }}">
                         @csrf
                         @php
-                            $actionText = $jobPosting->status === 'active' ? 'pausar' : 'activar';
+                            $actionText = $jobPosting->status === 'active' ? 'pausar' : 'reanudar';
                         @endphp
                         <button type="submit" class="btn-action btn-action-toggle"
                                 onclick="return confirm('¿{{ $actionText }} esta vacante?')">
                             <i class="bi bi-{{ $jobPosting->status === 'active' ? 'pause-fill' : 'play-fill' }}"></i>
-                            {{ $jobPosting->status === 'active' ? 'Pausar' : 'Activar' }}
+                            {{ $jobPosting->status === 'active' ? 'Pausar' : 'Reanudar' }}
                         </button>
                     </form>
                 @endif
