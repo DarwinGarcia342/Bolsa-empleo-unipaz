@@ -179,7 +179,7 @@
                             <span class="law-category" style="margin-left: 0.75rem;">{{ $law->category }}</span>
                         </div>
                         @if($law->relevant_articles && count($law->relevant_articles) > 0)
-                            <button type="button" class="law-item-toggle" onclick="toggleLawDetails(this, {{$loop->index }})">
+                            <button type="button" class="law-item-toggle" onclick="toggleLawDetails(this, {{ $loop->index }})">
                                 <i class="bi bi-chevron-down"></i>
                             </button>
                         @endif
