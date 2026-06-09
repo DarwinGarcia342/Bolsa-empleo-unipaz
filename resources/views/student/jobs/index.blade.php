@@ -11,7 +11,7 @@
             <div class="row g-2">
                 <div class="col-md-4">
                     <input type="text" name="search" class="form-control" placeholder="Buscar por cargo o empresa..."
-                           value="{{ request('search') }}">
+                        value="{{ request('search') }}">
                 </div>
                 <div class="col-md-3">
                     <select name="area" class="form-select">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="card-footer bg-transparent border-0">
                         <a href="{{ route('student.jobs.show', $job) }}"
-                           class="btn btn-primary btn-sm w-100">
+                    class="btn btn-primary btn-sm w-100">
                             Ver detalles y postularme
                         </a>
                     </div>
