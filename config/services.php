@@ -32,10 +32,11 @@ return [
     | Configura en: https://console.cloud.google.com/
     | Authorized redirect URI: https://tu-dominio.com/auth/google/callback
     */
-    'google' => [
-        'client_id'     => env('988535907686-27fnh8090pmo7ubo2u1kkcauhok4bapk.apps.googleusercontent.com'),
-        'client_secret' => env('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'),
-        'redirect'      => env('http://127.0.0.1:8000/auth/google/callback'),
-    ],
+    //  ¡Copia y pega este bloque exacto en las líneas 35 a 39!
+'google' => [
+    'client_id'     => env('GOOGLE_CLIENT_ID'),
+    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    'redirect'      => env('GOOGLE_REDIRECT_URI'),
+],
 
 ];
