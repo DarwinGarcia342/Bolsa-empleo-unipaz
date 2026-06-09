@@ -742,6 +742,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.profile') }}" class="nav-link {{ request()->routeIs('admin.profile') ? 'active' : '' }}">
+                        <i class="bi bi-person-gear"></i> Mi Perfil
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.companies') }}" class="nav-link {{ request()->routeIs('admin.companies') ? 'active' : '' }}">
                         <i class="bi bi-building"></i> Empresas
                         @if(isset($pendingCompanies) && $pendingCompanies->count() > 0)
@@ -785,6 +790,11 @@
                         <i class="bi bi-building"></i> Perfil Empresa
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('company.reports') }}" class="nav-link {{ request()->routeIs('company.reports') ? 'active' : '' }}">
+                        <i class="bi bi-graph-up"></i> Reportes
+                    </a>
+                </li>
             </ul>
             @elseif(auth()->user()->isStudent())
             <div class="sidebar-section-label">Panel de Estudiante</div>
@@ -802,6 +812,11 @@
                 <li class="nav-item">
                     <a href="{{ route('student.applications') }}" class="nav-link {{ request()->routeIs('student.applications') ? 'active' : '' }}">
                         <i class="bi bi-file-earmark-check"></i> Mis Postulaciones
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('student.jobs.favorites') }}" class="nav-link {{ request()->routeIs('student.jobs.favorites') ? 'active' : '' }}">
+                        <i class="bi bi-star"></i> Favoritos
                     </a>
                 </li>
             </ul>

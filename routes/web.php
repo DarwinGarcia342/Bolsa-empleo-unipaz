@@ -35,9 +35,15 @@ Route::get('/notifications/{id}/read', [NotificationController::class, 'markAsRe
     ->middleware('auth')
     ->name('notifications.read');
 
+Route::get('/hojas-de-vida/{user}', [StudentDashboard::class, 'resume'])
+    ->middleware('auth')
+    ->name('resumes.show');
+
 // --- Panel de ADMINISTRADOR ---
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin', 'prevent-back'])->group(function () {
     Route::get('/dashboard',                [AdminDashboard::class, 'index'])->name('dashboard');
+    Route::get('/perfil',                   [AdminDashboard::class, 'profile'])->name('profile');
+    Route::put('/perfil',                   [AdminDashboard::class, 'updateProfile'])->name('profile.update');
     Route::get('/empresas',                 [AdminDashboard::class, 'companies'])->name('companies');
     Route::post('/empresas/{company}/aprobar', [AdminDashboard::class, 'approveCompany'])->name('companies.approve');
     Route::post('/empresas/{company}/rechazar', [AdminDashboard::class, 'rejectCompany'])->name('companies.reject');
@@ -58,6 +64,7 @@ Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company', 
     Route::get('/postulaciones', [CompanyDashboard::class, 'applications'])->name('applications');
     Route::put('/postulaciones/{application}', [CompanyDashboard::class, 'updateApplicationStatus'])
         ->name('applications.update');
+    Route::get('/reportes', [CompanyDashboard::class, 'reports'])->name('reports');
 
     Route::middleware('company.approved')->group(function () {
         // CRUD de vacantes
@@ -81,10 +88,13 @@ Route::prefix('estudiante')->name('student.')->middleware(['auth', 'role:student
     Route::get('/dashboard',     [StudentDashboard::class, 'index'])->name('dashboard');
     Route::get('/perfil',        [StudentDashboard::class, 'profile'])->name('profile');
     Route::put('/perfil',        [StudentDashboard::class, 'updateProfile'])->name('profile.update');
+    Route::get('/perfil/hoja-de-vida', [StudentDashboard::class, 'myResume'])->name('profile.resume');
     Route::get('/postulaciones', [StudentDashboard::class, 'myApplications'])->name('applications');
+    Route::get('/favoritos',     [JobController::class, 'favorites'])->name('jobs.favorites');
 
     // Vacantes
     Route::get('/vacantes',              [JobController::class, 'index'])->name('jobs');
     Route::get('/vacantes/{jobPosting}', [JobController::class, 'show'])->name('jobs.show');
+    Route::post('/vacantes/{jobPosting}/favorito', [JobController::class, 'toggleFavorite'])->name('jobs.favorite');
     Route::post('/vacantes/{jobPosting}/postular', [JobController::class, 'apply'])->name('jobs.apply');
 });

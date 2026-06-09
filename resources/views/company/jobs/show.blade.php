@@ -225,6 +225,11 @@
                                     <i class="bi bi-file-pdf"></i>
                                 </a>
                             @endif
+                            <a href="{{ route('resumes.show', $app->user) }}" target="_blank"
+                            style="background:#dcfce7; color:#166534; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
+                            title="Ver hoja de vida HTML">
+                                <i class="bi bi-filetype-html"></i>
+                            </a>
                             <span class="badge {{ $app->status_badge }}" style="font-size:.68rem;">
                                 {{ $app->status_label }}
                             </span>

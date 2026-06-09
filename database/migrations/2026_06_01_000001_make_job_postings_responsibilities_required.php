@@ -40,12 +40,10 @@ return new class extends Migration
                 $table->timestamps();
             });
 
-            DB::statement(<<<'SQL'
-INSERT INTO job_postings (id, company_id, title, description, requirements, responsibilities, area, contract_type, modality, location, salary_range, salary_negotiable, positions, deadline, status, requires_cv, programs_targeted, created_at, updated_at)
-SELECT id, company_id, title, description, requirements, COALESCE(NULLIF(trim(responsibilities), ''), '$defaultResponsibilities'), area, contract_type, modality, location, salary_range, salary_negotiable, positions, deadline, status, requires_cv, programs_targeted, created_at, updated_at FROM job_postings_old;
-SQL
-            );
+            DB::statement("INSERT INTO job_postings (id, company_id, title, description, requirements, responsibilities, area, contract_type, modality, location, salary_range, salary_negotiable, positions, deadline, status, requires_cv, programs_targeted, created_at, updated_at)
+SELECT id, company_id, title, description, requirements, COALESCE(NULLIF(trim(responsibilities), ''), " . DB::getPdo()->quote($defaultResponsibilities) . "), area, contract_type, modality, location, salary_range, salary_negotiable, positions, deadline, status, requires_cv, programs_targeted, created_at, updated_at FROM job_postings_old");
 
+            $this->rebuildSqliteApplicationForeignKey();
             Schema::drop('job_postings_old');
             DB::statement('PRAGMA foreign_keys = ON');
 
@@ -103,6 +101,7 @@ SELECT id, company_id, title, description, requirements, responsibilities, area,
 SQL
             );
 
+            $this->rebuildSqliteApplicationForeignKey();
             Schema::drop('job_postings_old');
             DB::statement('PRAGMA foreign_keys = ON');
 
@@ -120,5 +119,35 @@ SQL
         }
 
         throw new \RuntimeException("Unsupported database driver [{$driver}] for reverting job_postings.responsibilities nullability.");
+    }
+
+    private function rebuildSqliteApplicationForeignKey(): void
+    {
+        if (!Schema::hasTable('applications')) {
+            return;
+        }
+
+        Schema::rename('applications', 'applications_old');
+
+        Schema::create('applications', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('job_posting_id')->constrained()->onDelete('cascade');
+            $table->text('cover_letter')->nullable();
+            $table->string('cv_path')->nullable();
+            $table->enum('status', ['pending', 'reviewed', 'interview', 'accepted', 'rejected'])->default('pending');
+            $table->text('company_notes')->nullable();
+            $table->timestamp('reviewed_at')->nullable();
+            $table->unique(['user_id', 'job_posting_id'], 'applications_student_job_unique');
+            $table->timestamps();
+        });
+
+        DB::statement(<<<'SQL'
+INSERT INTO applications (id, user_id, job_posting_id, cover_letter, cv_path, status, company_notes, reviewed_at, created_at, updated_at)
+SELECT id, user_id, job_posting_id, cover_letter, cv_path, status, company_notes, reviewed_at, created_at, updated_at FROM applications_old;
+SQL
+        );
+
+        Schema::drop('applications_old');
     }
 };

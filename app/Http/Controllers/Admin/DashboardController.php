@@ -8,6 +8,8 @@ use App\Models\Company;
 use App\Models\JobPosting;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -54,6 +56,34 @@ class DashboardController extends Controller
             'totalVacantes', 'totalPostulaciones', 'monthlyApplications',
             'recentCompanies', 'recentApplications', 'topAreas'
         ));
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+        return view('admin.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        return back()->with('success', 'Perfil de administrador actualizado.');
     }
 
     // ─── Gestión de empresas ──────────────────────────────────────

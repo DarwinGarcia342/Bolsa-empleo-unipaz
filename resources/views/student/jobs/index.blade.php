@@ -3,7 +3,12 @@
 
 @section('content')
 <div class="container py-4">
-    <h2 class="fw-bold mb-4"><i class="bi bi-briefcase text-primary me-2"></i>Vacantes disponibles</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0"><i class="bi bi-briefcase text-primary me-2"></i>Vacantes disponibles</h2>
+        <a href="{{ route('student.jobs.favorites') }}" class="btn btn-outline-warning btn-sm">
+            <i class="bi bi-star me-1"></i>Favoritos
+        </a>
+    </div>
 
     <!-- Filtros -->
     <form method="GET" class="card mb-4">
@@ -84,6 +89,13 @@
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-0">
+                        <form method="POST" action="{{ route('student.jobs.favorite', $job) }}" class="mb-2">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-warning btn-sm w-100">
+                                <i class="bi bi-star{{ in_array($job->id, $favoriteIds ?? []) ? '-fill' : '' }} me-1"></i>
+                                {{ in_array($job->id, $favoriteIds ?? []) ? 'Quitar de favoritos' : 'Guardar favorito' }}
+                            </button>
+                        </form>
                         <a href="{{ route('student.jobs.show', $job) }}"
                     class="btn btn-primary btn-sm w-100">
                             Ver detalles y postularme

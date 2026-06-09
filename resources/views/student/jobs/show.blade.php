@@ -27,6 +27,14 @@
                     </div>
 
                     <!-- Info rápida -->
+                    <form method="POST" action="{{ route('student.jobs.favorite', $jobPosting) }}" class="mb-4">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-warning btn-sm">
+                            <i class="bi bi-star{{ $isFavorite ? '-fill' : '' }} me-1"></i>
+                            {{ $isFavorite ? 'Quitar de favoritos' : 'Guardar como favorita' }}
+                        </button>
+                    </form>
+
                     <div class="row g-3 mb-4 p-3 bg-light rounded-3">
                         <div class="col-6 col-md-3 text-center">
                             <i class="bi bi-geo-alt text-primary fs-4"></i>

@@ -45,6 +45,12 @@ class JobPosting extends Model
         return $this->hasMany(Application::class);
     }
 
+    public function favoritedByStudents()
+    {
+        return $this->belongsToMany(User::class, 'student_favorite_job_postings')
+            ->withTimestamps();
+    }
+
     // ─── Helpers ─────────────────────────────────────────────────
     public function isActive(): bool
     {
