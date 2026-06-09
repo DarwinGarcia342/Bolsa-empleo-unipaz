@@ -69,8 +69,8 @@
         </div>
         @if($company->isApproved())
             <a href="{{ route('company.jobs.create') }}"
-               style="background:#00963F; color:#fff; border:none; border-radius:10px; padding:.6rem 1.2rem; font-weight:700; font-size:.88rem; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;"
-               onmouseover="this.style.background='#007832'" onmouseout="this.style.background='#00963F'">
+            style="background:#00963F; color:#fff; border:none; border-radius:10px; padding:.6rem 1.2rem; font-weight:700; font-size:.88rem; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;"
+            onmouseover="this.style.background='#007832'" onmouseout="this.style.background='#00963F'">
                 <i class="bi bi-plus-circle-fill"></i>Nueva vacante
             </a>
         @endif
@@ -135,7 +135,7 @@
                     </a>
                     @if($job->status !== 'closed')
                         <form method="POST" action="{{ route('company.jobs.destroy', $job) }}"
-                              onsubmit="return confirm('¿Cerrar esta vacante? Los postulantes existentes no se verán afectados.')">
+                            onsubmit="return confirm('¿Cerrar esta vacante? Los postulantes existentes no se verán afectados.')">
                             @csrf @method('DELETE')
                             <button type="submit" class="btn-action btn-action-close">
                                 <i class="bi bi-x-circle"></i> Cerrar
