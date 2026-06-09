@@ -87,6 +87,10 @@
                                     <i class="bi bi-file-earmark-pdf me-1"></i>Ver CV
                                 </a>
                             @endif
+                            <a href="{{ route('resumes.show', $app->user) }}"
+                               target="_blank" class="btn btn-outline-success btn-sm">
+                                <i class="bi bi-filetype-html me-1"></i>HTML
+                            </a>
 
                             <!-- Cambiar estado -->
                             <button class="btn btn-outline-secondary btn-sm"

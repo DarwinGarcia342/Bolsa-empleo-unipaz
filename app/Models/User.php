@@ -64,6 +64,12 @@ class User extends Authenticatable
         return $this->hasMany(Application::class);
     }
 
+    public function favoriteJobPostings()
+    {
+        return $this->belongsToMany(JobPosting::class, 'student_favorite_job_postings')
+            ->withTimestamps();
+    }
+
     // ─── Accessor: avatar con fallback ───────────────────────────
     public function getAvatarUrlAttribute(): string
     {

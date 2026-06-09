@@ -42,9 +42,13 @@ class JobController extends Controller
             ->pluck('job_posting_id')
             ->toArray();
 
+        $favoriteIds = Auth::user()->favoriteJobPostings()
+            ->pluck('job_postings.id')
+            ->toArray();
+
         $areas = JobPosting::active()->distinct()->pluck('area')->filter()->values();
 
-        return view('student.jobs.index', compact('jobPostings', 'appliedIds', 'areas'));
+        return view('student.jobs.index', compact('jobPostings', 'appliedIds', 'favoriteIds', 'areas'));
     }
 
     public function show(JobPosting $jobPosting)
@@ -57,8 +61,46 @@ class JobController extends Controller
         $hasApplied = Application::where('user_id', Auth::id())
             ->where('job_posting_id', $jobPosting->id)
             ->exists();
+        $isFavorite = Auth::user()->favoriteJobPostings()
+            ->where('job_postings.id', $jobPosting->id)
+            ->exists();
 
-        return view('student.jobs.show', compact('jobPosting', 'hasApplied'));
+        return view('student.jobs.show', compact('jobPosting', 'hasApplied', 'isFavorite'));
+    }
+
+    public function favorites()
+    {
+        $jobPostings = Auth::user()->favoriteJobPostings()
+            ->active()
+            ->with('company')
+            ->latest('student_favorite_job_postings.created_at')
+            ->paginate(12);
+
+        $appliedIds = Application::where('user_id', Auth::id())
+            ->pluck('job_posting_id')
+            ->toArray();
+        $favoriteIds = $jobPostings->pluck('id')->toArray();
+        $areas = JobPosting::active()->distinct()->pluck('area')->filter()->values();
+
+        return view('student.jobs.index', compact('jobPostings', 'appliedIds', 'favoriteIds', 'areas'));
+    }
+
+    public function toggleFavorite(JobPosting $jobPosting)
+    {
+        if (!$jobPosting->isActive()) {
+            return back()->with('error', 'Esta vacante ya no está disponible.');
+        }
+
+        $user = Auth::user();
+        $exists = $user->favoriteJobPostings()
+            ->where('job_postings.id', $jobPosting->id)
+            ->exists();
+
+        $exists
+            ? $user->favoriteJobPostings()->detach($jobPosting->id)
+            : $user->favoriteJobPostings()->attach($jobPosting->id);
+
+        return back()->with('success', $exists ? 'Vacante retirada de favoritos.' : 'Vacante guardada en favoritos.');
     }
 
     public function apply(Request $request, JobPosting $jobPosting)
@@ -79,11 +121,13 @@ class JobController extends Controller
             return back()->with('error', 'Esta vacante ya no está disponible.');
         }
 
+        $cvRule = $jobPosting->requires_cv && !$user->studentProfile?->cv_path
+            ? 'required|file|mimes:pdf|max:20480'
+            : 'nullable|file|mimes:pdf|max:20480';
+
         $request->validate([
             'cover_letter' => 'nullable|string|max:2000',
-            'cv'           => $jobPosting->requires_cv
-                ? 'required|file|mimes:pdf|max:20480'
-                : 'nullable|file|mimes:pdf|max:20480',
+            'cv'           => $cvRule,
         ]);
 
         $cvPath = null;
