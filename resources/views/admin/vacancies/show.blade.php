@@ -286,8 +286,8 @@
                             <div class="d-flex align-items-center gap-1">
                                 @if($app->cv_path)
                                     <a href="{{ Storage::url($app->cv_path) }}" target="_blank"
-                                       style="background:#fee2e2; color:#b91c1c; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
-                                       title="Ver CV">
+                                    style="background:#fee2e2; color:#b91c1c; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
+                                    title="Ver CV">
                                         <i class="bi bi-file-pdf"></i>
                                     </a>
                                 @endif

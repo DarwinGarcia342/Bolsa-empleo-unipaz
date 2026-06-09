@@ -48,14 +48,14 @@
                             <div class="col-md-8">
                                 <label class="form-label small fw-semibold">Nombre de la empresa *</label>
                                 <input type="text" name="company_name"
-                                       class="form-control @error('company_name') is-invalid @enderror"
-                                       value="{{ old('company_name', $company->company_name) }}" required>
+                                    class="form-control @error('company_name') is-invalid @enderror"
+                                    value="{{ old('company_name', $company->company_name) }}" required>
                                 @error('company_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-semibold">NIT</label>
                                 <input type="text" name="nit" class="form-control"
-                                       value="{{ old('nit', $company->nit) }}" placeholder="900.123.456-7">
+                                    value="{{ old('nit', $company->nit) }}" placeholder="900.123.456-7">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Sector / Industria *</label>
@@ -76,31 +76,31 @@
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Persona de contacto *</label>
                                 <input type="text" name="contact_person"
-                                       class="form-control @error('contact_person') is-invalid @enderror"
-                                       value="{{ old('contact_person', $company->contact_person) }}" required>
+                                    class="form-control @error('contact_person') is-invalid @enderror"
+                                    value="{{ old('contact_person', $company->contact_person) }}" required>
                                 @error('contact_person')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Teléfono</label>
                                 <input type="text" name="phone" class="form-control"
-                                       value="{{ old('phone', $company->phone) }}" placeholder="+57 300 000 0000">
+                                    value="{{ old('phone', $company->phone) }}" placeholder="+57 300 000 0000">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Sitio web</label>
                                 <input type="url" name="website" class="form-control @error('website') is-invalid @enderror"
-                                       value="{{ old('website', $company->website) }}" placeholder="https://www.ejemplo.com">
+                                    value="{{ old('website', $company->website) }}" placeholder="https://www.ejemplo.com">
                                 @error('website')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Dirección</label>
                                 <input type="text" name="address" class="form-control"
-                                       value="{{ old('address', $company->address) }}"
-                                       placeholder="Calle / Carrera, Barrio, Ciudad">
+                                    value="{{ old('address', $company->address) }}"
+                                    placeholder="Calle / Carrera, Barrio, Ciudad">
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Descripción de la empresa</label>
                                 <textarea name="description" class="form-control" rows="4"
-                                          placeholder="Cuéntale a los estudiantes sobre tu empresa, misión y cultura...">{{ old('description', $company->description) }}</textarea>
+                                        placeholder="Cuéntale a los estudiantes sobre tu empresa, misión y cultura...">{{ old('description', $company->description) }}</textarea>
                                 <small class="text-muted">Máximo 2000 caracteres</small>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Subir nuevo logo</label>
                                 <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror"
-                                       accept=".jpg,.jpeg,.png">
+                                    accept=".jpg,.jpeg,.png">
                                 <small class="text-muted">JPG o PNG, máximo 2MB</small>
                                 @error('logo')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
