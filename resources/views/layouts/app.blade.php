@@ -583,30 +583,25 @@
                 <ul class="navbar-nav ms-auto align-items-lg-center gap-1 pt-2 pt-lg-0">
 
                     @auth
-                    @if(auth()->user()->isAdmin())
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}"
-                            href="{{ route('admin.dashboard') }}">
-                            <i class="bi bi-speedometer2 me-1"></i>Panel Admin
-                        </a>
-                    </li>
-                    @endif
-                    @elseif(auth()->user()->isStudent())
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('student.*') ? 'active' : '' }}"
-                            href="{{ route('student.dashboard') }}">
-                            <i class="bi bi-speedometer2 me-1"></i>Panel Estudiante
-                        </a>
-                    </li>
-                    @endif
-                    @elseif(auth()->user()->isCompany())
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('company.*') ? 'active' : '' }}"
-                            href="{{ route('company.dashboard') }}">
-                            <i class="bi bi-speedometer2 me-1"></i>Panel Empresa
-                        </a>
-                    </li>
-                    @endif
+                        @if(auth()->user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                                <i class="bi bi-speedometer2 me-1"></i>Panel Admin
+                            </a>
+                        </li>
+                        @elseif(auth()->user()->isStudent())
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('student.*') ? 'active' : '' }}" href="{{ route('student.dashboard') }}">
+                                <i class="bi bi-speedometer2 me-1"></i>Panel Estudiante
+                            </a>
+                        </li>
+                        @elseif(auth()->user()->isCompany())
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('company.*') ? 'active' : '' }}" href="{{ route('company.dashboard') }}">
+                                <i class="bi bi-speedometer2 me-1"></i>Panel Empresa
+                            </a>
+                        </li>
+                        @endif
 
                     <!-- Notificaciones -->
                     <li class="nav-item dropdown ms-1">
