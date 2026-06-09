@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 // --- Pagina principal publica ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// --- Healthcheck para Railway ---
+Route::get('/up', function () {
+    return response('OK', 200);
+});
+
 // --- Autenticacion ---
 Route::middleware('guest')->group(function () {
     Route::get('/login',    [LoginController::class, 'showLogin'])->name('login');
