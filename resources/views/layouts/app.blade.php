@@ -592,33 +592,16 @@
                     </li>
                     @elseif(auth()->user()->isStudent())
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('student.jobs') ? 'active' : '' }}"
-                            href="{{ route('student.jobs') }}">
-                            <i class="bi bi-search me-1"></i>Vacantes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('student.applications') ? 'active' : '' }}"
-                            href="{{ route('student.applications') }}">
-                            <i class="bi bi-file-earmark-check me-1"></i>Mis postulaciones
+                        <a class="nav-link {{ request()->routeIs('student.*') ? 'active' : '' }}"
+                            href="{{ route('student.dashboard') }}">
+                            <i class="bi bi-speedometer2 me-1"></i>Panel Estudiante
                         </a>
                     </li>
                     @elseif(auth()->user()->isCompany())
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('company.dashboard') ? 'active' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('company.*') ? 'active' : '' }}"
                             href="{{ route('company.dashboard') }}">
-                            <i class="bi bi-grid me-1"></i>Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('company.jobs.index') ? 'active' : '' }}"
-                            href="{{ route('company.jobs.index') }}">
-                            <i class="bi bi-briefcase me-1"></i>Mis vacantes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-nav-student" href="{{ route('company.jobs.create') }}">
-                            <i class="bi bi-plus-circle me-1"></i>Publicar vacante
+                            <i class="bi bi-speedometer2 me-1"></i>Panel Empresa
                         </a>
                     </li>
                     @endif
@@ -685,20 +668,10 @@
                                     <i class="bi bi-person me-2 text-unipaz"></i>Mi perfil
                                 </a>
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('student.dashboard') }}">
-                                    <i class="bi bi-grid me-2 text-unipaz"></i>Dashboard
-                                </a>
-                            </li>
                             @elseif(auth()->user()->isCompany())
                             <li>
                                 <a class="dropdown-item" href="{{ route('company.profile') }}">
                                     <i class="bi bi-building me-2 text-unipaz"></i>Mi empresa
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('company.dashboard') }}">
-                                    <i class="bi bi-grid me-2 text-unipaz"></i>Dashboard
                                 </a>
                             </li>
                             @endif
@@ -760,9 +733,15 @@
 
     <!-- ═══ Contenido principal ═══ -->
     <main class="sidebar-layout">
+<<<<<<< HEAD
 
         {{-- Solo mostramos la sidebar si el usuario está autenticado --}}
         @auth
+=======
+    
+    {{-- Solo mostramos la sidebar si el usuario está autenticado --}}
+    @auth
+>>>>>>> cdbf8cf5d863319760f9adc55c8961371a8d351e
         <aside class="sidebar d-none d-md-block">
             @if(auth()->user()->isAdmin())
             <div class="sidebar-section-label">Panel de Administración</div>
