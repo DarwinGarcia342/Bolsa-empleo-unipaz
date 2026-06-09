@@ -185,6 +185,7 @@
                 padding: .3rem .5rem !important;
                 font-size: .72rem;
             }
+
             .brand-sub {
                 font-size: 1.05rem !important;
             }
@@ -558,7 +559,7 @@
     <!-- ═══ Barra superior institucional ═══ -->
     <div class="topbar-institucional d-none d-md-block py-1">
         <div class="container-fluid px-4">
-            {{-- Contenido institucional removido --}}  
+            {{-- Contenido institucional removido --}}
         </div>
     </div>
 
@@ -691,15 +692,15 @@
 
                 </ul>
             </div>
-        {{-- Botones CTA visitantes: siempre visibles, alineados a la derecha --}}
-        @guest
-        <div class="d-flex align-items-center gap-1 ms-auto nav-guest-always">
-            <a class="nav-link btn-nav-student px-3 px-md-4" href="{{ route('login') }}">
-                <i class="bi bi-box-arrow-in-right me-1"></i>
-                <span>Iniciar sesión</span>
-            </a>
-        </div>
-        @endguest
+            {{-- Botones CTA visitantes: siempre visibles, alineados a la derecha --}}
+            @guest
+            <div class="d-flex align-items-center gap-1 ms-auto nav-guest-always">
+                <a class="nav-link btn-nav-student px-3 px-md-4" href="{{ route('login') }}">
+                    <i class="bi bi-box-arrow-in-right me-1"></i>
+                    <span>Iniciar sesión</span>
+                </a>
+            </div>
+            @endguest
         </div>
     </nav>
 
@@ -732,100 +733,108 @@
 
     <!-- ═══ Contenido principal ═══ -->
     <main class="sidebar-layout">
+<<<<<<< HEAD
+
+        {{-- Solo mostramos la sidebar si el usuario está autenticado --}}
+        @auth
+=======
     
     {{-- Solo mostramos la sidebar si el usuario está autenticado --}}
     @auth
+>>>>>>> cdbf8cf5d863319760f9adc55c8961371a8d351e
         <aside class="sidebar d-none d-md-block">
             @if(auth()->user()->isAdmin())
-                <div class="sidebar-section-label">Panel de Administración</div>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.companies') }}" class="nav-link {{ request()->routeIs('admin.companies') ? 'active' : '' }}">
-                            <i class="bi bi-building"></i> Empresas
-                            @if(isset($pendingCompanies) && $pendingCompanies->count() > 0)
-                                <span class="badge rounded-pill bg-danger ms-auto">
-                                    {{ $pendingCompanies->count() }}
-                                </span>
-                            @endif
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.users') }}" class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}">
-                            <i class="bi bi-people"></i> Usuarios
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.vacancies') }}" class="nav-link {{ request()->routeIs('admin.vacancies') ? 'active' : '' }}">
-                            <i class="bi bi-briefcase"></i> Vacantes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.reports') }}" class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
-                            <i class="bi bi-graph-up"></i> Reportes
-                        </a>
-                    </li>
-                </ul>
+            <div class="sidebar-section-label">Panel de Administración</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.companies') }}" class="nav-link {{ request()->routeIs('admin.companies') ? 'active' : '' }}">
+                        <i class="bi bi-building"></i> Empresas
+                        @if(isset($pendingCompanies) && $pendingCompanies->count() > 0)
+                        <span class="badge rounded-pill bg-danger ms-auto">
+                            {{ $pendingCompanies->count() }}
+                        </span>
+                        @endif
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.users') }}" class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}">
+                        <i class="bi bi-people"></i> Usuarios
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.vacancies') }}" class="nav-link {{ request()->routeIs('admin.vacancies') ? 'active' : '' }}">
+                        <i class="bi bi-briefcase"></i> Vacantes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.reports') }}" class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+                        <i class="bi bi-graph-up"></i> Reportes
+                    </a>
+                </li>
+            </ul>
             @elseif(auth()->user()->isCompany())
-                <div class="sidebar-section-label">Panel de Empresa</div>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a href="{{ route('company.dashboard') }}" class="nav-link {{ request()->routeIs('company.dashboard') ? 'active' : '' }}">
-                            <i class="bi bi-grid"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('company.jobs.index') }}" class="nav-link {{ request()->routeIs('company.jobs.*') ? 'active' : '' }}">
-                            <i class="bi bi-briefcase"></i> Mis Vacantes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('company.profile') }}" class="nav-link {{ request()->routeIs('company.profile') ? 'active' : '' }}">
-                            <i class="bi bi-building"></i> Perfil Empresa
-                        </a>
-                    </li>
-                </ul>
+            <div class="sidebar-section-label">Panel de Empresa</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="{{ route('company.dashboard') }}" class="nav-link {{ request()->routeIs('company.dashboard') ? 'active' : '' }}">
+                        <i class="bi bi-grid"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('company.jobs.index') }}" class="nav-link {{ request()->routeIs('company.jobs.*') ? 'active' : '' }}">
+                        <i class="bi bi-briefcase"></i> Mis Vacantes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('company.profile') }}" class="nav-link {{ request()->routeIs('company.profile') ? 'active' : '' }}">
+                        <i class="bi bi-building"></i> Perfil Empresa
+                    </a>
+                </li>
+            </ul>
             @elseif(auth()->user()->isStudent())
-                <div class="sidebar-section-label">Panel de Estudiante</div>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a href="{{ route('student.dashboard') }}" class="nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
-                            <i class="bi bi-house"></i> Inicio
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('student.jobs') }}" class="nav-link {{ request()->routeIs('student.jobs*') ? 'active' : '' }}">
-                            <i class="bi bi-search"></i> Buscar Empleo
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('student.applications') }}" class="nav-link {{ request()->routeIs('student.applications') ? 'active' : '' }}">
-                            <i class="bi bi-file-earmark-check"></i> Mis Postulaciones
-                        </a>
-                    </li>
-                </ul>
+            <div class="sidebar-section-label">Panel de Estudiante</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="{{ route('student.dashboard') }}" class="nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
+                        <i class="bi bi-house"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('student.jobs') }}" class="nav-link {{ request()->routeIs('student.jobs*') ? 'active' : '' }}">
+                        <i class="bi bi-search"></i> Buscar Empleo
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('student.applications') }}" class="nav-link {{ request()->routeIs('student.applications') ? 'active' : '' }}">
+                        <i class="bi bi-file-earmark-check"></i> Mis Postulaciones
+                    </a>
+                </li>
+            </ul>
             @endif
         </aside>
-    @endauth
+        @endauth
 
-    {{-- Área de contenido dinámico --}}
-    <section class="main-content">
-        @yield('content')
-    </section>
-</main>
+        {{-- Área de contenido dinámico --}}
+        <section class="main-content">
+            @yield('content')
+        </section>
+    </main>
 
     <!-- ═══ Footer institucional ═══ -->
     <footer class="footer-unipaz">
         <div class="container-fluid px-4">
             <div class="row g-4">
                 <div class="col-md-4">
-                    <img src="{{ asset('images/LogoWhite_.png') }}"
-                        alt="UNIPAZ"
-                        style="height: 68px; width: auto; margin-bottom: .5rem;">
+                    <a href="https://unipaz.edu.co/" target="_blank" rel="noopener">
+                        <img src="{{ asset('images/LogoWhite_.png') }}"
+                            alt="UNIPAZ"
+                            style="height: 68px; width: auto; margin-bottom: .5rem;">
+                    </a>
                     <div class="footer-green-bar"></div>
                     <p style="font-size:.82rem; line-height:1.6;">
                         Plataforma institucional que conecta el talento universitario de Barrancabermeja con oportunidades laborales de la región y el país.
@@ -835,22 +844,25 @@
                     <div class="text-white fw-600 mb-2" style="font-size:.85rem;">Instituto Universitario de la Paz</div>
                     <ul class="list-unstyled mb-0" style="font-size:.8rem;">
                         <li class="mb-1"><i class="bi bi-geo-alt me-2" style="color:var(--unipaz-green);"></i>Barrancabermeja, Santander</li>
-                        <li class="mb-1"><i class="bi bi-globe me-2" style="color:var(--unipaz-green);"></i><a href="https://unipaz.edu.co/">unipaz.edu.co</a></li>
-                        <li class="mb-1"><i class="bi bi-envelope me-2" style="color:var(--unipaz-green);"></i><a href="https://unipaz.edu.co/transparencia/espacios-de-atencion-ciudadana/ ">contacto@unipaz.edu.co</a></li>
+                        <li class="mb-1"><i class="bi bi-globe me-2" style="color:var(--unipaz-green);"></i><a href="https://unipaz.edu.co/" target="_blank" rel="noopener">unipaz.edu.co</a></li>
+                        <li class="mb-1"><i class="bi bi-envelope me-2" style="color:var(--unipaz-green);"></i><a href="https://unipaz.edu.co/transparencia/espacios-de-atencion-ciudadana/" target="_blank" rel="noopener">contacto@unipaz.edu.co</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 text-center">
                     <div class="text-white fw-600 mb-2" style="font-size:.85rem;">Redes oficiales</div>
-                    <div class="d-flex gap-2 flex-wrap" style="font-size:.8rem;">
-                        <a href="https://www.facebook.com/profile.php?id=100064522486908&locale=es_LA" class="d-flex align-items-center gap-1 py-1 px-2 rounded"
+                    <div class="d-flex gap-2 flex-wrap justify-content-center" style="font-size:.8rem;">
+                        <a href="https://www.facebook.com/profile.php?id=100064522486908&locale=es_LA" target="_blank" rel="noopener"
+                            class="d-flex align-items-center gap-1 py-1 px-2 rounded"
                             style="background:rgba(255,255,255,.07); color:rgba(255,255,255,.6);">
                             <i class="bi bi-facebook"></i> UNIPAZ
                         </a>
-                        <a href="https://www.instagram.com/p/DVdjR5blvzZ/" class="d-flex align-items-center gap-1 py-1 px-2 rounded"
+                        <a href="https://www.instagram.com/p/DVdjR5blvzZ/" target="_blank" rel="noopener"
+                            class="d-flex align-items-center gap-1 py-1 px-2 rounded"
                             style="background:rgba(255,255,255,.07); color:rgba(255,255,255,.6);">
                             <i class="bi bi-instagram"></i> @UNIPAZNoticias
                         </a>
-                        <a href="https://www.youtube.com/@UNIPAZNoticias" class="d-flex align-items-center gap-1 py-1 px-2 rounded"
+                        <a href="https://www.youtube.com/@UNIPAZNoticias" target="_blank" rel="noopener"
+                            class="d-flex align-items-center gap-1 py-1 px-2 rounded"
                             style="background:rgba(255,255,255,.07); color:rgba(255,255,255,.6);">
                             <i class="bi bi-youtube"></i> YouTube
                         </a>
