@@ -87,7 +87,7 @@ class DatabaseSeeder extends Seeder
                 'title'           => 'Asistente Administrativo',
                 'description'     => 'Apoyo en funciones administrativas, gestión documental y atención al cliente para nuestra sede en Barrancabermeja.',
                 'requirements'    => '- Estudiante de Administración de Empresas o Contaduría\n- Manejo de herramientas Office (Word, Excel)\n- Buena presentación y habilidades de comunicación\n- Disponibilidad inmediata',
-                'responsibilities' => '- Archivo y gestión documental\n- Atención telefónica y presencial\n- Elaboración de informes',
+                'responsibilities' => "Apoyar en la recolección de requerimientos, estructurar dashboards básicos en Power BI y documentar procesos de datos.",
                 'area'            => 'Administración de empresas',
                 'contract_type'   => 'Práctica / Pasantía',
                 'modality'        => 'onsite',
