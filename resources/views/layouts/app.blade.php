@@ -590,6 +590,7 @@
                             <i class="bi bi-speedometer2 me-1"></i>Panel Admin
                         </a>
                     </li>
+                    @endif
                     @elseif(auth()->user()->isStudent())
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('student.*') ? 'active' : '' }}"
@@ -597,6 +598,7 @@
                             <i class="bi bi-speedometer2 me-1"></i>Panel Estudiante
                         </a>
                     </li>
+                    @endif
                     @elseif(auth()->user()->isCompany())
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('company.*') ? 'active' : '' }}"
@@ -714,7 +716,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     </div>
-    @endif
     @endforeach
 
     @if($errors->any())
@@ -876,7 +877,5 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         @stack('scripts')
-
 </body>
-
 </html>
