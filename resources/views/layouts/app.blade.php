@@ -610,7 +610,7 @@
                         <a class="nav-link position-relative px-2" href="#" data-bs-toggle="dropdown" title="Notificaciones">
                             <i class="bi bi-bell fs-5"></i>
                             @if(auth()->user()->unreadNotifications->count() > 0)
-                            <span class="notif-badge"></span>
+                            <span class="notif-badge"></span> 
                             @endif
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" style="min-width: 300px; max-height: 380px; overflow-y: auto;">
@@ -870,7 +870,8 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    @stack('scripts')
+        @stack('scripts'),
+
 </body>
 
 </html>
