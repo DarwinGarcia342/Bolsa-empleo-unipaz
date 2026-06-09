@@ -101,6 +101,7 @@ class DatabaseSeeder extends Seeder
                 'title'           => 'Analista de Datos (Junior)',
                 'description'     => 'Apoya al equipo de análisis con la recolección, procesamiento y visualización de datos del negocio.',
                 'requirements'    => '- Conocimientos en Excel avanzado o Power BI\n- Nociones de SQL o Python para análisis\n- Estudiante de ingeniería, estadística o afines',
+                'responsibilities' => 'Análisis de datos y reportería.',
                 'area'            => 'Tecnología e informática',
                 'contract_type'   => 'Término fijo',
                 'modality'        => 'remote',

@@ -32,10 +32,11 @@ return [
     | Configura en: https://console.cloud.google.com/
     | Authorized redirect URI: https://tu-dominio.com/auth/google/callback
     */
-    'google' => [
-        'client_id'     => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect'      => env('GOOGLE_REDIRECT_URI', '/auth/google/callback'),
-    ],
+    //  ¡Copia y pega este bloque exacto en las líneas 35 a 39!
+'google' => [
+    'client_id'     => env('GOOGLE_CLIENT_ID'),
+    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    'redirect'      => env('GOOGLE_REDIRECT_URI'),
+],
 
 ];

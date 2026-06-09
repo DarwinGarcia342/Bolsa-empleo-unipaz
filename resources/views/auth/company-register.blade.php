@@ -96,8 +96,8 @@
                     <div class="register-header">
                         <div class="d-flex align-items-center gap-3 mb-2">
                             <img src="{{ asset('images/LogoWhite_.png') }}"
-                                 alt="UNIPAZ"
-                                 style="height: 58px; width: auto;">
+                                alt="UNIPAZ"
+                                style="height: 58px; width: auto;">
                         </div>
                         <h5 class="text-white fw-bold mb-1 mt-2">
                             <i class="bi bi-building-add me-2" style="color:#6ee7a8;"></i>Registro de Empresa
@@ -132,35 +132,35 @@
                                 <div class="col-md-6">
                                     <label class="form-label">Nombre del responsable <span class="text-danger">*</span></label>
                                     <input type="text" name="name"
-                                           class="form-control @error('name') is-invalid @enderror"
-                                           value="{{ old('name') }}"
-                                           placeholder="Juan Pérez"
-                                           required>
+                                        class="form-control @error('name') is-invalid @enderror"
+                                        value="{{ old('name') }}"
+                                        placeholder="Juan Pérez"
+                                        required>
                                     @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Correo electrónico <span class="text-danger">*</span></label>
                                     <input type="email" name="email"
-                                           class="form-control @error('email') is-invalid @enderror"
-                                           value="{{ old('email') }}"
-                                           placeholder="correo@empresa.com"
-                                           required>
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        value="{{ old('email') }}"
+                                        placeholder="correo@empresa.com"
+                                        required>
                                     @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Contraseña <span class="text-danger">*</span></label>
                                     <input type="password" name="password"
-                                           class="form-control @error('password') is-invalid @enderror"
-                                           placeholder="Mínimo 8 caracteres"
-                                           minlength="8" required>
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="Mínimo 8 caracteres"
+                                        minlength="8" required>
                                     @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Confirmar contraseña <span class="text-danger">*</span></label>
                                     <input type="password" name="password_confirmation"
-                                           class="form-control"
-                                           placeholder="Repite la contraseña"
-                                           required>
+                                        class="form-control"
+                                        placeholder="Repite la contraseña"
+                                        required>
                                 </div>
                             </div>
 
@@ -175,18 +175,18 @@
                                 <div class="col-md-8">
                                     <label class="form-label">Nombre de la empresa <span class="text-danger">*</span></label>
                                     <input type="text" name="company_name"
-                                           class="form-control @error('company_name') is-invalid @enderror"
-                                           value="{{ old('company_name') }}"
-                                           placeholder="Razón social o nombre comercial"
-                                           required>
+                                        class="form-control @error('company_name') is-invalid @enderror"
+                                        value="{{ old('company_name') }}"
+                                        placeholder="Razón social o nombre comercial"
+                                        required>
                                     @error('company_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">NIT <span class="text-muted fw-normal">(opcional)</span></label>
                                     <input type="text" name="nit"
-                                           class="form-control @error('nit') is-invalid @enderror"
-                                           value="{{ old('nit') }}"
-                                           placeholder="900.123.456-7">
+                                        class="form-control @error('nit') is-invalid @enderror"
+                                        value="{{ old('nit') }}"
+                                        placeholder="900.123.456-7">
                                     @error('nit')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
@@ -216,32 +216,32 @@
                                 <div class="col-md-6">
                                     <label class="form-label">Teléfono de contacto <span class="text-danger">*</span></label>
                                     <input type="text" name="phone"
-                                           class="form-control @error('phone') is-invalid @enderror"
-                                           value="{{ old('phone') }}"
-                                           placeholder="+57 300 000 0000"
-                                           required>
+                                        class="form-control @error('phone') is-invalid @enderror"
+                                        value="{{ old('phone') }}"
+                                        placeholder="+57 300 000 0000"
+                                        required>
                                     @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Persona de contacto <span class="text-danger">*</span></label>
                                     <input type="text" name="contact_person"
-                                           class="form-control @error('contact_person') is-invalid @enderror"
-                                           value="{{ old('contact_person') }}"
-                                           placeholder="Nombre completo"
-                                           required>
+                                        class="form-control @error('contact_person') is-invalid @enderror"
+                                        value="{{ old('contact_person') }}"
+                                        placeholder="Nombre completo"
+                                        required>
                                     @error('contact_person')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Dirección en Barrancabermeja</label>
                                     <input type="text" name="address"
-                                           class="form-control"
-                                           value="{{ old('address') }}"
-                                           placeholder="Calle 50 # 20-15">
+                                        class="form-control"
+                                        value="{{ old('address') }}"
+                                        placeholder="Calle 50 # 20-15">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Descripción de la empresa</label>
                                     <textarea name="description" class="form-control" rows="3"
-                                              placeholder="Cuéntanos a qué se dedica tu empresa, misión y valores...">{{ old('description') }}</textarea>
+                                            placeholder="Cuéntanos a qué se dedica tu empresa, misión y valores...">{{ old('description') }}</textarea>
                                 </div>
                             </div>
 
