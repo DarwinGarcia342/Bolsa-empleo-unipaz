@@ -144,8 +144,11 @@
                 @if($jobPosting->status !== 'closed')
                     <form method="POST" action="{{ route('admin.vacancies.toggle', $jobPosting) }}">
                         @csrf
+                        @php
+                            $actionText = $jobPosting->status === 'active' ? 'pausar' : 'activar';
+                        @endphp
                         <button type="submit" class="btn-action btn-action-toggle"
-                                onclick="return confirm('¿{{ $jobPosting->status === 'active' ? 'Pausar' : 'Activar' }} esta vacante?')">
+                                onclick="return confirm('¿{{ $actionText }} esta vacante?')">
                             <i class="bi bi-{{ $jobPosting->status === 'active' ? 'pause-fill' : 'play-fill' }}"></i>
                             {{ $jobPosting->status === 'active' ? 'Pausar' : 'Activar' }}
                         </button>
@@ -286,8 +289,8 @@
                             <div class="d-flex align-items-center gap-1">
                                 @if($app->cv_path)
                                     <a href="{{ Storage::url($app->cv_path) }}" target="_blank"
-                                    style="background:#fee2e2; color:#b91c1c; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
-                                    title="Ver CV">
+                                       style="background:#fee2e2; color:#b91c1c; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
+                                       title="Ver CV">
                                         <i class="bi bi-file-pdf"></i>
                                     </a>
                                 @endif
