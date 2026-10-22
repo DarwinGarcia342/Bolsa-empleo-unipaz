@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" fill="none">
+  <!-- Solo el símbolo: rombo + paloma + hoja -->
+
+  <!-- Rombo azul principal -->
+  <rect x="14" y="1" width="62" height="62" rx="3" ry="3"
+        fill="#273475" transform="rotate(45 45 32)"/>
+
+  <!-- Hoja verde -->
+  <path d="M 10 72 C -2 60 -4 44 8 34 C 20 24 36 32 40 48
+           C 44 64 28 80 10 72 Z"
+        fill="#00963F"/>
+
+  <!-- Cuerpo paloma -->
+  <path d="M 30 26 C 35 18 48 17 53 23 C 58 29 55 37 49 39
+           C 55 39 62 34 68 37 C 64 44 55 46 48 43
+           C 43 48 36 50 29 45 C 22 40 22 30 30 26 Z"
+        fill="white"/>
+
+  <!-- Ala -->
+  <path d="M 40 35 C 46 27 58 25 64 30 C 60 35 52 37 44 37 Z"
+        fill="white" opacity="0.85"/>
+
+  <!-- Ojo -->
+  <circle cx="52" cy="27" r="2.5" fill="#273475"/>
+
+  <!-- Pico -->
+  <path d="M 60 30 L 68 28 L 63 33 Z" fill="#273475"/>
+</svg>
