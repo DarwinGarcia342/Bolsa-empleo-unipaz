@@ -227,14 +227,16 @@
                             </div>
                             <h5 class="mb-1">Acceso a tu Cuenta</h5>
                             <p class="card-desc">
-                                Ingresa tu correo y contraseña para continuar
+                                Estudiantes: ingresen con su cuenta de Google institucional
+                                <strong>@unipaz.edu.co</strong>. Empresas y administradores:
+                                usen el correo y la contraseña en este formulario.
                             </p>
                         </div>
 
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label">Correo electrónico</label>
+                                <label class="form-label">Correo electrónico de empresa o administrador</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <i class="bi bi-envelope"></i>
@@ -280,7 +282,7 @@
                             style="border-top: 1px solid rgba(255,255,255,.08);">
                             
                             <a href="{{ route('auth.google') }}" class="btn-google-login">
-                                <i class="bi bi-google"></i> Iniciar sesión con Google
+                                <i class="bi bi-google"></i> Acceso para estudiantes con Google
                             </a>
 
                             <span style="color:rgba(255,255,255,.4); font-size:.82rem;">

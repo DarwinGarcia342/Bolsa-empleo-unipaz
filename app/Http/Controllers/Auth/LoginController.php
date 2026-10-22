@@ -29,6 +29,7 @@ class LoginController extends Controller
                 return back()->with('error', 'Tu cuenta ha sido desactivada. Contacta al administrador.');
             }
 
+            $request->session()->forget('errors');
             $request->session()->regenerate();
 
             $url = match ($user->role) {
