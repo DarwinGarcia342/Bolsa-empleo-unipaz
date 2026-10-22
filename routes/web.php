@@ -21,7 +21,7 @@ Route::get('/up', function () {
 });
 
 // --- Autenticacion ---
-Route::middleware('guest')->group(function () {
+Route::middleware(['guest', 'prevent-back'])->group(function () {
     Route::get('/login',    [LoginController::class, 'showLogin'])->name('login');
     Route::post('/login',   [LoginController::class, 'login'])->middleware('throttle:5,1'); // Máximo 5 intentos por minuto
 

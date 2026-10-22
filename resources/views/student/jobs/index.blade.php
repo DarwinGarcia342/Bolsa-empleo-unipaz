@@ -40,7 +40,7 @@
                         <option value="Término fijo" @selected(request('contract_type') === 'Término fijo')>Término fijo</option>
                         <option value="Indefinido" @selected(request('contract_type') === 'Indefinido')>Indefinido</option>
                         <option value="Prestación de servicios" @selected(request('contract_type') === 'Prestación de servicios')>Prestación servicios</option>
-                        <option value="Práctica" @selected(request('contract_type') === 'Práctica')>Práctica</option>
+                        <option value="Práctica / Pasantía" @selected(request('contract_type') === 'Práctica / Pasantía')>Práctica / Pasantía</option>
                     </select>
                 </div>
                 <div class="col-md-1 d-grid">
