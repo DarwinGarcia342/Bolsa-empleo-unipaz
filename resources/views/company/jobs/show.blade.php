@@ -86,6 +86,10 @@
     }
     .btn-action-edit { background: #eef0f9; color: #273475; }
     .btn-action-edit:hover { background: #273475; color: #fff; }
+    .btn-action-pause { background: #fef3c7; color: #92400e; }
+    .btn-action-pause:hover { background: #92400e; color: #fff; }
+    .btn-action-resume { background: #dcfce7; color: #166534; }
+    .btn-action-resume:hover { background: #166534; color: #fff; }
     .btn-action-back { background: #f3f4f6; color: #6b7280; }
     .btn-action-back:hover { background: #6b7280; color: #fff; }
 </style>
@@ -122,6 +126,16 @@
                 </p>
             </div>
             <div class="d-flex gap-2">
+                @if($jobPosting->status !== 'closed')
+                    <form method="POST" action="{{ route('company.jobs.toggle', $jobPosting) }}"
+                          onsubmit="return confirm('{{ $jobPosting->status === 'active' ? '¿Pausar esta vacante?' : '¿Reanudar esta vacante?' }}')">
+                        @csrf
+                        <button type="submit" class="btn-action {{ $jobPosting->status === 'active' ? 'btn-action-pause' : 'btn-action-resume' }}">
+                            <i class="bi bi-{{ $jobPosting->status === 'active' ? 'pause-fill' : 'play-fill' }}"></i>
+                            {{ $jobPosting->status === 'active' ? 'Pausar' : 'Reanudar' }}
+                        </button>
+                    </form>
+                @endif
                 <a href="{{ route('company.jobs.edit', $jobPosting) }}" class="btn-action btn-action-edit">
                     <i class="bi bi-pencil"></i> Editar
                 </a>
@@ -220,11 +234,16 @@
                         <div class="d-flex align-items-center gap-1">
                             @if($app->cv_path)
                                 <a href="{{ Storage::url($app->cv_path) }}" target="_blank"
-                                   style="background:#fee2e2; color:#b91c1c; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
-                                   title="Ver CV">
+                                style="background:#fee2e2; color:#b91c1c; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
+                                title="Ver CV">
                                     <i class="bi bi-file-pdf"></i>
                                 </a>
                             @endif
+                            <a href="{{ route('resumes.show', $app->user) }}" target="_blank"
+                            style="background:#dcfce7; color:#166534; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
+                            title="Ver hoja de vida HTML">
+                                <i class="bi bi-filetype-html"></i>
+                            </a>
                             <span class="badge {{ $app->status_badge }}" style="font-size:.68rem;">
                                 {{ $app->status_label }}
                             </span>

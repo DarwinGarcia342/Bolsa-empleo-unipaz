@@ -144,10 +144,13 @@
                 @if($jobPosting->status !== 'closed')
                     <form method="POST" action="{{ route('admin.vacancies.toggle', $jobPosting) }}">
                         @csrf
+                        @php
+                            $actionText = $jobPosting->status === 'active' ? 'pausar' : 'reanudar';
+                        @endphp
                         <button type="submit" class="btn-action btn-action-toggle"
-                                onclick="return confirm('¿{{ $jobPosting->status === 'active' ? 'Pausar' : 'Activar' }} esta vacante?')">
+                                onclick="return confirm('¿{{ $actionText }} esta vacante?')">
                             <i class="bi bi-{{ $jobPosting->status === 'active' ? 'pause-fill' : 'play-fill' }}"></i>
-                            {{ $jobPosting->status === 'active' ? 'Pausar' : 'Activar' }}
+                            {{ $jobPosting->status === 'active' ? 'Pausar' : 'Reanudar' }}
                         </button>
                     </form>
                 @endif
@@ -291,6 +294,11 @@
                                         <i class="bi bi-file-pdf"></i>
                                     </a>
                                 @endif
+                                <a href="{{ route('resumes.show', $app->user) }}" target="_blank"
+                                   style="background:#dcfce7; color:#166534; border:none; border-radius:6px; padding:.2rem .45rem; font-size:.75rem;"
+                                   title="Ver hoja de vida HTML">
+                                    <i class="bi bi-filetype-html"></i>
+                                </a>
                                 <span class="badge {{ $app->status_badge }}" style="font-size:.68rem;">
                                     {{ $app->status_label }}
                                 </span>

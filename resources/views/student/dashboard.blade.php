@@ -260,6 +260,11 @@
             </div>
         </div>
 
+        {{-- Leyes Colombianas --}}
+        <div class="col-12">
+            <x-laws-section :laws="\App\Models\LawReference::getByRole('student')" />
+        </div>
+
     </div>
 </div>
 @endsection

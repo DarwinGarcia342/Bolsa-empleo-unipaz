@@ -24,7 +24,7 @@
             <div class="row g-2">
                 <div class="col-md-3">
                     <input type="text" name="search" class="form-control form-control-sm"
-                           placeholder="Buscar por título o empresa..." value="{{ request('search') }}">
+                        placeholder="Buscar por título o empresa..." value="{{ request('search') }}">
                 </div>
                 <div class="col-md-2">
                     <select name="status" class="form-select form-select-sm">
@@ -138,7 +138,7 @@
                                                 <i class="bi bi-pause-fill"></i>
                                             </button>
                                         @else
-                                            <button class="btn btn-outline-success btn-sm py-0 px-2" title="Activar vacante"
+                                            <button class="btn btn-outline-success btn-sm py-0 px-2" title="Reanudar vacante"
                                                     onclick="return confirm('¿Activar esta vacante?')">
                                                 <i class="bi bi-play-fill"></i>
                                             </button>

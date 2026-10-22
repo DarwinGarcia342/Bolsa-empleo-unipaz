@@ -2,7 +2,27 @@
 
 Documentación general del proyecto desarrollado en Laravel para gestionar la relación entre estudiantes, empresas y administración de la Universidad de Paz UNIPAZ.
 
+<<<<<<< HEAD
 ## 1. Descripción general
+=======
+## Sobre este proyecto
+
+Este repositorio contiene la aplicación web de la Bolsa de Empleo UNIPAZ, basada en Laravel 12. Está preparada para ejecutarse localmente con SQLite y desplegarse en Railway usando el script `start.sh`.
+
+## Instrucciones rápidas
+
+1. Copia `.env.example` a `.env`
+2. Ejecuta `composer install`
+3. Ejecuta `npm install`
+4. Ejecuta `php artisan key:generate`
+5. Ejecuta `php artisan migrate`
+6. Ejecuta `npm run build`
+7. Ejecuta `php artisan serve --host=0.0.0.0 --port=8000`
+
+Para despliegue en Railway, consulta `DEPLOY-RAILWAY.md`.
+
+## About Laravel
+>>>>>>> 5e84259e209edb9ce657da3abc8036b3b9b768bb
 
 Este sistema permite:
 

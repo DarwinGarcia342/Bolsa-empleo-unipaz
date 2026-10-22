@@ -31,13 +31,14 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
-            // Redirigir según el rol
-            return match ($user->role) {
-                'admin'   => redirect()->route('admin.dashboard'),
-                'company' => redirect()->route('company.dashboard'),
-                'student' => redirect()->route('student.dashboard'),
-                default   => redirect('/'),
+            $url = match ($user->role) {
+                'admin'   => route('admin.dashboard'),
+                'company' => route('company.dashboard'),
+                'student' => route('student.dashboard'),
+                default   => '/',
             };
+
+            return redirect()->intended(trim($url));
         }
 
         return back()->withErrors([

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\JobPosting;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,7 +19,10 @@ class HomeController extends Controller
 
         $totalJobs      = JobPosting::active()->count();
         $totalCompanies = Company::where('status', 'approved')->count();
+        
+        $totalstudents  = User::where('role', 'student')->count(); 
 
-        return view('home', compact('latestJobs', 'totalJobs', 'totalCompanies'));
+        // 3. PASA LA VARIABLE EXACTA A LA VISTA
+        return view('home', compact('latestJobs', 'totalJobs', 'totalCompanies', 'totalstudents'));
     }
 }

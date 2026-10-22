@@ -101,6 +101,7 @@ class DatabaseSeeder extends Seeder
                 'title'           => 'Analista de Datos (Junior)',
                 'description'     => 'Apoya al equipo de análisis con la recolección, procesamiento y visualización de datos del negocio.',
                 'requirements'    => '- Conocimientos en Excel avanzado o Power BI\n- Nociones de SQL o Python para análisis\n- Estudiante de ingeniería, estadística o afines',
+                'responsibilities' => 'Análisis de datos y reportería.',
                 'area'            => 'Tecnología e informática',
                 'contract_type'   => 'Término fijo',
                 'modality'        => 'remote',
@@ -137,6 +138,9 @@ class DatabaseSeeder extends Seeder
             'phone'        => '+57 315 123 4567',
             'about'        => 'Estudiante de octavo semestre con experiencia en desarrollo web y bases de datos.',
         ]);
+
+        // ─── 6. Leyes colombianas de referencia ───────────────────────────────
+        $this->call(LawReferenceSeeder::class);
 
         $this->command->info('✅ Base de datos sembrada correctamente.');
         $this->command->info('');

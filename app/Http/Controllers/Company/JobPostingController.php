@@ -124,6 +124,19 @@ class JobPostingController extends Controller
             ->with('success', 'Vacante actualizada correctamente.');
     }
 
+    public function toggleStatus(JobPosting $jobPosting)
+    {
+        $company = Auth::user()->company;
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
+
+        $newStatus = $jobPosting->status === 'active' ? 'paused' : 'active';
+        $jobPosting->update(['status' => $newStatus]);
+
+        return back()->with('success', $newStatus === 'active'
+            ? 'Vacante reanudada correctamente.'
+            : 'Vacante pausada correctamente.');
+    }
+
     public function destroy(JobPosting $jobPosting)
     {
         $company = Auth::user()->company;
