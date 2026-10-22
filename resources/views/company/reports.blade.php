@@ -3,11 +3,16 @@
 
 @section('content')
 <div class="container-fluid py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
         <h4 class="fw-bold mb-0"><i class="bi bi-bar-chart-line text-primary me-2"></i>Reportes de {{ $company->company_name }}</h4>
-        <a href="{{ route('company.dashboard') }}" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-arrow-left me-1"></i>Dashboard
-        </a>
+        <div class="d-flex gap-2">
+            <a href="{{ route('company.reports.pdf') }}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-file-earmark-pdf me-1"></i>Descargar PDF
+            </a>
+            <a href="{{ route('company.dashboard') }}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i>Dashboard
+            </a>
+        </div>
     </div>
 
     <div class="row g-3 mb-4">

@@ -59,6 +59,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin', 'preve
     Route::get('/vacantes/{jobPosting}',     [AdminDashboard::class, 'showVacancy'])->name('vacancies.show');
     Route::post('/vacantes/{jobPosting}/toggle', [AdminDashboard::class, 'toggleVacancy'])->name('vacancies.toggle');
     Route::get('/reportes',                 [AdminDashboard::class, 'reports'])->name('reports');
+    Route::get('/reportes/pdf',             [AdminDashboard::class, 'downloadReport'])->name('reports.pdf');
 });
 
 // --- Panel de EMPRESA ---
@@ -70,6 +71,7 @@ Route::prefix('empresa')->name('company.')->middleware(['auth', 'role:company', 
     Route::put('/postulaciones/{application}', [CompanyDashboard::class, 'updateApplicationStatus'])
         ->name('applications.update');
     Route::get('/reportes', [CompanyDashboard::class, 'reports'])->name('reports');
+    Route::get('/reportes/pdf', [CompanyDashboard::class, 'downloadReport'])->name('reports.pdf');
 
     Route::middleware('company.approved')->group(function () {
         Route::post('/vacantes/{jobPosting}/toggle', [JobPostingController::class, 'toggleStatus'])
