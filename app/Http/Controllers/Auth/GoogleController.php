@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\StudentProfile;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
@@ -15,7 +16,7 @@ class GoogleController extends Controller
      */
     public function redirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     /**
@@ -24,10 +25,12 @@ class GoogleController extends Controller
     public function callback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
         } catch (\Exception $e) {
+            Log::error('Google Auth Error: ' . $e->getMessage());
+            
             return redirect()->route('login')
-                ->with('error', 'Error al autenticar con Google. Intenta de nuevo.');
+                ->with('error', 'Error al autenticar con Google: ' . $e->getMessage());
         }
 
         // Validar que sea correo institucional UNIPAZ
@@ -40,6 +43,13 @@ class GoogleController extends Controller
         $user = User::where('google_id', $googleUser->getId())
                     ->orWhere('email', $googleUser->getEmail())
                     ->first();
+
+        // Si el usuario ya existe pero no es un estudiante, prevenir el login por este medio
+        // o asegurar que no se sobrescriba su rol accidentalmente.
+        if ($user && $user->role !== 'student') {
+            return redirect()->route('login')
+                ->with('error', 'Esta cuenta está registrada como ' . $user->role . '. Por favor, usa el login tradicional.');
+        }
 
         if (!$user) {
             // Nuevo estudiante
@@ -72,6 +82,6 @@ class GoogleController extends Controller
 
         Auth::login($user, true);
 
-        return redirect()->intended(route('student.dashboard'));
+        return redirect()->intended(route('student.dashboard'))->with('success', '¡Bienvenido(a), ' . $user->name . '!');
     }
 }

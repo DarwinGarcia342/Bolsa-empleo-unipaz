@@ -25,6 +25,14 @@
                             </div>
                         @endif
                     @endif
+                    @if($profile)
+                        <div class="mt-2">
+                            <a href="{{ route('student.profile.resume') }}" target="_blank"
+                               class="btn btn-outline-primary btn-sm w-100">
+                                <i class="bi bi-filetype-html me-1"></i>Ver hoja de vida HTML
+                            </a>
+                        </div>
+                    @endif
                     @if($profile && $profile->linkedin)
                         <div class="mt-2">
                             <a href="{{ $profile->linkedin }}" target="_blank" class="btn btn-outline-primary btn-sm">

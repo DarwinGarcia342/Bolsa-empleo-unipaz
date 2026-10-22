@@ -22,8 +22,8 @@
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Título del cargo *</label>
                                 <input type="text" name="title"
-                                       class="form-control @error('title') is-invalid @enderror"
-                                       value="{{ old('title', $jobPosting->title) }}" required>
+                                    class="form-control @error('title') is-invalid @enderror"
+                                    value="{{ old('title', $jobPosting->title) }}" required>
                                 @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-6">
@@ -57,12 +57,12 @@
                             <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Ubicación *</label>
                                 <input type="text" name="location" class="form-control"
-                                       value="{{ old('location', $jobPosting->location) }}" required>
+                                    value="{{ old('location', $jobPosting->location) }}" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Número de vacantes *</label>
                                 <input type="number" name="positions" class="form-control" min="1" max="50"
-                                       value="{{ old('positions', $jobPosting->positions) }}" required>
+                                    value="{{ old('positions', $jobPosting->positions) }}" required>
                             </div>
                         </div>
 
@@ -71,14 +71,14 @@
                             <div class="col-md-5">
                                 <label class="form-label small fw-semibold">Rango salarial</label>
                                 <input type="text" name="salary_range" class="form-control"
-                                       value="{{ old('salary_range', $jobPosting->salary_range) }}"
-                                       placeholder="Ej: $1.5M - $2M mensuales">
+                                    value="{{ old('salary_range', $jobPosting->salary_range) }}"
+                                    placeholder="Ej: $1.5M - $2M mensuales">
                             </div>
                             <div class="col-md-3 d-flex align-items-end">
                                 <div class="form-check mb-2">
                                     <input class="form-check-input" type="checkbox" name="salary_negotiable"
-                                           id="salary_neg" value="1"
-                                           @checked(old('salary_negotiable', $jobPosting->salary_negotiable))>
+                                        id="salary_neg" value="1"
+                                        @checked(old('salary_negotiable', $jobPosting->salary_negotiable))>
                                     <label class="form-check-label small" for="salary_neg">A convenir</label>
                                 </div>
                             </div>
@@ -105,33 +105,34 @@
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Descripción del cargo *</label>
                                 <textarea name="description"
-                                          class="form-control @error('description') is-invalid @enderror"
-                                          rows="4" required>{{ old('description', $jobPosting->description) }}</textarea>
+                                        class="form-control @error('description') is-invalid @enderror"
+                                        rows="4" required>{{ old('description', $jobPosting->description) }}</textarea>
                                 @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Requisitos *</label>
                                 <textarea name="requirements"
-                                          class="form-control @error('requirements') is-invalid @enderror"
-                                          rows="3" required>{{ old('requirements', $jobPosting->requirements) }}</textarea>
+                                        class="form-control @error('requirements') is-invalid @enderror"
+                                        rows="3" required>{{ old('requirements', $jobPosting->requirements) }}</textarea>
                                 @error('requirements')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
-                                <label class="form-label small fw-semibold">Responsabilidades (opcional)</label>
-                                <textarea name="responsibilities" class="form-control" rows="3">{{ old('responsibilities', $jobPosting->responsibilities) }}</textarea>
+                                <label class="form-label small fw-semibold">Responsabilidades *</label>
+                                <textarea name="responsibilities" class="form-control @error('responsibilities') is-invalid @enderror" rows="3" required>{{ old('responsibilities', $jobPosting->responsibilities) }}</textarea>
+                                @error('responsibilities')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-semibold">Programas académicos preferidos</label>
                                 <input type="text" name="programs_targeted" class="form-control"
-                                       value="{{ old('programs_targeted', $jobPosting->programs_targeted) }}"
-                                       placeholder="Ej: Ingeniería de Sistemas, Administración de Empresas">
+                                    value="{{ old('programs_targeted', $jobPosting->programs_targeted) }}"
+                                    placeholder="Ej: Ingeniería de Sistemas, Administración de Empresas">
                                 <small class="text-muted">Separa los programas con comas</small>
                             </div>
                             <div class="col-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="requires_cv"
-                                           id="requires_cv" value="1"
-                                           @checked(old('requires_cv', $jobPosting->requires_cv))>
+                                        id="requires_cv" value="1"
+                                        @checked(old('requires_cv', $jobPosting->requires_cv))>
                                     <label class="form-check-label small" for="requires_cv">
                                         Requerir hoja de vida para postularse
                                     </label>

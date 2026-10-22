@@ -12,7 +12,7 @@
                     <!-- Encabezado -->
                     <div class="d-flex align-items-center gap-4 mb-4">
                         <img src="{{ $jobPosting->company->logo_url ?? asset('images/Logo-Letras-White_.png') }}" class="rounded border"
-                             width="80" height="80" style="object-fit:cover;">
+                            width="80" height="80" style="object-fit:cover;">
                         <div>
                             <h3 class="fw-bold mb-1">{{ $jobPosting->title }}</h3>
                             <p class="text-muted mb-2">{{ $jobPosting->company->company_name }}</p>
@@ -27,6 +27,14 @@
                     </div>
 
                     <!-- Info rápida -->
+                    <form method="POST" action="{{ route('student.jobs.favorite', $jobPosting) }}" class="mb-4">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-warning btn-sm">
+                            <i class="bi bi-star{{ $isFavorite ? '-fill' : '' }} me-1"></i>
+                            {{ $isFavorite ? 'Quitar de favoritos' : 'Guardar como favorita' }}
+                        </button>
+                    </form>
+
                     <div class="row g-3 mb-4 p-3 bg-light rounded-3">
                         <div class="col-6 col-md-3 text-center">
                             <i class="bi bi-geo-alt text-primary fs-4"></i>
@@ -102,7 +110,7 @@
                             <div class="mb-3">
                                 <label class="form-label small fw-semibold">Carta de presentación (opcional)</label>
                                 <textarea name="cover_letter" class="form-control @error('cover_letter') is-invalid @enderror"
-                                          rows="4" placeholder="Cuéntale a la empresa por qué eres el candidato ideal...">{{ old('cover_letter') }}</textarea>
+                                        rows="4" placeholder="Cuéntale a la empresa por qué eres el candidato ideal...">{{ old('cover_letter') }}</textarea>
                                 @error('cover_letter')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
 
@@ -121,8 +129,8 @@
                                     @if($jobPosting->requires_cv) <span class="text-danger">*</span> @endif
                                 </label>
                                 <input type="file" name="cv" accept=".pdf"
-                                       class="form-control @error('cv') is-invalid @enderror"
-                                       {{ $jobPosting->requires_cv && !auth()->user()->studentProfile?->cv_path ? 'required' : '' }}>
+                                    class="form-control @error('cv') is-invalid @enderror"
+                                    {{ $jobPosting->requires_cv && !auth()->user()->studentProfile?->cv_path ? 'required' : '' }}>
                                 <small class="text-muted">PDF máximo 5MB</small>
                                 @error('cv')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>

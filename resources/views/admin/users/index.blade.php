@@ -16,7 +16,7 @@
             <div class="row g-2">
                 <div class="col-md-5">
                     <input type="text" name="search" class="form-control form-control-sm"
-                           placeholder="Buscar por nombre o correo..." value="{{ request('search') }}">
+                        placeholder="Buscar por nombre o correo..." value="{{ request('search') }}">
                 </div>
                 <div class="col-md-3">
                     <select name="role" class="form-select form-select-sm">
@@ -133,7 +133,7 @@
                             <td>
                                 @if(!$user->isAdmin())
                                     <form method="POST" action="{{ route('admin.users.toggle', $user) }}"
-                                          onsubmit="return confirm('¿Confirmas cambiar el estado de este usuario?')">
+                                        onsubmit="return confirm('¿Confirmas cambiar el estado de este usuario?')">
                                         @csrf
                                         <button type="submit"
                                                 class="btn btn-sm {{ $user->active ? 'btn-outline-warning' : 'btn-outline-success' }}">

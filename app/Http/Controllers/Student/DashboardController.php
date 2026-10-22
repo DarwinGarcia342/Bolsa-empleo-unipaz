@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\JobPosting;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -90,5 +91,31 @@ class DashboardController extends Controller
             ->paginate(10);
 
         return view('student.applications', compact('applications'));
+    }
+
+    public function myResume()
+    {
+        return $this->resume(Auth::user());
+    }
+
+    public function resume(User $user)
+    {
+        abort_unless($user->isStudent(), 404);
+
+        $viewer = Auth::user();
+        $canView = $viewer->id === $user->id || $viewer->isAdmin();
+
+        if (!$canView && $viewer->isCompany()) {
+            $company = $viewer->company;
+            $canView = $company && Application::where('user_id', $user->id)
+                ->whereHas('jobPosting', fn($q) => $q->where('company_id', $company->id))
+                ->exists();
+        }
+
+        abort_unless($canView, 403);
+
+        $profile = $user->studentProfile;
+
+        return view('student.resume-html', compact('user', 'profile'));
     }
 }

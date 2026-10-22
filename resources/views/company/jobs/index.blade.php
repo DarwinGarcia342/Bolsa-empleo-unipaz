@@ -35,6 +35,10 @@
     }
     .btn-action-edit { background: #eef0f9; color: #273475; }
     .btn-action-edit:hover { background: #273475; color: #fff; }
+    .btn-action-pause { background: #fef3c7; color: #92400e; }
+    .btn-action-pause:hover { background: #92400e; color: #fff; }
+    .btn-action-resume { background: #dcfce7; color: #166534; }
+    .btn-action-resume:hover { background: #166534; color: #fff; }
     .btn-action-close { background: #fee2e2; color: #b91c1c; }
     .btn-action-close:hover { background: #b91c1c; color: #fff; }
 
@@ -69,8 +73,8 @@
         </div>
         @if($company->isApproved())
             <a href="{{ route('company.jobs.create') }}"
-               style="background:#00963F; color:#fff; border:none; border-radius:10px; padding:.6rem 1.2rem; font-weight:700; font-size:.88rem; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;"
-               onmouseover="this.style.background='#007832'" onmouseout="this.style.background='#00963F'">
+            style="background:#00963F; color:#fff; border:none; border-radius:10px; padding:.6rem 1.2rem; font-weight:700; font-size:.88rem; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;"
+            onmouseover="this.style.background='#007832'" onmouseout="this.style.background='#00963F'">
                 <i class="bi bi-plus-circle-fill"></i>Nueva vacante
             </a>
         @endif
@@ -134,8 +138,16 @@
                         <i class="bi bi-pencil"></i> Editar
                     </a>
                     @if($job->status !== 'closed')
+                        <form method="POST" action="{{ route('company.jobs.toggle', $job) }}"
+                            onsubmit="return confirm('{{ $job->status === 'active' ? '¿Pausar esta vacante?' : '¿Reanudar esta vacante?' }}')">
+                            @csrf
+                            <button type="submit" class="btn-action {{ $job->status === 'active' ? 'btn-action-pause' : 'btn-action-resume' }}">
+                                <i class="bi bi-{{ $job->status === 'active' ? 'pause-fill' : 'play-fill' }}"></i>
+                                {{ $job->status === 'active' ? 'Pausar' : 'Reanudar' }}
+                            </button>
+                        </form>
                         <form method="POST" action="{{ route('company.jobs.destroy', $job) }}"
-                              onsubmit="return confirm('¿Cerrar esta vacante? Los postulantes existentes no se verán afectados.')">
+                            onsubmit="return confirm('¿Cerrar esta vacante? Los postulantes existentes no se verán afectados.')">
                             @csrf @method('DELETE')
                             <button type="submit" class="btn-action btn-action-close">
                                 <i class="bi bi-x-circle"></i> Cerrar
