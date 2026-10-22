@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\Company;
 use App\Models\JobPosting;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -204,6 +205,19 @@ class DashboardController extends Controller
     // ─── Reportes ─────────────────────────────────────────────────
     public function reports()
     {
+        return view('admin.reports', $this->reportData());
+    }
+
+    public function downloadReport()
+    {
+        $data = $this->reportData();
+
+        return Pdf::loadView('admin.reports_pdf', $data)
+            ->download('Reporte_Admin_BolsaUnipaz_' . now()->format('Y-m-d') . '.pdf');
+    }
+
+    private function reportData(): array
+    {
         $stats = [
             'students_total'      => User::where('role', 'student')->count(),
             'companies_approved'  => Company::where('status', 'approved')->count(),
@@ -217,6 +231,6 @@ class DashboardController extends Controller
         $applicationsByStatus = Application::selectRaw('status, COUNT(*) as total')->groupBy('status')->pluck('total', 'status');
         $jobsByArea = JobPosting::selectRaw('area, COUNT(*) as total')->groupBy('area')->orderByDesc('total')->get();
 
-        return view('admin.reports', compact('stats', 'companiesByStatus', 'applicationsByStatus', 'jobsByArea'));
+        return compact('stats', 'companiesByStatus', 'applicationsByStatus', 'jobsByArea');
     }
 }
