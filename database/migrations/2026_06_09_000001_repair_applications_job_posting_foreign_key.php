@@ -21,6 +21,8 @@ return new class extends Migration
             Schema::rename('applications', 'applications_old');
         }
 
+        DB::statement('DROP INDEX IF EXISTS applications_student_job_unique');
+
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
