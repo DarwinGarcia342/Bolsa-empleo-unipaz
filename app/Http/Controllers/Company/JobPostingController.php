@@ -1,0 +1,151 @@
+<?php
+
+namespace App\Http\Controllers\Company;
+
+use App\Http\Controllers\Controller;
+use App\Models\JobPosting;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class JobPostingController extends Controller
+{
+    public function index()
+    {
+        $company = Auth::user()->company;
+
+        if (!$company) {
+            return redirect()->route('company.dashboard')
+                ->with('error', 'No se encontró el perfil de empresa. Completa tu registro.');
+        }
+
+        $jobPostings = JobPosting::where('company_id', $company->id)
+            ->withCount('applications')
+            ->latest()
+            ->paginate(10);
+
+        return view('company.jobs.index', compact('jobPostings', 'company'));
+    }
+
+    public function create()
+    {
+        $company = Auth::user()->company;
+        if (!$company->isApproved()) {
+            return redirect()->route('company.dashboard')
+                ->with('error', 'Tu empresa debe ser aprobada por UNIPAZ antes de publicar vacantes.');
+        }
+        return view('company.jobs.create');
+    }
+
+    public function store(Request $request)
+    {
+        $company = Auth::user()->company;
+        if (!$company->isApproved()) abort(403);
+
+        $request->validate([
+            'title'             => 'required|string|max:200',
+            'description'       => 'required|string|max:5000|min:20',
+            'requirements'      => 'required|string|max:3000',
+            'responsibilities'  => 'required|string|min:20|max:3000',
+            'area'              => 'required|string|max:100',
+            'contract_type'     => 'required|string|max:100',
+            'modality'          => 'required|in:onsite,remote,hybrid',
+            'schedule'          => 'nullable|string|max:191',
+            'location'          => 'required|string|max:150',
+            'salary_range'      => 'nullable|string|max:100',
+            'salary_negotiable' => 'boolean',
+            'positions'         => 'required|integer|min:1|max:100',
+            'deadline'          => 'required|date|after:today',
+            'requires_cv'       => 'boolean',
+            'programs_targeted' => 'nullable|string|max:500',
+        ]);
+
+        JobPosting::create([
+            ...$request->except('_token'),
+            'company_id'        => $company->id,
+            'salary_negotiable' => $request->boolean('salary_negotiable'),
+            'requires_cv'       => $request->boolean('requires_cv'),
+            'status'            => 'active',
+        ]);
+
+        return redirect()->route('company.jobs.index')
+            ->with('success', 'Vacante publicada exitosamente.');
+    }
+
+    public function show(JobPosting $jobPosting)
+    {
+        $company = Auth::user()->company;
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
+
+        $jobPosting->loadCount('applications');
+        $jobPosting->load(['applications' => function ($q) {
+            $q->with('user.studentProfile')->latest()->take(20);
+        }]);
+
+        return view('company.jobs.show', compact('jobPosting', 'company'));
+    }
+
+    public function edit(JobPosting $jobPosting)
+    {
+        $company = Auth::user()->company;
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
+
+        return view('company.jobs.edit', compact('jobPosting'));
+    }
+
+    public function update(Request $request, JobPosting $jobPosting)
+    {
+        $company = Auth::user()->company;
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
+
+        $request->validate([
+            'title'             => 'required|string|max:200',
+            'description'       => 'required|string|max:5000|min:20',
+            'requirements'      => 'required|string|max:3000',
+            'responsibilities'  => 'required|string|min:20|max:3000',
+            'area'              => 'required|string|max:100',
+            'contract_type'     => 'required|string|max:100',
+            'modality'          => 'required|in:onsite,remote,hybrid',
+            'schedule'          => 'nullable|string|max:191',
+            'location'          => 'required|string|max:150',
+            'salary_range'      => 'nullable|string|max:100',
+            'salary_negotiable' => 'boolean',
+            'positions'         => 'required|integer|min:1|max:100',
+            'deadline'          => 'required|date',
+            'requires_cv'       => 'boolean',
+            'programs_targeted' => 'nullable|string|max:500',
+            'status'            => 'required|in:active,paused,closed',
+        ]);
+
+        $jobPosting->update([
+            ...$request->except(['_token', '_method']),
+            'salary_negotiable' => $request->boolean('salary_negotiable'),
+            'requires_cv'       => $request->boolean('requires_cv'),
+        ]);
+
+        return redirect()->route('company.jobs.index')
+            ->with('success', 'Vacante actualizada correctamente.');
+    }
+
+    public function toggleStatus(JobPosting $jobPosting)
+    {
+        $company = Auth::user()->company;
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
+
+        $newStatus = $jobPosting->status === 'active' ? 'paused' : 'active';
+        $jobPosting->update(['status' => $newStatus]);
+
+        return back()->with('success', $newStatus === 'active'
+            ? 'Vacante reanudada correctamente.'
+            : 'Vacante pausada correctamente.');
+    }
+
+    public function destroy(JobPosting $jobPosting)
+    {
+        $company = Auth::user()->company;
+        if ((int) $jobPosting->company_id !== (int) $company->id) abort(403);
+
+        $jobPosting->update(['status' => 'closed']);
+
+        return back()->with('success', 'Vacante cerrada correctamente.');
+    }
+}

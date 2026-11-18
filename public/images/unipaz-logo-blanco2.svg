@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 120" fill="none">
+  <!-- Versión invertida: sobre fondos oscuros (azul/verde) -->
+
+  <!-- Rombo blanco con contorno sutil -->
+  <g transform="translate(10, 5)">
+    <rect x="25" y="0" width="64" height="64" rx="3" ry="3"
+          fill="white" fill-opacity="0.95" transform="rotate(45 57 32)"/>
+
+    <!-- Hoja verde (se mantiene) -->
+    <path d="M 18 68 C 8 58 5 44 15 36 C 25 28 38 34 42 46 C 46 58 36 72 18 68 Z"
+          fill="#00963F"/>
+
+    <!-- Cuerpo paloma (azul sobre blanco) -->
+    <path d="M 38 22 C 42 16 52 15 56 20 C 60 25 58 32 53 34
+             C 58 34 63 30 68 32 C 65 38 58 40 52 38
+             C 48 42 42 44 36 40 C 30 36 30 28 38 22 Z"
+          fill="#273475"/>
+
+    <!-- Ala -->
+    <path d="M 45 30 C 50 24 60 22 65 26 C 62 30 56 32 50 32 Z"
+          fill="#273475" opacity="0.8"/>
+
+    <!-- Ojo -->
+    <circle cx="56" cy="24" r="2.2" fill="white"/>
+
+    <!-- Pico -->
+    <path d="M 62 26 L 68 25 L 64 28 Z" fill="white"/>
+  </g>
+
+  <!-- Texto UNIPAZ blanco -->
+  <text x="96" y="52"
+        font-family="'Palatino Linotype', 'Palatino', 'Georgia', serif"
+        font-size="32"
+        font-weight="700"
+        letter-spacing="-0.5"
+        fill="white">UNIPAZ</text>
+
+  <!-- Marca registrada -->
+  <text x="228" y="38"
+        font-family="sans-serif"
+        font-size="10"
+        fill="white">®</text>
+
+  <!-- Línea verde -->
+  <line x1="96" y1="58" x2="238" y2="58" stroke="#00963F" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Subtítulo blanco -->
+  <text x="96" y="74"
+        font-family="'Palatino Linotype', 'Palatino', 'Georgia', serif"
+        font-size="11.5"
+        letter-spacing="0.2"
+        fill="rgba(255,255,255,0.75)">Instituto Universitario de la Paz</text>
+</svg>
