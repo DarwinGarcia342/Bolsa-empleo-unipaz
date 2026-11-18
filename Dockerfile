@@ -8,6 +8,7 @@ RUN apt-get update \
         libonig-dev \
         libpng-dev \
         libpq-dev \
+        libsqlite3-dev \
         libzip-dev \
         unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
