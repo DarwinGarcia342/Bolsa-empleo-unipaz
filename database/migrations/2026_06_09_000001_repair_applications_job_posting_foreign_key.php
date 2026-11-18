@@ -13,6 +13,7 @@ return new class extends Migration
             return;
         }
 
+        DB::statement('DROP INDEX IF EXISTS applications_student_job_unique');
         DB::statement('PRAGMA foreign_keys = OFF');
 
         if (Schema::hasTable('applications_old')) {
