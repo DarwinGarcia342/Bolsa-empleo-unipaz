@@ -55,6 +55,27 @@ class StudentProfileController extends Controller
         ]);
     }
 
+    public function uploadCv(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'cv' => ['required', 'file', 'mimes:pdf', 'max:5120'],
+        ]);
+
+        $profile = $request->user()->studentProfile;
+        abort_unless($profile, 422, 'Completa tu perfil antes de subir la hoja de vida.');
+
+        $newCvPath = $validated['cv']->store('cvs', 'public');
+        if ($profile->cv_path) {
+            Storage::disk('public')->delete($profile->cv_path);
+        }
+
+        $profile->update(['cv_path' => $newCvPath]);
+
+        return response()->json([
+            'data' => $this->profileData($profile->refresh()),
+        ]);
+    }
+
     private function profileData(StudentProfile $profile): array
     {
         return [

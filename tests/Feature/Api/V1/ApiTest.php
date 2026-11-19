@@ -8,10 +8,12 @@ use App\Models\JobPosting;
 use App\Models\LawReference;
 use App\Models\User;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as GoogleUser;
 use Tests\TestCase;
@@ -75,6 +77,7 @@ class ApiTest extends TestCase
             $table->string('area')->nullable();
             $table->string('contract_type');
             $table->string('modality');
+            $table->string('schedule')->nullable();
             $table->string('location');
             $table->string('salary_range')->nullable();
             $table->boolean('salary_negotiable')->default(false);
@@ -302,6 +305,23 @@ class ApiTest extends TestCase
             ->assertJsonPath('data.is_favorite', false);
     }
 
+    public function test_student_can_filter_vacancies_by_location(): void
+    {
+        $companyUser = User::factory()->create(['role' => 'company']);
+        $company = Company::create([
+            'user_id' => $companyUser->id,
+            'company_name' => 'UNIPAZ Labs',
+            'status' => 'approved',
+        ]);
+        $matchingJob = $this->createJob($company, ['location' => 'Barrancabermeja']);
+        $this->createJob($company, ['title' => 'Vacante en Bogotá', 'location' => 'Bogotá']);
+
+        $this->getJson('/api/v1/jobs?location=Barrancabermeja')
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.id', $matchingJob->id);
+    }
+
     public function test_student_can_apply_once_to_an_active_vacancy(): void
     {
         Notification::fake();
@@ -375,6 +395,41 @@ class ApiTest extends TestCase
             ->assertForbidden();
     }
 
+    public function test_company_can_publish_a_job_with_the_mobile_schedule_field(): void
+    {
+        $companyUser = User::factory()->create(['role' => 'company']);
+        Company::create([
+            'user_id' => $companyUser->id,
+            'company_name' => 'Empresa aprobada',
+            'status' => 'approved',
+        ]);
+        $token = $this->loginAs($companyUser);
+
+        $response = $this->withToken($token)
+            ->postJson('/api/v1/company/jobs', [
+                'title' => 'Desarrollador móvil',
+                'description' => 'Desarrollar aplicaciones para dispositivos móviles.',
+                'requirements' => 'Experiencia en React Native y TypeScript.',
+                'responsibilities' => 'Construir y mantener aplicaciones móviles.',
+                'area' => 'Tecnología',
+                'contract_type' => 'Prácticas',
+                'modality' => 'hybrid',
+                'schedule' => 'Lunes a viernes',
+                'location' => 'Barrancabermeja',
+                'positions' => 1,
+                'deadline' => now()->addDays(5)->toDateString(),
+                'programs_targeted' => 'Ingeniería Informática',
+            ])
+            ->assertCreated()
+            ->assertJsonPath('data.schedule', 'Lunes a viernes')
+            ->assertJsonPath('data.programs_targeted', 'Ingeniería Informática');
+
+        $this->getJson('/api/v1/jobs/'.$response->json('data.id'))
+            ->assertOk()
+            ->assertJsonPath('data.schedule', 'Lunes a viernes')
+            ->assertJsonPath('data.programs_targeted', 'Ingeniería Informática');
+    }
+
     public function test_admin_can_approve_companies_and_company_accounts_cannot_use_admin_api(): void
     {
         Notification::fake();
@@ -434,6 +489,38 @@ class ApiTest extends TestCase
             'email' => 'registro@empresa.test',
             'role' => 'company',
         ]);
+    }
+
+    public function test_companies_can_register_with_the_mobile_apps_minimal_payload(): void
+    {
+        $this->postJson('/api/v1/auth/register/company', [
+            'name' => 'Contacto',
+            'email' => 'mobile-registration@empresa.test',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+            'company_name' => 'Empresa móvil',
+            'nit' => '900123456',
+            'contact_person' => 'Contacto',
+        ])->assertCreated()
+            ->assertJsonPath('data.status', 'pending');
+    }
+
+    public function test_student_can_upload_a_cv_to_the_profile_cv_endpoint(): void
+    {
+        Storage::fake('public');
+        $student = User::factory()->create(['role' => 'student']);
+        $profile = $student->studentProfile()->create(['program' => 'Ingeniería Informática']);
+        $token = $this->loginAs($student);
+
+        $this->withToken($token)
+            ->post('/api/v1/student/profile/cv', [
+                'cv' => UploadedFile::fake()->create('hoja-de-vida.pdf', 100, 'application/pdf'),
+            ])
+            ->assertOk()
+            ->assertJsonPath('data.program', 'Ingeniería Informática');
+
+        $this->assertNotEmpty($profile->fresh()->cv_path);
+        Storage::disk('public')->assertExists($profile->fresh()->cv_path);
     }
 
     public function test_company_can_update_status_only_for_its_own_applications(): void

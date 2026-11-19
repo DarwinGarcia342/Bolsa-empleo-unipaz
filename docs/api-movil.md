@@ -20,11 +20,11 @@ La respuesta contiene `token`, `token_type` y el usuario. Guarda el token de for
 
 Para estudiantes que usan Google, `POST /api/v1/auth/google` recibe `id_token` y `device_name`. La app debe solicitar el ID token con el client ID de servidor configurado en Laravel; el backend verifica el token y solo acepta correos institucionales `@unipaz.edu.co` verificados.
 
-`POST /api/v1/auth/register/company` registra empresas y las deja en estado `pending`; el administrador debe aprobarlas antes de que puedan gestionar vacantes. Envía `name`, `email`, `password`, `password_confirmation`, `company_name`, `sector`, `contact_person`, `phone`, `address`, `description` y opcionalmente `nit`.
+`POST /api/v1/auth/register/company` registra empresas y las deja en estado `pending`; el administrador debe aprobarlas antes de que puedan gestionar vacantes. `name`, `email`, `password`, `password_confirmation`, `company_name` y `contact_person` son obligatorios. `nit`, `sector`, `phone`, `address` y `description` son opcionales; la empresa puede completar su perfil después.
 
 ## Vacantes
 
-- `GET /api/v1/jobs`: vacantes activas; acepta `search`, `area`, `modality`, `contract_type` y `page`.
+- `GET /api/v1/jobs`: vacantes activas; acepta `search`, `area`, `modality`, `contract_type`, `location` y `page`.
 - `GET /api/v1/jobs/{id}`: detalle de una vacante activa.
 - `GET /api/v1/student/favorites`: vacantes favoritas del estudiante autenticado.
 - `PUT /api/v1/jobs/{id}/favorite`: guardar como favorita.
@@ -35,6 +35,7 @@ Las listas devuelven la estructura de paginación de Laravel (`data`, `links` y 
 ## Perfil y postulaciones
 
 - `PUT /api/v1/student/profile`: actualiza el perfil. Envíalo como `multipart/form-data` si incluye `cv` (PDF, máximo 20 MB). `program` es obligatorio.
+- `POST /api/v1/student/profile/cv`: reemplaza la hoja de vida del perfil existente; recibe `cv` como PDF de hasta 5 MB.
 - `POST /api/v1/jobs/{id}/applications`: crea una postulación; recibe `cover_letter` opcional y `cv` opcional en PDF. Se usa el CV del perfil si no se adjunta uno. Si la vacante requiere CV y no hay uno en el perfil, `cv` es obligatorio.
 - `GET /api/v1/student/applications`: historial paginado de postulaciones.
 - `GET /api/v1/student/profile`: consulta el perfil del estudiante.
@@ -52,6 +53,8 @@ Las rutas `/api/v1/company/*` requieren una cuenta activa con rol `company`.
 - `PUT /api/v1/company/applications/{id}/status` con `status` y `company_notes` opcional
 
 Solo la empresa propietaria puede consultar o modificar sus vacantes y postulaciones. Publicar, actualizar o cerrar vacantes requiere que la empresa esté aprobada.
+
+Al crear o actualizar vacantes, `schedule` es opcional (texto de hasta 191 caracteres) y `programs_targeted` es opcional (texto de hasta 500 caracteres). La app móvil envía los programas seleccionados como una lista; el gateway los convierte al texto separado por comas que almacena Laravel. Las respuestas incluyen `schedule` y `programs_targeted`.
 
 ## Administración
 

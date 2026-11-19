@@ -22,6 +22,10 @@ class JobController extends Controller
             }
         }
 
+        if ($request->filled('location')) {
+            $query->where('location', 'like', '%'.$request->query('location').'%');
+        }
+
         if ($request->filled('search')) {
             $search = $request->query('search');
             $query->where(function ($builder) use ($search): void {
@@ -150,6 +154,7 @@ class JobController extends Controller
             'area' => $job->area,
             'contract_type' => $job->contract_type,
             'modality' => $job->modality,
+            'schedule' => $job->schedule,
             'location' => $job->location,
             'salary_range' => $job->salary_range,
             'salary_negotiable' => $job->salary_negotiable,

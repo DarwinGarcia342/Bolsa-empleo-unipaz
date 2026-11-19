@@ -42,13 +42,6 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Ejecutar seeder solo si la tabla users está vacía
-USER_COUNT=$(php artisan tinker --execute="echo App\Models\User::count();" 2>/dev/null | tail -1)
-if [ "$USER_COUNT" = "0" ] || [ -z "$USER_COUNT" ]; then
-    echo "Sembrando datos iniciales..."
-    php artisan db:seed --force
-fi
-
 echo "=== ¡Listo! Iniciando servidor ==="
 
 # Iniciar servidor PHP en el puerto asignado por Railway

@@ -293,6 +293,7 @@ class AdminController extends Controller
             'area' => $job->area,
             'contract_type' => $job->contract_type,
             'modality' => $job->modality,
+            'schedule' => $job->schedule,
             'location' => $job->location,
             'salary_range' => $job->salary_range,
             'salary_negotiable' => $job->salary_negotiable,

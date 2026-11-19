@@ -31,6 +31,7 @@ Route::prefix('v1')->group(function (): void {
             Route::delete('/jobs/{jobPosting}/favorite', [JobController::class, 'unfavorite']);
             Route::post('/jobs/{jobPosting}/applications', [JobController::class, 'apply']);
             Route::put('/student/profile', [StudentProfileController::class, 'update']);
+            Route::post('/student/profile/cv', [StudentProfileController::class, 'uploadCv']);
         });
 
         Route::middleware('api.role:company')->prefix('company')->group(function (): void {

@@ -23,11 +23,11 @@ class CompanyController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'company_name' => ['required', 'string', 'max:255'],
             'nit' => ['nullable', 'regex:/^[0-9.\-]*$/', 'unique:companies,nit'],
-            'sector' => ['required', 'string', 'max:100'],
+            'sector' => ['nullable', 'string', 'max:100'],
             'contact_person' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:20'],
-            'address' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'min:10', 'max:1000'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'min:10', 'max:1000'],
         ]);
 
         $company = DB::transaction(function () use ($validated): Company {
@@ -42,11 +42,11 @@ class CompanyController extends Controller
                 'user_id' => $user->id,
                 'company_name' => $validated['company_name'],
                 'nit' => $validated['nit'] ?? null,
-                'sector' => $validated['sector'],
+                'sector' => $validated['sector'] ?? null,
                 'contact_person' => $validated['contact_person'],
-                'phone' => $validated['phone'],
-                'address' => $validated['address'],
-                'description' => $validated['description'],
+                'phone' => $validated['phone'] ?? null,
+                'address' => $validated['address'] ?? null,
+                'description' => $validated['description'] ?? null,
                 'status' => 'pending',
             ]);
         });
@@ -277,6 +277,7 @@ class CompanyController extends Controller
             'area' => ['required', 'string', 'max:100'],
             'contract_type' => ['required', 'string', 'max:100'],
             'modality' => ['required', 'in:onsite,remote,hybrid'],
+            'schedule' => ['nullable', 'string', 'max:191'],
             'location' => ['required', 'string', 'max:150'],
             'salary_range' => ['nullable', 'string', 'max:100'],
             'salary_negotiable' => ['sometimes', 'boolean'],
@@ -333,6 +334,7 @@ class CompanyController extends Controller
             'area' => $job->area,
             'contract_type' => $job->contract_type,
             'modality' => $job->modality,
+            'schedule' => $job->schedule,
             'location' => $job->location,
             'salary_range' => $job->salary_range,
             'salary_negotiable' => $job->salary_negotiable,

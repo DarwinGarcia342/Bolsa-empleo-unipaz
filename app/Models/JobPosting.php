@@ -18,6 +18,7 @@ class JobPosting extends Model
         'area',
         'contract_type',
         'modality',
+        'schedule',
         'location',
         'salary_range',
         'salary_negotiable',
