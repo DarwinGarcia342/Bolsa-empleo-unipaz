@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // ─── 1. Administrador UNIPAZ ──────────────────────────────────────────
-        User::create([
+        $this->seedUser([
             'name'              => 'Administrador UNIPAZ',
             'email'             => 'admin@unipaz.edu.co',
             'password'          => Hash::make('AdminUNIPAZ2024*'),
@@ -25,17 +25,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // ─── 2. Empresa de prueba (aprobada) ──────────────────────────────────
-        $companyUser = User::create([
+        $companyUser = $this->seedUser([
             'name'              => 'Juan Pérez',
             'email'             => 'info@tecnosoluciones.edu.co',
             'password'          => Hash::make('EmpresaUNIPAZ2024*'),
             'role'              => 'company',
             'email_verified_at' => now(),
             'active'            => true,
-        ]);
+        ], 'info@tecnosoluciones.com');
 
-        $company = Company::create([
-            'user_id'        => $companyUser->id,
+        $company = Company::firstOrCreate(['user_id' => $companyUser->id], [
             'company_name'   => 'TecnoSoluciones S.A.S.',
             'nit'            => '900.123.456-7',
             'sector'         => 'Tecnología e informática',
@@ -47,17 +46,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // ─── 3. Segunda empresa (pendiente de aprobación) ─────────────────────
-        $company2User = User::create([
+        $company2User = $this->seedUser([
             'name'              => 'María García',
             'email'             => 'contacto@distribuidoraregional.edu.co',
             'password'          => Hash::make('EmpresaUNIPAZ2024*'),
             'role'              => 'company',
             'email_verified_at' => now(),
             'active'            => true,
-        ]);
+        ], 'contacto@distribuidoraregional.com');
 
-        Company::create([
-            'user_id'        => $company2User->id,
+        Company::firstOrCreate(['user_id' => $company2User->id], [
             'company_name'   => 'Distribuidora Regional del Magdalena',
             'nit'            => '800.456.789-2',
             'sector'         => 'Comercio y retail',
@@ -113,7 +111,10 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($jobs as $jobData) {
-            JobPosting::create(array_merge($jobData, [
+            JobPosting::firstOrCreate([
+                'company_id' => $company->id,
+                'title' => $jobData['title'],
+            ], array_merge($jobData, [
                 'company_id' => $company->id,
                 'status'     => 'active',
                 'requires_cv' => true,
@@ -121,7 +122,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // ─── 5. Estudiante de prueba ──────────────────────────────────────────
-        $studentUser = User::create([
+        $studentUser = $this->seedUser([
             'name'              => 'Carlos Andrés López',
             'email'             => 'carlos.lopez@unipaz.edu.co',
             'password'          => Hash::make('EstudianteUNIPAZ2024*'),
@@ -130,8 +131,7 @@ class DatabaseSeeder extends Seeder
             'active'            => true,
         ]);
 
-        StudentProfile::create([
-            'user_id'      => $studentUser->id,
+        StudentProfile::firstOrCreate(['user_id' => $studentUser->id], [
             'student_code' => 'U2024001',
             'program'      => 'Ingeniería de Sistemas',
             'semester'     => '8',
@@ -149,5 +149,20 @@ class DatabaseSeeder extends Seeder
         $this->command->info('   Empresa:  info@tecnosoluciones.edu.co / EmpresaUNIPAZ2024*');
         $this->command->info('   Estudiante: carlos.lopez@unipaz.edu.co / EstudianteUNIPAZ2024*');
         $this->command->info('   (Estudiantes normalmente ingresan solo con Google OAuth)');
+    }
+
+    private function seedUser(array $attributes, ?string $legacyEmail = null): User
+    {
+        $user = User::where('email', $attributes['email'])->first();
+
+        if (! $user && $legacyEmail) {
+            $user = User::where('email', $legacyEmail)->first();
+        }
+
+        $user ??= new User();
+        $user->fill($attributes);
+        $user->save();
+
+        return $user;
     }
 }

@@ -180,7 +180,7 @@ class LawReferenceSeeder extends Seeder
         ];
 
         foreach ($laws as $lawData) {
-            LawReference::create($lawData);
+            LawReference::firstOrCreate(['title' => $lawData['title']], $lawData);
         }
 
         $this->command->info('✅ Leyes colombianas añadidas correctamente.');

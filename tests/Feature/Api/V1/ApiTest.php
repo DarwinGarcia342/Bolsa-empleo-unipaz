@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\JobPosting;
 use App\Models\LawReference;
 use App\Models\User;
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -181,6 +182,87 @@ class ApiTest extends TestCase
         $this->withToken($token)
             ->getJson('/api/v1/me')
             ->assertUnauthorized();
+    }
+
+    public function test_password_login_does_not_require_a_device_name(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'student@unipaz.edu.co',
+            'password' => 'correct-password',
+            'role' => 'student',
+            'active' => true,
+        ]);
+
+        $this->postJson('/api/v1/auth/login', [
+            'email' => $user->email,
+            'password' => 'correct-password',
+        ])->assertOk()
+            ->assertJsonPath('user.id', $user->id);
+
+        $this->assertDatabaseHas('personal_access_tokens', [
+            'tokenable_id' => $user->id,
+            'name' => 'mobile',
+        ]);
+    }
+
+    public function test_seeder_syncs_existing_accounts_for_web_and_mobile_login(): void
+    {
+        $admin = User::factory()->create([
+            'email' => 'admin@unipaz.edu.co',
+            'password' => 'stale-password',
+            'role' => 'admin',
+            'active' => false,
+            'email_verified_at' => null,
+        ]);
+        $companyUser = User::factory()->create([
+            'email' => 'info@tecnosoluciones.com',
+            'password' => 'stale-password',
+            'role' => 'company',
+        ]);
+        $company = Company::create([
+            'user_id' => $companyUser->id,
+            'company_name' => 'Existing TecnoSoluciones',
+            'contact_person' => 'Existing contact',
+        ]);
+        User::factory()->create([
+            'email' => 'carlos.lopez@unipaz.edu.co',
+            'password' => 'stale-password',
+            'role' => 'student',
+            'email_verified_at' => null,
+        ]);
+
+        $this->seed(DatabaseSeeder::class);
+        $this->seed(DatabaseSeeder::class);
+
+        $this->assertDatabaseCount('users', 4);
+        $this->assertDatabaseHas('users', [
+            'id' => $companyUser->id,
+            'email' => 'info@tecnosoluciones.edu.co',
+            'role' => 'company',
+        ]);
+        $this->assertDatabaseHas('companies', [
+            'id' => $company->id,
+            'user_id' => $companyUser->id,
+        ]);
+        $this->assertNotNull($admin->fresh()->email_verified_at);
+        $this->assertTrue($admin->fresh()->active);
+
+        $this->post(route('login'), [
+            'email' => 'admin@unipaz.edu.co',
+            'password' => 'AdminUNIPAZ2024*',
+        ])->assertRedirect(route('admin.dashboard'));
+
+        Auth::forgetGuards();
+
+        $this->postJson('/api/v1/auth/login', [
+            'email' => 'info@tecnosoluciones.edu.co',
+            'password' => 'EmpresaUNIPAZ2024*',
+        ])->assertOk()->assertJsonPath('user.role', 'company');
+
+        $this->postJson('/api/v1/auth/login', [
+            'email' => 'carlos.lopez@unipaz.edu.co',
+            'password' => 'EstudianteUNIPAZ2024*',
+        ])->assertOk()->assertJsonPath('user.role', 'student');
     }
 
     public function test_password_login_rejects_noninstitutional_or_unverified_students(): void

@@ -21,7 +21,7 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
-            'device_name' => ['required', 'string', 'max:100'],
+            'device_name' => ['sometimes', 'required', 'string', 'max:100'],
         ]);
 
         $user = User::where('email', $credentials['email'])->first();
@@ -47,7 +47,7 @@ class AuthController extends Controller
             ], 403);
         }
 
-        $token = $user->createToken($credentials['device_name'])->plainTextToken;
+        $token = $user->createToken($credentials['device_name'] ?? 'mobile')->plainTextToken;
 
         return response()->json([
             'token' => $token,
