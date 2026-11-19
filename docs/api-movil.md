@@ -18,6 +18,8 @@ Al desplegar cambios, ejecuta `php artisan migrate` para crear la tabla de token
 
 La respuesta contiene `token`, `token_type` y el usuario. Guarda el token de forma segura en la app. Para cerrar la sesión de ese dispositivo usa `POST /api/v1/auth/logout`; `GET /api/v1/me` devuelve los datos del usuario autenticado.
 
+Para iniciar sesión como estudiante con contraseña, la cuenta debe tener un correo `@unipaz.edu.co` verificado. Las cuentas de empresa y administración pueden usar el inicio de sesión con contraseña registrado para su rol.
+
 Para estudiantes que usan Google, `POST /api/v1/auth/google` recibe `id_token` y `device_name`. La app debe solicitar el ID token con el client ID de servidor configurado en Laravel; el backend verifica el token y solo acepta correos institucionales `@unipaz.edu.co` verificados.
 
 `POST /api/v1/auth/register/company` registra empresas y las deja en estado `pending`; el administrador debe aprobarlas antes de que puedan gestionar vacantes. `name`, `email`, `password`, `password_confirmation`, `company_name` y `contact_person` son obligatorios. `nit`, `sector`, `phone`, `address` y `description` son opcionales; la empresa puede completar su perfil después.

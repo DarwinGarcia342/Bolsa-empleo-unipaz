@@ -147,7 +147,7 @@ class ApiTest extends TestCase
     public function test_student_can_login_use_and_revoke_a_device_token(): void
     {
         $user = User::factory()->create([
-            'email' => 'student@example.com',
+            'email' => 'student@unipaz.edu.co',
             'password' => 'correct-password',
             'role' => 'student',
             'active' => true,
@@ -181,6 +181,28 @@ class ApiTest extends TestCase
         $this->withToken($token)
             ->getJson('/api/v1/me')
             ->assertUnauthorized();
+    }
+
+    public function test_password_login_rejects_noninstitutional_or_unverified_students(): void
+    {
+        $externalStudent = User::factory()->create([
+            'email' => 'student@example.com',
+            'role' => 'student',
+        ]);
+        $unverifiedStudent = User::factory()->unverified()->create([
+            'email' => 'unverified@unipaz.edu.co',
+            'role' => 'student',
+        ]);
+
+        foreach ([$externalStudent, $unverifiedStudent] as $student) {
+            $this->postJson('/api/v1/auth/login', [
+                'email' => $student->email,
+                'password' => 'password',
+                'device_name' => 'android',
+            ])->assertForbidden();
+        }
+
+        $this->assertDatabaseCount('personal_access_tokens', 0);
     }
 
     public function test_student_can_authenticate_with_a_verified_unipaz_google_token(): void
@@ -614,6 +636,13 @@ class ApiTest extends TestCase
 
     private function loginAs(User $user): string
     {
+        if ($user->isStudent() && ! str_ends_with($user->email, '@unipaz.edu.co')) {
+            $user->forceFill([
+                'email' => 'student'.$user->id.'@unipaz.edu.co',
+                'email_verified_at' => now(),
+            ])->save();
+        }
+
         $response = $this->postJson('/api/v1/auth/login', [
             'email' => $user->email,
             'password' => 'password',

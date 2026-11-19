@@ -38,6 +38,15 @@ class AuthController extends Controller
             ], 403);
         }
 
+        if ($user->isStudent() && ! $this->hasVerifiedInstitutionalEmail(
+            $user->email,
+            $user->email_verified_at !== null
+        )) {
+            return response()->json([
+                'message' => 'Se requiere un correo institucional @unipaz.edu.co verificado.',
+            ], 403);
+        }
+
         $token = $user->createToken($credentials['device_name'])->plainTextToken;
 
         return response()->json([
@@ -65,7 +74,7 @@ class AuthController extends Controller
         $googleData = $googleUser->getRaw();
         $email = strtolower((string) $googleUser->getEmail());
 
-        if (! ($googleData['email_verified'] ?? false) || ! str_ends_with($email, '@unipaz.edu.co')) {
+        if (! $this->hasVerifiedInstitutionalEmail($email, (bool) ($googleData['email_verified'] ?? false))) {
             return response()->json([
                 'message' => 'Se requiere una cuenta Google verificada con correo @unipaz.edu.co.',
             ], 403);
@@ -164,5 +173,14 @@ class AuthController extends Controller
                 'logo_url' => $user->company->logo_url,
             ] : null,
         ];
+    }
+
+    private function hasVerifiedInstitutionalEmail(string $email, bool $verified): bool
+    {
+        $domain = ltrim(strtolower((string) config('app.email_domain', '@unipaz.edu.co')), '@');
+
+        return $verified
+            && $domain !== ''
+            && str_ends_with(strtolower($email), '@'.$domain);
     }
 }
