@@ -10,6 +10,12 @@ mkdir -p storage/framework/cache/data storage/framework/sessions storage/framewo
 chown -R www-data:www-data storage bootstrap/cache
 
 php artisan migrate --force
+
+if [ "${SYNC_DEMO_ACCOUNTS:-false}" = "true" ]; then
+    echo "=== Sincronizando cuentas de demostración ==="
+    php artisan db:seed --force
+fi
+
 php artisan storage:link --force
 php artisan optimize:clear
 php artisan config:cache
